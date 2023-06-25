@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnrp7ftlg6iow"]
+
+[ext_resource type="PackedScene" uid="uid://dce172ntvdaq8" path="res://assets/katamari.gltf" id="1_idi0o"]
+[ext_resource type="Material" uid="uid://bb43ngplsfis2" path="res://addons/flexible_toon_shader/FlexibleToonMaterial.tres" id="2_50rn0"]
+
+[node name="katamari" instance=ExtResource("1_idi0o")]
+
+[node name="Icosphere" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_50rn0")

@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqgm703amk853"]
+
+[ext_resource type="Script" path="res://src/states/menu/main_menu.gd" id="1_rbe2p"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uuynm"]
+font_size = 69
+shadow_color = Color(1, 1, 1, 0)
+
+[node name="MainMenu" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rbe2p")
+
+[node name="C" type="CenterContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="C"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="C/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="V" type="VBoxContainer" parent="C/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 8
+
+[node name="PlayButton" type="Button" parent="C/PanelContainer/MarginContainer/V"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Play"
+
+[node name="OptionsButton" type="Button" parent="C/PanelContainer/MarginContainer/V"]
+layout_mode = 2
+text = "Options"
+
+[node name="CreditsButton" type="Button" parent="C/PanelContainer/MarginContainer/V"]
+layout_mode = 2
+text = "Credits"
+
+[node name="QuitButton" type="Button" parent="C/PanelContainer/MarginContainer/V"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit"
+
+[node name="C2" type="CenterContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="Label" type="Label" parent="C2"]
+layout_mode = 2
+text = "Marble Game"
+label_settings = SubResource("LabelSettings_uuynm")
+
+[connection signal="pressed" from="C/PanelContainer/MarginContainer/V/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="C/PanelContainer/MarginContainer/V/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="C/PanelContainer/MarginContainer/V/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="C/PanelContainer/MarginContainer/V/QuitButton" to="." method="_on_quit_button_pressed"]
