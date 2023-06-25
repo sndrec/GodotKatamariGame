@@ -3,6 +3,11 @@ extends RigidBody3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	instantiate()
+	
+
+func instantiate():
 	var ModelShape = get_node("CollectibleShape") as CollisionShape3D
 	var ConvexHull = ModelShape.shape as ConvexPolygonShape3D
 	if ConvexHull:
@@ -47,7 +52,10 @@ func _ready():
 			Bounds.size = Maxs - Mins
 			Bounds.size *= ModelShape.scale
 			mass = Bounds.get_volume()
-		
+		else:
+			var VisMesh = get_node("CollectibleModel") as MeshInstance3D
+			if VisMesh:
+				print("yay!")
 	
 
 

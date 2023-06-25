@@ -73,3 +73,5 @@ texture_filter = 1
 texture = ExtResource("3_mwedp")
 
 [node name="CameraAnchor" type="RayCast3D" parent="."]
+
+[node name="CollisionBackup" type="RayCast3D" parent="."]

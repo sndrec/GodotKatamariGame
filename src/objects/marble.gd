@@ -223,6 +223,13 @@ func _process(delta: float) -> void:
 					#add_katamari_hull_point(body.position)
 					var modifiedPoints = PackedVector3Array()
 					add_katamari_hull_point(body.position, false)
+					print(body.get_meta_list())
+					if body.has_meta("col_points"):
+						print("Vault points detected!")
+						var ColPoints = body.get_meta("col_points") as PackedVector3Array
+						for point in ColPoints:
+							var newPoint = body.transform * point
+							add_katamari_hull_point(newPoint, false)
 					ModelShape.queue_free()
 
 func get_last_local_contact_position(pos: Vector3):
@@ -296,21 +303,23 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		
 	
 	if anyPoint:
-		print("Any point!")
 		GroundTime = oldGroundTime + state.step
 		var point = KatamariHullPointData[furthestCollidingPoint]
 		var ray = point[0] as RayCast3D
 		var contactPoint = ray.get_collision_point()
+		var debugaxis = get_node("debug_axis") as Sprite3D
+		debugaxis.global_position = contactPoint
+		debugaxis.global_rotation = Vector3.ZERO
 		var endPoint = to_global(point[2])
 		var offset = to_global(ray.target_position) - ray.get_collision_point()
 		var depth = -offset.dot(ray.get_collision_normal())
+		var length = ray.target_position.length()
+		var dir = (to_global(ray.target_position) - cooltransform.origin).normalized() * -1
 		if !point[3]:
 			cooltransform.origin += ray.get_collision_normal() * depth
 			KatamariHullPointData[furthestCollidingPoint][3] = true
-			KatamariHullPointData[furthestCollidingPoint][2] = contactPoint
+			KatamariHullPointData[furthestCollidingPoint][2] = cooltransform.origin + dir * -length
 		
-		var length = ray.target_position.length()
-		var dir = (to_global(ray.target_position) - cooltransform.origin).normalized() * -1
 		cooltransform.origin = point[2] + dir * length * 0.99
 		state.linear_velocity += get_collision_impulse(state.linear_velocity, ray.get_collision_normal())
 		#KatamariHullPointData[furthestCollidingPoint][0].target_position = to_local((contactPoint))
@@ -324,7 +333,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		var point = KatamariHullPointData[i]
 		point[0].force_raycast_update()
 		var ray = point[0] as RayCast3D
-		if ray.is_colliding() and ray.get_collision_normal().y > 0.2 and (to_global(ray.target_position) - cooltransform.origin).normalized().y < -0.05:
+		if ray.is_colliding() and ray.get_collision_normal().y > 0.2:
 			anyPoint = true
 			var offset = to_global(ray.target_position) - ray.get_collision_point()
 			var depth = -offset.dot(ray.get_collision_normal())
@@ -339,12 +348,14 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	
 	var curNormal = Vector3(0, 1, 0)
 	
+	var tempOldPos = position
 	for contact in state.get_contact_count():
 		var normal = state.get_contact_local_normal(contact)
 		curNormal = normal
 		var pos = state.get_contact_local_position(contact)
 		if cooltransform.origin.distance_to(pos) < get_katamari_radius():
 			anyPoint = false
+		
 		state.linear_velocity += get_collision_impulse(state.linear_velocity, normal)
 		if normal.y <= 0.2 and normal.y >= 0:
 			touchingWall = true
@@ -353,6 +364,19 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if !touchingWall:
 		climbTimer = 0
 		
+		
+	if false:
+		for contact in state.get_contact_count():
+			var normal = state.get_contact_local_normal(contact)
+			var Ray = get_node("CollisionBackup") as RayCast3D
+			Ray.global_position = cooltransform.origin
+			Ray.target_position = to_local(cooltransform.origin + (-normal * get_katamari_radius() * 0.95))
+			Ray.force_raycast_update()
+			
+			if Ray.is_colliding() and LastEffectiveVelocity.dot(normal) < 0.05:
+				var desiredPos = Ray.get_collision_point() + normal * get_katamari_radius()
+				state.linear_velocity = state.linear_velocity.reflect(normal)
+				#state.linear_velocity *= -1
 	
 	if climbTimer >= 0.2:
 		state.linear_velocity += Vector3(0, get_katamari_diameter() * state.step * 4, 0) - curNormal * state.step * 10
@@ -362,7 +386,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		
 	
 	var accel_vector = Vector3(truestickdir.x, 0, truestickdir.y).rotated(Vector3.UP, ballcam_yaw)
-	var real_travel_axis = state.linear_velocity.cross(curNormal).normalized()
+	var real_travel_axis = state.linear_velocity.cross(Vector3.UP).normalized()
 	if !real_travel_axis.is_normalized():
 		real_travel_axis = Vector3(0, 0, -1)
 	
@@ -384,6 +408,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		cooltransform.basis = cooltransform.basis.orthonormalized()
 	
 	LastEffectiveVelocity = cooltransform.origin - oldPos
+	#print(LastEffectiveVelocity)
 	
 	oldAngularVel = state.angular_velocity
 	oldVel = state.linear_velocity
