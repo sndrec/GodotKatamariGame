@@ -59,6 +59,9 @@ var KatamariHullPointData = []
 
 var cameraPos = Vector3(0, 0, 0)
 
+var CollectSounds = [preload("res://src/sound/pickup/game33.wav"), preload("res://src/sound/pickup/game34.wav"), preload("res://src/sound/pickup/game35.wav")]
+var VaultSound = preload("res://src/sound/game15.wav")
+
 @onready var center_node: Node3D = $CenterNode
 @onready var spring_arm: SpringArm3D = $CenterNode/SpringArm3D
 
@@ -169,6 +172,7 @@ func _process(delta: float) -> void:
 		rstickdir = rstickdir.normalized()
 	
 	var stickdiff = lstickdir.y - rstickdir.y
+	stickdiff = move_toward(stickdiff, 0, 0.1)
 	desired_yaw += stickdiff * delta * 1.25
 	
 	var Anchor = get_node("CameraAnchor") as RayCast3D
@@ -231,6 +235,10 @@ func _process(delta: float) -> void:
 							var newPoint = body.transform * point
 							add_katamari_hull_point(newPoint, false)
 					ModelShape.queue_free()
+					print(CollectSounds)
+					var rng = RandomNumberGenerator.new()
+					$CollectSound.stream = CollectSounds[rng.randi_range(0, 2)]
+					$CollectSound.play()
 
 func get_last_local_contact_position(pos: Vector3):
 	return LastGroundContact - pos
@@ -267,14 +275,18 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		lstickdir = lstickdir.normalized()
 	if rstickdir.length() > 1:
 		rstickdir = rstickdir.normalized()
+		
+	var avgDir = (lstickdir + rstickdir).normalized()
 	
-	var truestickdir = (rstickdir + lstickdir) * 0.5
-	#var stickdot = rstickdir.dot(lstickdir)
-	#var stickdotcapped = maxf(rstickdir.dot(lstickdir), 0)
-	#truestickdir = truestickdir * stickdotcapped
+	var stickmagnitude = ((rstickdir + lstickdir) * 0.5).length()
+	var truestickdir = avgDir * stickmagnitude
+	var stickdot = rstickdir.dot(lstickdir)
+	var stickdotcapped = clampf(rstickdir.dot(lstickdir) * 4, 0, 1)
+	truestickdir = truestickdir * stickdotcapped
 	
 	var steering = lstickdir.y - rstickdir.y
 	steering = move_toward(steering, 0, 0.1)
+	print(steering)
 	
 	if truestickdir.length() > 0 and absf(steering) <= 0.75:
 		forward_timer = Time.get_ticks_msec()
@@ -319,6 +331,9 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 			cooltransform.origin += ray.get_collision_normal() * depth
 			KatamariHullPointData[furthestCollidingPoint][3] = true
 			KatamariHullPointData[furthestCollidingPoint][2] = cooltransform.origin + dir * -length
+			if length > get_katamari_diameter():
+				$CollisionSound.stream = VaultSound
+				$CollisionSound.play()
 		
 		cooltransform.origin = point[2] + dir * length * 0.99
 		state.linear_velocity += get_collision_impulse(state.linear_velocity, ray.get_collision_normal())
@@ -432,8 +447,6 @@ func add_katamari_hull_point(local_point: Vector3, permanent: bool):
 	RayCaster.set_collision_mask_value(1, true)
 	var tempTable = [RayCaster, permanent, Vector3(0,0,0), false]
 	KatamariHullPointData.append(tempTable)
-	print("Added raycaster!")
-	print(RayCaster)
 	
 func instantiate_katamari_hull():
 	var t = (1.0 + sqrt(5.0)) / 2.0
