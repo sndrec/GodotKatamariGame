@@ -20,8 +20,6 @@ func _ready() -> void:
 			"camera_left": 0.0,
 			"camera_right": 0.0,
 			"restart": false,
-			"jump": false,
-			"powerup": false,
 		}
 
 
@@ -55,7 +53,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				var real_action = action
 				if device > -1:
 					real_action += "_controller"
-				if action in ["restart", "jump", "powerup"]:
+				if action in ["restart"]:
 					if event.is_action(real_action):
 						get_viewport().set_input_as_handled()
 						d_actions[action] = event.is_action_pressed(real_action)

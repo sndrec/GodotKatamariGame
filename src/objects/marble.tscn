@@ -77,6 +77,7 @@ texture = ExtResource("3_mwedp")
 [node name="CameraAnchor" type="RayCast3D" parent="."]
 
 [node name="CollisionBackup" type="ShapeCast3D" parent="."]
+target_position = Vector3(0, 0, 0)
 
 [node name="CollectSound" type="AudioStreamPlayer" parent="."]
 volume_db = -12.0

@@ -49,8 +49,8 @@ func _ready() -> void:
 
 		var camera: Camera3D = viewport.get_node("Camera3D")
 		marble.find_child("CameraRemoteTransform").remote_path = camera.get_path()
-		camera.fov = 70
-		camera.fov += 20 * (num_players - 1)
+		camera.fov = 60
+		#camera.fov += 20 * (num_players - 1)
 
 		var gui: Gui = viewport_texture.get_node("Gui")
 

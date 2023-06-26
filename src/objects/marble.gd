@@ -59,7 +59,12 @@ var noClimbTimer = 0
 
 var gachaCount = 0
 var gachaTimer = 0
+var gachaLastDir = 0
 var oldSteering = 0
+
+var boostPower = 240
+var boostHuffTime = -8000
+var boostHuffing = false
 
 var KatamariHullPointData = []
 
@@ -70,6 +75,9 @@ var VaultSound = preload("res://src/sound/game15.wav")
 
 var ChargeSound = preload("res://src/sound/game11.wav")
 var BoostSound = preload("res://src/sound/game12.wav")
+
+
+var SoftCollideSound = preload("res://src/sound/game14.wav")
 
 @onready var center_node: Node3D = $CenterNode
 @onready var spring_arm: SpringArm3D = $CenterNode/SpringArm3D
@@ -254,9 +262,15 @@ func get_last_local_contact_position(pos: Vector3):
 	
 func get_collision_impulse(inVel: Vector3, normal: Vector3):
 		var restitution = 1
-		if inVel.length() > 5:
-			restitution = 1.2
-		var dot = normal.dot(inVel) * -restitution
+		if inVel.length() > 5 and AirTime > 0.05:
+			restitution = 1.5
+		var dot = -normal.dot(inVel)
+		
+		if dot >= 5:
+			$CollisionSound.stream = SoftCollideSound
+			$CollisionSound.play()
+		
+		dot *= restitution
 		if dot > 0:
 			return normal * dot
 		else:
@@ -299,20 +313,45 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var steering = (lstickdir.y - rstickdir.y) * 0.6
 	steering = clampf(move_toward(steering, 0, 0.2) * 1.2, -1, 1)
 	
-	if absf(steering) > 0.8 and absf(oldSteering) < 0.8 and gachaCount < 5:
-		gachaCount = gachaCount + 1
-		gachaTimer = Time.get_ticks_msec()
-		if gachaCount == 3:
-			$BoostSound.stream = ChargeSound
-			$BoostSound.play()
-		if gachaCount == 5:
-			state.linear_velocity += forward * 15
-			$BoostSound.stream = BoostSound
-			$BoostSound.play()
+	var slope = (state.linear_velocity * Vector3(1, 0, 1)).normalized().dot((LastGroundNormal * Vector3(1, 0, 1)).normalized())
+	#print(slope)
+	#-1 uphill, 1 downhill
+	var gravSlope = clampf(remap(slope, -1.0, 1.0, 1.5, -0.5), 0.0, 1.0)
+	var gravityMult = 1 - minf(maxf(steering, truestickdir.length()), gravSlope)
 	
+	if absf(steering) > 0.25 and absf(oldSteering) < 0.25 and boostPower > 0 and !boostHuffing:
+		if gachaLastDir == 0 or steering > 0 and gachaLastDir == -1 or steering < 0 and gachaLastDir == 1:
+			gachaLastDir = sign(steering)
+			gachaCount = gachaCount + 1
+			gachaTimer = Time.get_ticks_msec()
+			if gachaCount == 3:
+				$BoostSound.stream = ChargeSound
+				$BoostSound.play()
+			if gachaCount == 5:
+				state.linear_velocity += forward * 15
+				$BoostSound.stream = BoostSound
+				$BoostSound.play()
 	
-	if Time.get_ticks_msec() > gachaTimer + 500:
+	if Time.get_ticks_msec() > gachaTimer + 400:
 		gachaCount = 0
+		gachaLastDir = 0
+	
+	if gachaCount > 2:
+		boostPower -= 30 * state.step
+	else:
+		boostPower += 5.4 * state.step
+	
+	boostPower = clampf(boostPower, 0, 240)
+		
+	if boostPower == 0:
+		boostHuffing = true
+		boostHuffTime = Time.get_ticks_msec()
+	
+	if boostHuffing and Time.get_ticks_msec() > boostHuffTime + 8000:
+		boostPower = 240
+		boostHuffing = false
+	
+	print(boostPower)
 	
 	oldSteering = steering
 	
@@ -320,17 +359,10 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if climbTimer <= 0.2:
 		if AirTime <= 0.05:
 			#print("no!")
-			state.linear_velocity += Vector3(0, -6, 0) * state.step
+			state.linear_velocity += Vector3(0, -30 * gravityMult, 0) * state.step
 		else:
-			state.linear_velocity += Vector3(0, -38, 0) * state.step
+			state.linear_velocity += Vector3(0, -30, 0) * state.step
 	
-	var oldAirTime = AirTime
-	
-	if is_on_floor(state):
-		AirTime = 0
-	else:
-		AirTime += state.step
-		
 	
 	if anyPoint and gachaCount < 3 and climbTimer < 0.5:
 		var point = KatamariHullPointData[furthestCollidingPoint]
@@ -345,12 +377,14 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		var length = ray.target_position.length()
 		var dir = (to_global(ray.target_position) - cooltransform.origin).normalized() * -1
 		var colImpulse = get_collision_impulse(state.linear_velocity, ray.get_collision_normal())
-		var velDot = ray.get_collision_normal().dot(state.linear_velocity + colImpulse)
+		var velDot = ray.get_collision_normal().dot(state.linear_velocity)
 		LastGroundNormal = ray.get_collision_normal()
 		
-		if velDot < -1:
+		if velDot > 1:
+			state.linear_velocity += colImpulse
+			anyPoint = false
+			KatamariHullPointData[furthestCollidingPoint][3] = false
 			return
-		
 		
 		if !point[3]:
 			cooltransform.origin += ray.get_collision_normal() * depth
@@ -430,6 +464,12 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		state.linear_velocity += get_collision_impulse(state.linear_velocity, normal)
 		if normal.y <= 0.2 and normal.y >= 0:
 			touchingWall = true
+			
+	
+	if is_on_floor(state):
+		AirTime = 0
+	else:
+		AirTime += state.step
 	
 	if touchingWall:
 		climbTimer += state.step
@@ -455,24 +495,19 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		climbTimer = 0
 	
 	
-	if AirTime <= 0.05 and gachaCount != 5:
+	if AirTime <= 0.05:
 		state.linear_velocity += accel_vector * 24 * (get_katamari_radius() + 0.5) * state.step * (1 - absf(steering))
 		state.linear_velocity += -state.linear_velocity * 3 * state.step * (1 - absf(steering))
-		print("Regular movement behaviour")
+		#print("Regular movement behaviour")
 	
 	cooltransform.basis = cooltransform.basis.rotated(real_travel_axis, (state.linear_velocity.length() * PI * -0.25 * state.step) / get_effective_radius())
 	
 	if climbTimer > 0.5:
-		print("Climbing")
+		#print("Climbing")
 		cooltransform.basis = cooltransform.basis.rotated(LastGroundNormal.cross(Vector3.UP).normalized(), state.step * 12 / get_katamari_diameter())
 	
-	if gachaCount == 5:
-		state.linear_velocity += accel_vector * 24 * (get_katamari_radius() + 0.5) * state.step * (1 - absf(steering))
-		state.linear_velocity += -state.linear_velocity * 3 * state.step * (1 - absf(steering))
-		print("BOOSTING!")
-		#cooltransform.basis = cooltransform.basis.rotated(right, state.step * state.linear_velocity.length() * PI)
-	else: if gachaCount > 2:
-		print("Initial Spin")
+	if gachaCount > 2 and gachaCount < 5:
+		#print("Initial Spin")
 		cooltransform.basis = cooltransform.basis.rotated(right, state.step * 24)
 				
 	LastEffectiveVelocity = cooltransform.origin - oldPos
