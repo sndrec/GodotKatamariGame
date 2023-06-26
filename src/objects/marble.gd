@@ -10,6 +10,7 @@ var player_controller: PlayerController = null
 
 var ballcam_pitch := deg_to_rad(-10.0)
 var ballcam_yaw := 0.0
+var old_ballcam_yaw := 0.0
 var desired_yaw := 0.0
 var desired_arm_dist := 3.0
 var ratio_to_next_transition := 0.0
@@ -43,7 +44,7 @@ var desiredVel = 0.0
 var LastGroundNormal = Vector3.UP
 var LastGroundContact = Vector3(-5, 4.015605, 16.34)
 var LastGroundVelocity = Vector3.ZERO
-var GroundTime = 0
+var AirTime = 0
 
 var anyPoint = false
 var furthestCollidingPoint = 0
@@ -54,6 +55,11 @@ var LastEffectiveVelocity = Vector3(0,0,0)
 var OnStick = false
 
 var climbTimer = 0
+var noClimbTimer = 0
+
+var gachaCount = 0
+var gachaTimer = 0
+var oldSteering = 0
 
 var KatamariHullPointData = []
 
@@ -61,6 +67,9 @@ var cameraPos = Vector3(0, 0, 0)
 
 var CollectSounds = [preload("res://src/sound/pickup/game33.wav"), preload("res://src/sound/pickup/game34.wav"), preload("res://src/sound/pickup/game35.wav")]
 var VaultSound = preload("res://src/sound/game15.wav")
+
+var ChargeSound = preload("res://src/sound/game11.wav")
+var BoostSound = preload("res://src/sound/game12.wav")
 
 @onready var center_node: Node3D = $CenterNode
 @onready var spring_arm: SpringArm3D = $CenterNode/SpringArm3D
@@ -131,9 +140,11 @@ func recalculate_katamari_size():
 	var BallCollision = get_node("KatamariColliderShape") as CollisionShape3D
 	var BallCollisionShape = BallCollision.shape as SphereShape3D
 	BallCollisionShape.radius = newRadius
+	var BallCollisionBackup = get_node("CollisionBackup") as ShapeCast3D
+	BallCollisionBackup.shape = BallCollision.shape
 	var NocolliderCollision = get_node("CollectibleNocollider").get_node("NocolliderShape") as CollisionShape3D
 	var NocolliderCollisionShape = NocolliderCollision.shape as SphereShape3D
-	NocolliderCollisionShape.radius = newRadius * 2
+	NocolliderCollisionShape.radius = newRadius * 3
 	var GrabberCollision = get_node("CollectibleGrabber").get_node("KatamariCollectorShapeMiddle") as CollisionShape3D
 	var GrabberCollisionShape = GrabberCollision.shape as SphereShape3D
 	GrabberCollisionShape.radius = newRadius * 1
@@ -144,7 +155,6 @@ func recalculate_katamari_size():
 	var KatamariModel = get_node("KatamariModel") as Node3D
 	var visualRadius = volume_to_radius(startingvolume + ((ballvolume - startingvolume) * 0.1))
 	var NewScale = visualRadius * 2.7
-	#print(NewScale)
 	KatamariModel.scale = Vector3(NewScale, NewScale, NewScale)
 	if gui:
 		gui.update_ball_size(newRadius * 2)
@@ -160,10 +170,9 @@ func _process(delta: float) -> void:
 		center_node.position = lerp(center_node.position, finish_point, delta)
 		spring_arm.rotation.x = lerp(spring_arm.rotation.x, deg_to_rad(-25), 3 * delta)
 		return
+		
 
 	center_node.position = position + Vector3(0, 0.75, 0)
-	#quaternion = Quaternion(oldBasis)
-	#print(LastGroundContact.length())
 	var rstickdir := player_controller.get_camera_direction()
 	var lstickdir := player_controller.get_move_direction()
 	if lstickdir.length() > 1:
@@ -211,6 +220,8 @@ func _process(delta: float) -> void:
 			var body = overlap as RigidBody3D
 			if body and can_collect_object_of_size(body.mass):
 				print("Collected!")
+				if body.get_child_count() < 2:
+					return
 				var ModelShape = body.get_node("CollectibleShape") as CollisionShape3D
 				if ModelShape:
 					var OldPos = body.position
@@ -227,7 +238,6 @@ func _process(delta: float) -> void:
 					#add_katamari_hull_point(body.position)
 					var modifiedPoints = PackedVector3Array()
 					add_katamari_hull_point(body.position, false)
-					print(body.get_meta_list())
 					if body.has_meta("col_points"):
 						print("Vault points detected!")
 						var ColPoints = body.get_meta("col_points") as PackedVector3Array
@@ -235,7 +245,6 @@ func _process(delta: float) -> void:
 							var newPoint = body.transform * point
 							add_katamari_hull_point(newPoint, false)
 					ModelShape.queue_free()
-					print(CollectSounds)
 					var rng = RandomNumberGenerator.new()
 					$CollectSound.stream = CollectSounds[rng.randi_range(0, 2)]
 					$CollectSound.play()
@@ -266,6 +275,9 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var cooltransform = state.transform
 	cooltransform.basis = oldBasis
 	
+	var forward = Vector3(0, 0, -1).rotated(Vector3.UP, ballcam_yaw)
+	var right = Vector3(1, 0, 0).rotated(Vector3.UP, ballcam_yaw)
+	
 	var forwardDir = -spring_arm.basis.z
 	forwardDir.y = 0
 	forwardDir = forwardDir.normalized()
@@ -284,38 +296,43 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var stickdotcapped = clampf(rstickdir.dot(lstickdir) * 4, 0, 1)
 	truestickdir = truestickdir * stickdotcapped
 	
-	var steering = lstickdir.y - rstickdir.y
-	steering = move_toward(steering, 0, 0.1)
-	print(steering)
+	var steering = (lstickdir.y - rstickdir.y) * 0.6
+	steering = clampf(move_toward(steering, 0, 0.2) * 1.2, -1, 1)
 	
-	if truestickdir.length() > 0 and absf(steering) <= 0.75:
-		forward_timer = Time.get_ticks_msec()
-		if truestickdir.length() > recent_forward_vector.length():
-			recent_forward_vector = truestickdir
-		else:
-			recent_forward_vector = truestickdir.normalized() * recent_forward_vector.length()
+	if absf(steering) > 0.8 and absf(oldSteering) < 0.8 and gachaCount < 5:
+		gachaCount = gachaCount + 1
+		gachaTimer = Time.get_ticks_msec()
+		if gachaCount == 3:
+			$BoostSound.stream = ChargeSound
+			$BoostSound.play()
+		if gachaCount == 5:
+			state.linear_velocity += forward * 15
+			$BoostSound.stream = BoostSound
+			$BoostSound.play()
 	
-	if absf(steering) <= 0.75 and Time.get_ticks_msec() > forward_timer + 50:
-		recent_forward_vector = Vector2.ZERO
-	else:if absf(steering) > 0.75:
-		truestickdir = recent_forward_vector
+	
+	if Time.get_ticks_msec() > gachaTimer + 500:
+		gachaCount = 0
+	
+	oldSteering = steering
+	
 	
 	if climbTimer <= 0.2:
-		if GroundTime >= 0.02:		
-			state.linear_velocity += Vector3(0, -38 + (truestickdir.length() * 32), 0) * state.step
+		if AirTime <= 0.05:
+			#print("no!")
+			state.linear_velocity += Vector3(0, -6, 0) * state.step
 		else:
 			state.linear_velocity += Vector3(0, -38, 0) * state.step
 	
-	var oldGroundTime = GroundTime
+	var oldAirTime = AirTime
 	
 	if is_on_floor(state):
-		GroundTime += state.step
+		AirTime = 0
 	else:
-		GroundTime = 0
+		AirTime += state.step
 		
 	
-	if anyPoint:
-		GroundTime = oldGroundTime + state.step
+	if anyPoint and gachaCount < 3 and climbTimer < 0.5:
 		var point = KatamariHullPointData[furthestCollidingPoint]
 		var ray = point[0] as RayCast3D
 		var contactPoint = ray.get_collision_point()
@@ -327,6 +344,14 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		var depth = -offset.dot(ray.get_collision_normal())
 		var length = ray.target_position.length()
 		var dir = (to_global(ray.target_position) - cooltransform.origin).normalized() * -1
+		var colImpulse = get_collision_impulse(state.linear_velocity, ray.get_collision_normal())
+		var velDot = ray.get_collision_normal().dot(state.linear_velocity + colImpulse)
+		LastGroundNormal = ray.get_collision_normal()
+		
+		if velDot < -1:
+			return
+		
+		
 		if !point[3]:
 			cooltransform.origin += ray.get_collision_normal() * depth
 			KatamariHullPointData[furthestCollidingPoint][3] = true
@@ -335,16 +360,47 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 				$CollisionSound.stream = VaultSound
 				$CollisionSound.play()
 		
+		AirTime = 0
 		cooltransform.origin = point[2] + dir * length * 0.99
-		state.linear_velocity += get_collision_impulse(state.linear_velocity, ray.get_collision_normal())
+		state.linear_velocity += colImpulse
 		#KatamariHullPointData[furthestCollidingPoint][0].target_position = to_local((contactPoint))
 	
+	
+	
 	position = cooltransform.origin
+	
+	force_update_transform()
+	
+	if anyPoint:
+		var Ray = get_node("CollisionBackup") as ShapeCast3D
+		Ray.position = Vector3(0,0,0)
+		Ray.target_position = Vector3(0,0,0)
+		#Ray.force_update_transform()
+		Ray.force_shapecast_update()
+		
+		
+		if Ray.is_colliding():
+			print("intersection")
+			for result in Ray.get_collision_count():
+				var colPoint = Ray.get_collision_point(result)
+				var colNormal = Ray.get_collision_normal(result)
+				var dist = colPoint.distance_to(cooltransform.origin)
+				if dist >= get_katamari_radius():
+					continue
+				var desiredPos = colPoint + colNormal * get_katamari_radius() * 0.99
+				cooltransform.origin = desiredPos
+				position = cooltransform.origin
+				#state.linear_velocity += normal
+				#state.linear_velocity *= -1
+	
 	anyPoint = false
 	furthestCollidingPoint = 0
 	furthestDist = 0
 	
 	for i in range(KatamariHullPointData.size()):
+		if climbTimer > 0.5 or gachaCount >= 3:
+			KatamariHullPointData[i][3] = false
+			continue
 		var point = KatamariHullPointData[i]
 		point[0].force_raycast_update()
 		var ray = point[0] as RayCast3D
@@ -352,7 +408,6 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 			anyPoint = true
 			var offset = to_global(ray.target_position) - ray.get_collision_point()
 			var depth = -offset.dot(ray.get_collision_normal())
-			#print(depth)
 			if depth > furthestDist:
 				furthestCollidingPoint = i
 				furthestDist = depth
@@ -367,6 +422,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	for contact in state.get_contact_count():
 		var normal = state.get_contact_local_normal(contact)
 		curNormal = normal
+		LastGroundNormal = normal
 		var pos = state.get_contact_local_position(contact)
 		if cooltransform.origin.distance_to(pos) < get_katamari_radius():
 			anyPoint = false
@@ -374,61 +430,60 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		state.linear_velocity += get_collision_impulse(state.linear_velocity, normal)
 		if normal.y <= 0.2 and normal.y >= 0:
 			touchingWall = true
-			climbTimer += state.step
-		
-	if !touchingWall:
-		climbTimer = 0
-		
-		
-	if false:
-		for contact in state.get_contact_count():
-			var normal = state.get_contact_local_normal(contact)
-			var Ray = get_node("CollisionBackup") as RayCast3D
-			Ray.global_position = cooltransform.origin
-			Ray.target_position = to_local(cooltransform.origin + (-normal * get_katamari_radius() * 0.95))
-			Ray.force_raycast_update()
-			
-			if Ray.is_colliding() and LastEffectiveVelocity.dot(normal) < 0.05:
-				var desiredPos = Ray.get_collision_point() + normal * get_katamari_radius()
-				state.linear_velocity = state.linear_velocity.reflect(normal)
-				#state.linear_velocity *= -1
+	
+	if touchingWall:
+		climbTimer += state.step
 	
 	if climbTimer >= 0.2:
 		state.linear_velocity += Vector3(0, get_katamari_diameter() * state.step * 4, 0) - curNormal * state.step * 10
 		state.linear_velocity += -state.linear_velocity * state.step * 4
 	
-	var gravityDir = Vector3(0, -1, 0)
-		
+	if !touchingWall and climbTimer >= 0.2:
+		noClimbTimer += state.step
+	
+	if noClimbTimer >= 0.5:
+		print("NO CLIMB!")
+		climbTimer = 0
+		noClimbTimer = 0
 	
 	var accel_vector = Vector3(truestickdir.x, 0, truestickdir.y).rotated(Vector3.UP, ballcam_yaw)
-	var real_travel_axis = state.linear_velocity.cross(Vector3.UP).normalized()
+	var real_travel_axis = state.linear_velocity.cross(Vector3.UP + LastGroundNormal).normalized()
 	if !real_travel_axis.is_normalized():
 		real_travel_axis = Vector3(0, 0, -1)
 	
-	if accel_vector.dot(curNormal) > -0.5:
+	if accel_vector.dot(LastGroundNormal) > -0.5:
 		climbTimer = 0
 	
-	if GroundTime >= 0.02:
-		
-		state.linear_velocity += accel_vector * 24 * (get_katamari_radius() + 0.5) * state.step
-		state.linear_velocity += -state.linear_velocity * 3 * state.step
-		if OnStick:
-			cooltransform.basis = cooltransform.basis.rotated(real_travel_axis, (state.linear_velocity.length() * PI * -0.25 * state.step) / get_effective_radius())
-			cooltransform.basis = cooltransform.basis.orthonormalized()
-		else:
-			cooltransform.basis = cooltransform.basis.rotated(real_travel_axis, (state.linear_velocity.length() * PI * -0.25 * state.step) / get_effective_radius())
-			cooltransform.basis = cooltransform.basis.orthonormalized()
-	else:
-		cooltransform.basis = cooltransform.basis.rotated(real_travel_axis, (state.linear_velocity.length() * PI * -0.25 * state.step) / get_effective_radius())
-		cooltransform.basis = cooltransform.basis.orthonormalized()
 	
+	if AirTime <= 0.05 and gachaCount != 5:
+		state.linear_velocity += accel_vector * 24 * (get_katamari_radius() + 0.5) * state.step * (1 - absf(steering))
+		state.linear_velocity += -state.linear_velocity * 3 * state.step * (1 - absf(steering))
+		print("Regular movement behaviour")
+	
+	cooltransform.basis = cooltransform.basis.rotated(real_travel_axis, (state.linear_velocity.length() * PI * -0.25 * state.step) / get_effective_radius())
+	
+	if climbTimer > 0.5:
+		print("Climbing")
+		cooltransform.basis = cooltransform.basis.rotated(LastGroundNormal.cross(Vector3.UP).normalized(), state.step * 12 / get_katamari_diameter())
+	
+	if gachaCount == 5:
+		state.linear_velocity += accel_vector * 24 * (get_katamari_radius() + 0.5) * state.step * (1 - absf(steering))
+		state.linear_velocity += -state.linear_velocity * 3 * state.step * (1 - absf(steering))
+		print("BOOSTING!")
+		#cooltransform.basis = cooltransform.basis.rotated(right, state.step * state.linear_velocity.length() * PI)
+	else: if gachaCount > 2:
+		print("Initial Spin")
+		cooltransform.basis = cooltransform.basis.rotated(right, state.step * 24)
+				
 	LastEffectiveVelocity = cooltransform.origin - oldPos
-	#print(LastEffectiveVelocity)
-	
+	var camDiff = ballcam_yaw - old_ballcam_yaw
+	state.linear_velocity = state.linear_velocity.rotated(Vector3(0, 1, 0), camDiff)
+	cooltransform.basis = cooltransform.basis.orthonormalized()
 	oldAngularVel = state.angular_velocity
 	oldVel = state.linear_velocity
 	oldPos = cooltransform.origin
 	oldBasis = cooltransform.basis
+	old_ballcam_yaw = ballcam_yaw
 	
 	state.transform = cooltransform
 

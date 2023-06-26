@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://x10k41fn8cyv"]
+[gd_scene load_steps=10 format=3 uid="uid://x10k41fn8cyv"]
 
 [ext_resource type="Script" path="res://src/objects/marble.gd" id="1_ajff0"]
 [ext_resource type="PackedScene" uid="uid://bnrp7ftlg6iow" path="res://assets/katamari.tscn" id="2_hhtmx"]
@@ -18,6 +18,8 @@ radius = 0.33
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c4mos"]
 radius = 0.1
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_hg2x0"]
 
 [node name="Marble" type="RigidBody3D"]
 collision_layer = 2
@@ -74,10 +76,17 @@ texture = ExtResource("3_mwedp")
 
 [node name="CameraAnchor" type="RayCast3D" parent="."]
 
-[node name="CollisionBackup" type="RayCast3D" parent="."]
+[node name="CollisionBackup" type="ShapeCast3D" parent="."]
 
 [node name="CollectSound" type="AudioStreamPlayer" parent="."]
 volume_db = -12.0
 
 [node name="CollisionSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPolyphonic_hg2x0")
 volume_db = -12.0
+max_polyphony = 3
+
+[node name="BoostSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPolyphonic_hg2x0")
+volume_db = -12.0
+max_polyphony = 3
