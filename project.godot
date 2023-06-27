@@ -181,15 +181,23 @@ restart_controller={
 "events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":9,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
-stick_click_left={
+stick_click_left_controller={
 "deadzone": 0.5,
 "events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":7,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
-stick_click_right={
+stick_click_right_controller={
 "deadzone": 0.5,
 "events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":8,"pressure":0.0,"pressed":false,"script":null)
 ]
+}
+stick_click_left={
+"deadzone": 0.5,
+"events": []
+}
+stick_click_right={
+"deadzone": 0.5,
+"events": []
 }
 
 [layer_names]

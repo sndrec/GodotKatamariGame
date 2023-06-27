@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://oskfa8q2qfga"]
+
+[ext_resource type="Shader" path="res://assets/shaders/env_map.gdshader" id="1_p4pfs"]
+[ext_resource type="Texture2D" uid="uid://jvpcv4i11e5j" path="res://src/blends/rook-ball-hd_1.png" id="2_od3nb"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_p4pfs")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = ExtResource("2_od3nb")

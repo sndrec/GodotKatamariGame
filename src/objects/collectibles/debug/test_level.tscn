@@ -29,6 +29,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.0
+shader_parameter/collected = false
 shader_parameter/albedo_texture = ExtResource("6_ax7du")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3glke"]
@@ -49,6 +50,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.0
+shader_parameter/collected = false
 shader_parameter/albedo_texture = ExtResource("7_twnbg")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4w0r2"]
@@ -69,6 +71,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.0
+shader_parameter/collected = false
 shader_parameter/albedo_texture = ExtResource("8_40q7q")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_87jrg"]
@@ -89,6 +92,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.0
+shader_parameter/collected = false
 shader_parameter/albedo_texture = ExtResource("9_yermo")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_agi27"]
@@ -109,6 +113,7 @@ shader_parameter/rim_color = Color(1, 1, 1, 1)
 shader_parameter/use_ramp = false
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.0
+shader_parameter/collected = false
 shader_parameter/albedo_texture = ExtResource("10_4xo1v")
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ld6ev"]
@@ -137,3 +142,6 @@ metadata/Description = "This is a test object."
 [node name="CollectibleShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_ld6ev")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_process_mode = 0

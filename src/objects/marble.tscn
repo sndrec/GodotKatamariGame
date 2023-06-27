@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://x10k41fn8cyv"]
+[gd_scene load_steps=11 format=3 uid="uid://x10k41fn8cyv"]
 
 [ext_resource type="Script" path="res://src/objects/marble.gd" id="1_ajff0"]
 [ext_resource type="PackedScene" uid="uid://bnrp7ftlg6iow" path="res://assets/katamari.tscn" id="2_hhtmx"]
 [ext_resource type="Texture2D" uid="uid://dt2fm6sre40ia" path="res://assets/tex/indicator.png" id="3_mwedp"]
+[ext_resource type="PackedScene" uid="uid://ch3pfpon5l4lm" path="res://src/blends/char_rook.glb" id="4_fsiwd"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wt7a8"]
 friction = 0.0
@@ -91,3 +92,6 @@ max_polyphony = 3
 stream = SubResource("AudioStreamPolyphonic_hg2x0")
 volume_db = -12.0
 max_polyphony = 3
+
+[node name="character" parent="." instance=ExtResource("4_fsiwd")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -0.612, -0.881)

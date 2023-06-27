@@ -1,8 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://cduiafsmxnlsq"]
+[gd_scene load_steps=8 format=3 uid="uid://cduiafsmxnlsq"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://c51o3s65g08ee" path="res://src/levels/default_physmat.phymat" id="1_dd5ku"]
 [ext_resource type="Script" path="res://src/objects/collectible_object.gd" id="2_jrye7"]
 [ext_resource type="PackedScene" uid="uid://deckwu8od0wgw" path="res://assets/basiccollectiblemesh.res" id="2_pcagl"]
+[ext_resource type="Shader" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="4_fxnir"]
+[ext_resource type="Texture2D" uid="uid://twdux6r6vhsh" path="res://assets/katamari_katamari.png" id="5_b2ibu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i4ffq"]
+render_priority = 0
+shader = ExtResource("4_fxnir")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 1
+shader_parameter/wrap = -0.0189999
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = false
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 6.369
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.0
+shader_parameter/collected = false
+shader_parameter/albedo_texture = ExtResource("5_b2ibu")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j1ty6"]
 points = PackedVector3Array(0.23284, 0.353551, 0.206538, 0.23284, 0.353551, -0.206607, 0.206538, 0.353551, 0.23284, 0.328703, 0.349952, 0.328703, 0.206538, 0.353551, -0.232909, 0.328633, 0.349952, -0.328703, -0.206607, 0.353551, 0.23284, 0.328633, 0.328633, 0.349952, 0.349952, 0.328703, 0.328703, -0.328772, 0.349952, 0.328703, -0.206607, 0.353551, -0.232909, 0.349952, 0.328633, -0.328703, 0.328633, 0.328633, -0.350021, -0.328703, 0.349952, -0.328703, -0.232909, 0.353551, 0.206538, 0.206538, 0.23284, 0.353551, 0.23284, 0.206538, 0.353551, 0.328703, -0.328772, 0.349952, -0.328703, 0.328633, 0.349952, 0.353551, 0.206538, 0.23284, 0.353551, 0.23284, 0.206538, 0.353551, 0.23284, -0.206607, 0.349952, -0.328772, 0.328703, -0.232909, 0.353551, -0.206607, -0.350021, 0.328703, 0.328703, 0.353551, 0.206538, -0.232909, 0.349952, -0.328703, -0.328703, 0.328703, -0.328772, -0.350021, 0.23284, 0.206538, -0.353551, 0.206538, 0.23284, -0.353551, -0.328703, 0.328633, -0.350021, -0.350021, 0.328633, -0.328703, -0.206607, 0.23284, 0.353551, 0.23284, -0.206607, 0.353551, 0.328703, -0.350021, 0.328703, 0.206538, -0.232909, 0.353551, -0.328772, -0.328772, 0.349952, -0.232909, 0.206538, 0.353551, 0.353551, -0.206607, 0.23284, 0.353551, -0.232909, -0.206607, 0.353551, -0.232909, 0.206538, -0.353551, 0.23284, -0.206607, -0.353551, 0.23284, 0.206538, -0.353551, 0.206538, 0.23284, -0.350021, -0.328772, 0.328703, 0.353551, -0.206607, -0.232909, 0.328633, -0.350021, -0.328703, 0.206538, -0.232909, -0.353551, 0.23284, -0.206607, -0.353551, -0.328772, -0.328772, -0.350021, -0.206607, 0.23284, -0.353551, -0.232909, 0.206538, -0.353551, -0.350021, -0.328703, -0.328703, -0.353551, 0.206538, -0.232909, 0.206538, -0.353551, 0.23284, 0.23284, -0.353551, 0.206538, 0.23284, -0.353551, -0.206607, -0.328772, -0.350021, 0.328703, -0.206607, -0.232909, 0.353551, -0.232909, -0.206607, 0.353551, -0.353551, -0.206607, 0.23284, -0.353551, -0.232909, 0.206538, -0.353551, -0.232909, -0.206607, 0.206538, -0.353551, -0.232909, -0.328703, -0.350021, -0.328703, -0.206607, -0.232909, -0.353551, -0.232909, -0.206607, -0.353551, -0.353551, -0.206607, -0.232909, -0.206607, -0.353551, 0.23284, -0.232909, -0.353551, -0.206607, -0.232909, -0.353551, 0.206538, -0.206607, -0.353551, -0.232909)
@@ -11,15 +34,21 @@ points = PackedVector3Array(0.23284, 0.353551, 0.206538, 0.23284, 0.353551, -0.2
 collision_layer = 5
 collision_mask = 0
 physics_material_override = ExtResource("1_dd5ku")
+custom_integrator = true
 max_contacts_reported = 1
 freeze = true
+freeze_mode = 1
 script = ExtResource("2_jrye7")
 
 [node name="CollectibleModel" parent="." instance=ExtResource("2_pcagl")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+surface_material_override/0 = SubResource("ShaderMaterial_i4ffq")
 metadata/Name = "Generic Debug Cube"
 metadata/Description = "This is a test object."
 
 [node name="CollectibleShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_j1ty6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_process_mode = 0

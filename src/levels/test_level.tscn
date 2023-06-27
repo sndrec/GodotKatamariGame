@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cgagbuvskp0j6"]
+[gd_scene load_steps=15 format=3 uid="uid://cgagbuvskp0j6"]
 
 [ext_resource type="Script" path="res://src/scripts/level.gd" id="1_55c0p"]
 [ext_resource type="PhysicsMaterial" uid="uid://c51o3s65g08ee" path="res://src/levels/default_physmat.phymat" id="2_7wfaq"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://s57cqt03i71w" path="res://src/objects/collectibles/debug/debug_cube_stick.tscn" id="6_osgi7"]
 [ext_resource type="PackedScene" uid="uid://dj8lss38xngoy" path="res://src/objects/collectibles/debug/test_level.tscn" id="7_aoo0j"]
 [ext_resource type="PackedScene" uid="uid://cduiafsmxnlsq" path="res://src/objects/collectible_object.tscn" id="7_q81py"]
+[ext_resource type="PackedScene" uid="uid://botrnbii8slng" path="res://src/objects/collectibles/debug/debug_cube_large.tscn" id="8_xuga0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qghod"]
 
@@ -18,6 +19,25 @@ background_mode = 2
 sky = SubResource("Sky_dssyr")
 ambient_light_source = 3
 reflected_light_source = 2
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ilkox"]
+
+[sub_resource type="Animation" id="Animation_dmlu2"]
+resource_name = "track"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -6.48718, 3.70446, 11.552, 1, 1, -10.2804, 3.70446, 9.24517, 2, 1, -14.9078, 3.70446, 2.14934, 3, 1, -12.9962, 3.70446, -7.6386, 4, 1, -2.374, 3.70446, -16.0443, 5, 1, 12.5421, 3.70446, -10.71, 6, 1, 16.796, 3.70446, 1.5465, 7, 1, 7.74072, 3.70446, 14.6906)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ultn3"]
+_data = {
+"track": SubResource("Animation_dmlu2")
+}
 
 [node name="TestLevel" type="Node3D"]
 script = ExtResource("1_55c0p")
@@ -36,173 +56,265 @@ shadow_enabled = true
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.73386, 3.4926, 16.8394)
 physics_material_override = ExtResource("2_7wfaq")
 
-[node name="CollectibleRoot" parent="." instance=ExtResource("7_aoo0j")]
+[node name="TestLevel" parent="." instance=ExtResource("7_aoo0j")]
+transform = Transform3D(1, 0, 0, 0, 1, -0.000296701, 0, 0.000296701, 1, 0, 0, 0)
 input_ray_pickable = false
+mass = 46331.9
 
-[node name="CollectibleRoot2" parent="." instance=ExtResource("5_i6cqo")]
+[node name="AnimationPlayer" parent="TestLevel" index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_ilkox")
+}
+
+[node name="CollectibleRoot2" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.35551, 3.70446, 11.5526)
 
-[node name="CollectibleRoot3" parent="." instance=ExtResource("5_i6cqo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.50139, 3.70446, 11.5526)
+[node name="CollectibleRoot3" parent="TestLevel" instance=ExtResource("5_i6cqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.03263, 3.70446, 14.5553)
 
-[node name="CollectibleRoot4" parent="." instance=ExtResource("5_i6cqo")]
+[node name="AnimationPlayer" parent="TestLevel/CollectibleRoot3" index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_ultn3")
+}
+
+[node name="CollectibleRoot4" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.30266, 3.70446, 11.5526)
 
-[node name="CollectibleRoot6" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot6" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -5.15131, 3.62226, 12.6185)
+mass = 0.0441933
 
-[node name="CollectibleRoot7" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot7" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -5.15131, 3.62226, 13.2742)
+mass = 0.0441933
 
-[node name="CollectibleRoot23" parent="." instance=ExtResource("6_osgi7")]
+[node name="CollectibleRoot23" parent="TestLevel" instance=ExtResource("6_osgi7")]
 transform = Transform3D(1, 0, 0, 0, 0.738373, -0.674393, 0, 0.674393, 0.738373, -4.83741, 3.9866, 14.3248)
+mass = 0.0441933
 
-[node name="CollectibleRoot24" parent="." instance=ExtResource("6_osgi7")]
+[node name="CollectibleRoot24" parent="TestLevel" instance=ExtResource("6_osgi7")]
 transform = Transform3D(1, 0, 0, 0, 0.738373, -0.674393, 0, 0.674393, 0.738373, -4.27725, 3.9866, 14.3248)
+mass = 0.0441933
 
-[node name="CollectibleRoot25" parent="." instance=ExtResource("6_osgi7")]
+[node name="CollectibleRoot25" parent="TestLevel" instance=ExtResource("6_osgi7")]
 transform = Transform3D(1, 0, 0, 0, 0.738373, -0.674393, 0, 0.674393, 0.738373, -3.73286, 3.9866, 14.3248)
+mass = 0.0441933
 
-[node name="CollectibleRoot26" parent="." instance=ExtResource("6_osgi7")]
+[node name="CollectibleRoot26" parent="TestLevel" instance=ExtResource("6_osgi7")]
 transform = Transform3D(1, 0, 0, 0, 0.738373, -0.674393, 0, 0.674393, 0.738373, -3.1727, 3.9866, 14.3248)
+mass = 0.0441933
 
-[node name="CollectibleRoot8" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot8" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -5.15131, 3.62226, 13.8543)
+mass = 0.0441933
 
-[node name="CollectibleRoot9" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot9" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -5.15131, 3.62226, 14.51)
+mass = 0.0441933
 
-[node name="CollectibleRoot10" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot10" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -6.33206, 3.62226, 12.6185)
+mass = 0.0441933
 
-[node name="CollectibleRoot11" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot11" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -6.33206, 3.62226, 13.2742)
+mass = 0.0441933
 
-[node name="CollectibleRoot12" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot12" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -6.33206, 3.62226, 13.8543)
+mass = 0.0441933
 
-[node name="CollectibleRoot13" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot13" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -6.33206, 3.62226, 14.51)
+mass = 0.0441933
 
-[node name="CollectibleRoot14" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot14" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -7.62003, 3.62226, 12.6185)
+mass = 0.0441933
 
-[node name="CollectibleRoot15" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot15" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -7.62003, 3.62226, 13.2742)
+mass = 0.0441933
 
-[node name="CollectibleRoot16" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot16" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -7.62003, 3.62226, 13.8543)
+mass = 0.0441933
 
-[node name="CollectibleRoot17" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot17" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -7.62003, 3.62226, 14.51)
+mass = 0.0441933
 
-[node name="CollectibleRoot38" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot38" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -5.75704, 3.62226, 14.618)
+mass = 0.0441933
 
-[node name="CollectibleRoot39" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot39" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -5.75704, 3.62226, 15.1981)
+mass = 0.0441933
 
-[node name="CollectibleRoot40" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot40" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -6.93778, 3.62226, 13.9623)
+mass = 0.0441933
 
-[node name="CollectibleRoot41" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot41" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -6.93778, 3.62226, 14.618)
+mass = 0.0441933
 
-[node name="CollectibleRoot42" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot42" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -6.93778, 3.62226, 15.1981)
+mass = 0.0441933
 
-[node name="CollectibleRoot43" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot43" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -6.93778, 3.62226, 15.8538)
+mass = 0.0441933
 
-[node name="CollectibleRoot44" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot44" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -8.22576, 3.62226, 13.9623)
+mass = 0.0441933
 
-[node name="CollectibleRoot45" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot45" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -8.22576, 3.62226, 14.618)
+mass = 0.0441933
 
-[node name="CollectibleRoot46" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot46" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -8.22576, 3.62226, 15.1981)
+mass = 0.0441933
 
-[node name="CollectibleRoot47" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot47" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -8.22576, 3.62226, 15.8538)
+mass = 0.0441933
 
-[node name="CollectibleRoot48" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot48" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -9.98976, 3.62226, 14.5193)
+mass = 0.0441933
 
-[node name="CollectibleRoot49" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot49" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -9.98976, 3.62226, 15.0994)
+mass = 0.0441933
 
-[node name="CollectibleRoot50" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot50" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -11.1705, 3.62226, 13.8635)
+mass = 0.0441933
 
-[node name="CollectibleRoot51" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot51" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -11.1705, 3.62226, 14.5193)
+mass = 0.0441933
 
-[node name="CollectibleRoot52" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot52" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -11.1705, 3.62226, 15.0994)
+mass = 0.0441933
 
-[node name="CollectibleRoot53" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot53" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -11.1705, 3.62226, 15.7551)
+mass = 0.0441933
 
-[node name="CollectibleRoot54" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot54" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -12.4585, 3.62226, 13.8635)
+mass = 0.0441933
 
-[node name="CollectibleRoot55" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot55" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -12.4585, 3.62226, 14.5193)
+mass = 0.0441933
 
-[node name="CollectibleRoot56" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot56" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -12.4585, 3.62226, 15.0994)
+mass = 0.0441933
 
-[node name="CollectibleRoot57" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot57" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -12.4585, 3.62226, 15.7551)
+mass = 0.0441933
 
-[node name="CollectibleRoot5" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot5" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.70493, 3.70446, 12.6976)
 
-[node name="CollectibleRoot18" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot18" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.85081, 3.70446, 12.6976)
 
-[node name="CollectibleRoot19" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot19" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6521, 3.70446, 12.6976)
 
-[node name="CollectibleRoot20" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot20" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3977, 3.70446, 11.2646)
 
-[node name="CollectibleRoot21" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot21" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.54357, 3.70446, 11.2646)
 
-[node name="CollectibleRoot22" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot22" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.3448, 3.70446, 11.2646)
 
-[node name="CollectibleRoot27" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot27" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3125, 3.70446, 9.68463)
 
-[node name="CollectibleRoot28" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot28" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4583, 3.70446, 9.68463)
 
-[node name="CollectibleRoot29" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot29" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2596, 3.70446, 9.68463)
 
-[node name="CollectibleRoot30" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot30" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -12.577, 3.62226, 10.7506)
+mass = 0.0441933
 
-[node name="CollectibleRoot31" parent="." instance=ExtResource("7_q81py")]
+[node name="CollectibleRoot31" parent="TestLevel" instance=ExtResource("7_q81py")]
 transform = Transform3D(0.999998, -0.00195478, 0, 0.00195478, 0.999998, 0, 0, 0, 1, -12.577, 3.62226, 11.4063)
+mass = 0.0441933
 
-[node name="CollectibleRoot32" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot32" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.6619, 3.70446, 10.8297)
 
-[node name="CollectibleRoot33" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot33" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.8077, 3.70446, 10.8297)
 
-[node name="CollectibleRoot34" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot34" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.609, 3.70446, 10.8297)
 
-[node name="CollectibleRoot35" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot35" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.3546, 3.70446, 9.39668)
 
-[node name="CollectibleRoot36" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot36" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5005, 3.70446, 9.39668)
 
-[node name="CollectibleRoot37" parent="." instance=ExtResource("5_i6cqo")]
+[node name="CollectibleRoot37" parent="TestLevel" instance=ExtResource("5_i6cqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.3018, 3.70446, 9.39668)
+
+[node name="CollectibleRoot58" parent="TestLevel" instance=ExtResource("5_i6cqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.409, 3.70446, 8.38043)
+
+[node name="CollectibleRoot59" parent="TestLevel" instance=ExtResource("5_i6cqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5549, 3.70446, 8.38043)
+
+[node name="CollectibleRoot60" parent="TestLevel" instance=ExtResource("5_i6cqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.3562, 3.70446, 8.38043)
+
+[node name="CollectibleRoot61" parent="TestLevel" instance=ExtResource("5_i6cqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.4512, 3.70446, 8.09248)
+
+[node name="CollectibleRoot62" parent="TestLevel" instance=ExtResource("5_i6cqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5971, 3.70446, 8.09248)
+
+[node name="CollectibleRoot63" parent="TestLevel" instance=ExtResource("5_i6cqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.3984, 3.70446, 8.09248)
+
+[node name="CollectibleRoot64" parent="TestLevel" instance=ExtResource("5_i6cqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5985, 3.70446, 6.93611)
+
+[node name="CollectibleRoot65" parent="TestLevel" instance=ExtResource("5_i6cqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.7444, 3.70446, 6.93611)
+
+[node name="CollectibleRoot66" parent="TestLevel" instance=ExtResource("5_i6cqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5456, 3.70446, 6.93611)
+
+[node name="CollectibleRoot67" parent="TestLevel" instance=ExtResource("5_i6cqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.6407, 3.70446, 6.64816)
+
+[node name="CollectibleRoot68" parent="TestLevel" instance=ExtResource("5_i6cqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7865, 3.70446, 6.64816)
+
+[node name="CollectibleRoot69" parent="TestLevel" instance=ExtResource("5_i6cqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5878, 3.70446, 6.64816)
+
+[node name="CollectibleRoot70" parent="TestLevel" instance=ExtResource("8_xuga0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9573, 4.15238, -1.56115)
+
+[editable path="TestLevel"]
+[editable path="TestLevel/CollectibleRoot3"]

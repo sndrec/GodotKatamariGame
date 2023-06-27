@@ -3,9 +3,7 @@ extends CenterContainer
 
 # TODO put this somewhere else probably
 const LEVELS = [
-	"res://src/levels/test_level.tscn",
-	"res://src/levels/test_gem_level.tscn",
-	"res://src/levels/test_hunt_level.tscn",
+	"res://src/levels/test_level.tscn"
 ]
 
 

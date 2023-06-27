@@ -28,6 +28,8 @@ uniform sampler2D ramp : source_color;
 uniform bool use_borders = false;
 uniform float border_width = 0.01f;
 
+uniform bool collected = false;
+
 varying vec3 vertex_pos;
 varying vec3 normal;
 
@@ -41,7 +43,11 @@ void vertex() {
 }
 
 void fragment() {
-	ALBEDO = albedo.rgb * texture(albedo_texture, UV).rgb;
+	float saturation = 1.0f;
+	if (collected) {
+		saturation = 1.2f;
+	}
+	ALBEDO = albedo.rgb * texture(albedo_texture, UV).rgb * saturation;
 }
 
 void light() {
