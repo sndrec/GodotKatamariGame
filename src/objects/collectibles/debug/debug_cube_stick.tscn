@@ -37,9 +37,8 @@ mass = 3.38
 physics_material_override = ExtResource("1_x7x1e")
 max_contacts_reported = 1
 freeze = true
-freeze_mode = 1
 script = ExtResource("2_a7d04")
-metadata/col_points = PackedVector3Array(0, 0.666, 0, 0, -0.666, 0)
+VaultPoints = PackedVector3Array(0, -0.666, 0, 0, 0.666, 0)
 
 [node name="CollectibleModel" parent="." instance=ExtResource("3_7iw0r")]
 transform = Transform3D(0.25, 0, 0, 0, 2, 0, 0, 0, 0.25, 0, 0, 0)

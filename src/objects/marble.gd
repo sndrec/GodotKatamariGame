@@ -189,17 +189,28 @@ func play_char_animation(InAnimator: AnimationPlayer, InAnim: String):
 func manage_character_animations() -> void:
 	var forward = Vector3(0, 0, -1).rotated(Vector3.UP, ballcam_yaw)
 	var right = Vector3(1, 0, 0).rotated(Vector3.UP, ballcam_yaw)
+	var velNoY = (linear_velocity * Vector3(1, 0, 1))
+	var velDir = velNoY.normalized()
+	var velLen = velNoY.length()
+	var forwardFrac = velDir.dot(forward)
+	var sideFrac = velDir.dot(right)
 	var char = get_node("character") as Node3D
 	char.global_position = position + forward * get_katamari_radius() * -2 + Vector3.UP * -get_katamari_radius()
 	char.global_rotation = Vector3(0, ballcam_yaw + PI, 0)
 	char.scale = Vector3(0.075, 0.075, 0.075)
 	var animator = char.get_node("AnimationPlayer") as AnimationPlayer
-	if linear_velocity.length() <= 1:
+	if velLen <= 1:
 		play_char_animation(animator, "Wait")
-	else: if linear_velocity.length() <= 6:
-		play_char_animation(animator, "WalkSlow")
 	else:
-		play_char_animation(animator, "Run")
+		if forwardFrac > 0.5:
+			if velLen <= 5:
+				play_char_animation(animator, "WalkMiddle")
+			else:
+				play_char_animation(animator, "Run")
+		if sideFrac > 0.5:
+			play_char_animation(animator, "WalkRight")
+		if sideFrac < -0.5:
+			play_char_animation(animator, "WalkLeft")
 
 func _process(delta: float) -> void:
 	if is_level_finished:
@@ -260,6 +271,8 @@ func _process(delta: float) -> void:
 	spring_arm.rotation = Vector3(ballcam_pitch, ballcam_yaw, 0)
 	spring_arm.spring_length = move_toward(spring_arm.spring_length, desired_arm_dist, delta * 4)
 	
+func _physics_process(delta: float) -> void:
+	
 	var NoCollider = get_node("CollectibleNocollider") as Area3D
 	for overlap in NoCollider.get_overlapping_bodies():
 		if overlap.get_class() == "RigidBody3D":
@@ -275,13 +288,18 @@ func _process(delta: float) -> void:
 	for overlap in Collector.get_overlapping_bodies():
 		if overlap.get_class() == "RigidBody3D":
 			var body := overlap as RigidBody3D
-			if body and can_collect_object_of_size(body.mass):
+			if body:
+				if !can_collect_object_of_size(body.mass):
+					#var neededDiameter = volume_to_radius(body.mass) * 4
+					#var ballRadius = volume_to_radius(ballvolume)
+					#print("Need " + str(neededDiameter) + " to collect")
+					return
 				if body.get_child_count() < 2:
 					return
 				if body.has_node("CollectibleShape"):
 					print("Collected!")
-					var ModelMesh := body.get_node("CollectibleModel") as MeshInstance3D
-					ModelMesh.set_instance_shader_parameter("collected", true)
+					#var ModelMesh := body.get_node("CollectibleModel") as MeshInstance3D
+					#ModelMesh.set_instance_shader_parameter("collected", true)
 					var ModelShape := body.get_node("CollectibleShape") as CollisionShape3D
 					var OldPos := body.global_position
 					var OldRot := body.global_rotation
@@ -300,13 +318,11 @@ func _process(delta: float) -> void:
 					recalculate_katamari_size()
 					#add_katamari_hull_point(body.position)
 					var modifiedPoints = PackedVector3Array()
-					add_katamari_hull_point(body.position, false, null)
-					if body.has_meta("col_points"):
-						print("Vault points detected!")
-						var ColPoints := body.get_meta("col_points") as PackedVector3Array
-						for point in ColPoints:
-							var newPoint := body.transform * point
-							add_katamari_hull_point(newPoint, false, null)
+					add_katamari_hull_point(body.position, false)
+					print("Vault points detected!")
+					for point in body.VaultPoints:
+						var newPoint = body.transform * point
+						add_katamari_hull_point(newPoint, false)
 					ModelShape.queue_free()
 					var rng = RandomNumberGenerator.new()
 					print("We parented it now.")
@@ -441,7 +457,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		
 		if !point[3]:
 			cooltransform.origin += ray.get_collision_normal() * depth
-			KatamariHullPointData[furthestCollidingPoint][4] = ray.get_collider() as RigidBody3D
+			KatamariHullPointData[furthestCollidingPoint][4] = ray.get_collider() as Node3D
 			KatamariHullPointData[furthestCollidingPoint][3] = true
 			KatamariHullPointData[furthestCollidingPoint][2] = point[4].to_local(cooltransform.origin + dir * -length)
 			if length > get_katamari_diameter():
@@ -532,13 +548,13 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		climbTimer += state.step
 	
 	if climbTimer >= 0.5:
-		state.linear_velocity += Vector3(0, get_katamari_diameter() * state.step * 4, 0) - curNormal * state.step * 10
+		state.linear_velocity += Vector3(0, get_katamari_diameter() * state.step * 4, 0) - curNormal * state.step * 50
 		state.linear_velocity += -state.linear_velocity * state.step * 4
 	
 	if !touchingWall and climbTimer >= 0.5:
 		noClimbTimer += state.step
 	
-	if noClimbTimer >= 0.2:
+	if noClimbTimer >= 0.25:
 		print("NO CLIMB!")
 		climbTimer = 0
 		noClimbTimer = 0
@@ -577,6 +593,9 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	
 	state.transform = cooltransform
 
+
+
+
 func is_on_floor(state: PhysicsDirectBodyState3D) -> bool:
 	for contact in state.get_contact_count():
 		var contact_normal := state.get_contact_local_normal(contact)
@@ -585,7 +604,7 @@ func is_on_floor(state: PhysicsDirectBodyState3D) -> bool:
 			return true
 	return false
 	
-func add_katamari_hull_point(local_point: Vector3, permanent: bool, body: RigidBody3D):
+func add_katamari_hull_point(local_point: Vector3, permanent: bool):
 	var RayCaster = RayCast3D.new()
 	add_child(RayCaster)
 	RayCaster.target_position = local_point

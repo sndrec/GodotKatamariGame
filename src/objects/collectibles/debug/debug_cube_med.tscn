@@ -37,7 +37,6 @@ mass = 8.0
 physics_material_override = ExtResource("1_g1dsm")
 max_contacts_reported = 1
 freeze = true
-freeze_mode = 1
 script = ExtResource("2_nl4nx")
 
 [node name="CollectibleModel" parent="." instance=ExtResource("3_8nlfq")]
