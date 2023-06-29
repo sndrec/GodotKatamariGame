@@ -65,6 +65,8 @@ var boostPower := 240.0
 var boostHuffTime := -8000
 var boostHuffing := false
 
+var lastTransitionTime := -8000
+
 var KatamariHullPointData = []
 
 var cameraPos := Vector3(0, 0, 0)
@@ -77,12 +79,15 @@ var BoostSound := preload("res://src/sound/game12.wav")
 
 var QuickSwitchSound := preload("res://src/sound/game16.wav")
 
+var ThresholdSound := preload("res://src/sound/game17.wav")
+
 var leftStick := false
 var rightStick := false
 var quickSwitchTime := -8000
 
 var charState := "Wait"
 
+var thresholdCurve = preload("res://src/threshold_shader_curve.tres")
 
 var SoftCollideSound = preload("res://src/sound/game14.wav")
 
@@ -148,6 +153,9 @@ func recalculate_katamari_size() -> void:
 	ratio_to_next_transition = (get_katamari_diameter() - CurThreshold) / (NextThreshold - CurThreshold)
 	if just_transitioned:
 		desired_arm_dist = get_katamari_diameter() * 3.0
+		lastTransitionTime = Time.get_ticks_msec()
+		$BoostSound.stream = ThresholdSound
+		$BoostSound.play()
 		just_transitioned = false
 	else:
 		desired_arm_dist = CurThreshold * 3.0 + (get_katamari_diameter() - CurThreshold)
@@ -162,11 +170,7 @@ func recalculate_katamari_size() -> void:
 	NocolliderCollisionShape.radius = newRadius * 3
 	var GrabberCollision := get_node("CollectibleGrabber").get_node("KatamariCollectorShapeMiddle") as CollisionShape3D
 	var GrabberCollisionShape := GrabberCollision.shape as SphereShape3D
-	GrabberCollisionShape.radius = newRadius * 1
-	var BottomGrabberCollision := get_node("CollectibleGrabber").get_node("KatamariCollectorShapeBottom") as CollisionShape3D
-	BottomGrabberCollision.position = Vector3(0, -newRadius * 0.8, 0)
-	var BottomGrabberCollisionShape := BottomGrabberCollision.shape as SphereShape3D
-	BottomGrabberCollisionShape.radius = newRadius * 0.2
+	GrabberCollisionShape.radius = newRadius * 0.98
 	var KatamariModel := get_node("KatamariModel") as Node3D
 	var visualRadius := volume_to_radius(startingvolume + ((ballvolume - startingvolume) * 0.1))
 	var NewScale := visualRadius * 2.7
@@ -212,11 +216,74 @@ func manage_character_animations() -> void:
 		if sideFrac < -0.5:
 			play_char_animation(animator, "WalkLeft")
 
+func manage_object_pickup():
+	var NoCollider = get_node("CollectibleNocollider") as Area3D
+	for overlap in NoCollider.get_overlapping_bodies():
+		if overlap.get_class() == "RigidBody3D":
+			var body = overlap as RigidBody3D
+			if can_collect_object_of_size(body.mass * body.PickupMultiplier):
+				body.set_collision_layer_value(1, false)
+			else: 
+				body.set_collision_layer_value(1, true)
+				
+	var Collector = get_node("CollectibleGrabber") as Area3D
+	#var newRadius = volume_to_radius(ballvolume)
+	Collector.global_rotation = Vector3.ZERO
+	for overlap in Collector.get_overlapping_bodies():
+		print(overlap)
+		if overlap.get_class() == "RigidBody3D":
+			var body := overlap as RigidBody3D
+			if body:
+				if !can_collect_object_of_size(body.mass * body.PickupMultiplier):
+					#var neededDiameter = volume_to_radius(body.mass) * 4
+					#var ballRadius = volume_to_radius(ballvolume)
+					#print("Need " + str(neededDiameter) + " to collect")
+					return
+				if body.get_child_count() < 2:
+					return
+				if body.has_node("CollectibleShape"):
+					print("Collected!")
+					#var ModelMesh := body.get_node("CollectibleModel") as MeshInstance3D
+					#ModelMesh.set_instance_shader_parameter("collected", true)
+					var ModelShape := body.get_node("CollectibleShape") as CollisionShape3D
+					var OldPos := body.global_position
+					var OldRot := body.global_rotation
+					if body.has_node("AnimationPlayer"):
+						body.animated = false
+						var Animator := body.get_node("AnimationPlayer") as AnimationPlayer
+						Animator.queue_free()
+					body.set_collision_layer_value(3, false)
+					body.get_parent().remove_child(body)
+					add_child(body)
+					body.position = to_local(OldPos)
+					body.global_rotation = OldRot
+					ballvolume += body.mass * VOLUMESCALE * body.GiveMultiplier
+					body.mass = 0.001
+					body.visible = false
+					recalculate_katamari_size()
+					#add_katamari_hull_point(body.position)
+					var modifiedPoints = PackedVector3Array()
+					add_katamari_hull_point(body.position, false)
+					print("Vault points detected!")
+					for point in body.VaultPoints:
+						var newPoint = body.transform * point
+						add_katamari_hull_point(newPoint, false)
+					ModelShape.queue_free()
+					var rng = RandomNumberGenerator.new()
+					print("We parented it now.")
+					$CollectSound.stream = CollectSounds[rng.randi_range(0, 2)]
+					$CollectSound.play()
+
 func _process(delta: float) -> void:
 	if is_level_finished:
 		spring_arm.rotation.x = lerp(spring_arm.rotation.x, deg_to_rad(-25), 3 * delta)
 		return
 		
+	
+	var ppm = get_node("PostProcessMesh") as MeshInstance3D
+	var ppmmat = ppm.get_active_material(0) as ShaderMaterial
+	ppmmat.set_shader_parameter("strength", thresholdCurve.sample((Time.get_ticks_msec() - lastTransitionTime) * 0.0003))
+	
 	var leftStickNew := player_controller.get_action("stick_click_left")
 	var rightStickNew := player_controller.get_action("stick_click_right")
 	
@@ -270,73 +337,19 @@ func _process(delta: float) -> void:
 	
 	spring_arm.rotation = Vector3(ballcam_pitch, ballcam_yaw, 0)
 	spring_arm.spring_length = move_toward(spring_arm.spring_length, desired_arm_dist, delta * 4)
+	manage_object_pickup()
 	
 func _physics_process(delta: float) -> void:
-	
-	var NoCollider = get_node("CollectibleNocollider") as Area3D
-	for overlap in NoCollider.get_overlapping_bodies():
-		if overlap.get_class() == "RigidBody3D":
-			var body = overlap as RigidBody3D
-			if can_collect_object_of_size(body.mass):
-				body.set_collision_layer_value(1, false)
-			else: 
-				body.set_collision_layer_value(1, true)
-				
-	var Collector = get_node("CollectibleGrabber") as Area3D
-	#var newRadius = volume_to_radius(ballvolume)
-	Collector.global_rotation = Vector3.ZERO
-	for overlap in Collector.get_overlapping_bodies():
-		if overlap.get_class() == "RigidBody3D":
-			var body := overlap as RigidBody3D
-			if body:
-				if !can_collect_object_of_size(body.mass):
-					#var neededDiameter = volume_to_radius(body.mass) * 4
-					#var ballRadius = volume_to_radius(ballvolume)
-					#print("Need " + str(neededDiameter) + " to collect")
-					return
-				if body.get_child_count() < 2:
-					return
-				if body.has_node("CollectibleShape"):
-					print("Collected!")
-					#var ModelMesh := body.get_node("CollectibleModel") as MeshInstance3D
-					#ModelMesh.set_instance_shader_parameter("collected", true)
-					var ModelShape := body.get_node("CollectibleShape") as CollisionShape3D
-					var OldPos := body.global_position
-					var OldRot := body.global_rotation
-					if body.has_node("AnimationPlayer"):
-						body.animated = false
-						var Animator := body.get_node("AnimationPlayer") as AnimationPlayer
-						Animator.queue_free()
-					body.set_collision_layer_value(3, false)
-					body.get_parent().remove_child(body)
-					add_child(body)
-					body.position = to_local(OldPos)
-					body.global_rotation = OldRot
-					ballvolume += body.mass * VOLUMESCALE
-					body.mass = 0.001
-					#body.visible = false
-					recalculate_katamari_size()
-					#add_katamari_hull_point(body.position)
-					var modifiedPoints = PackedVector3Array()
-					add_katamari_hull_point(body.position, false)
-					print("Vault points detected!")
-					for point in body.VaultPoints:
-						var newPoint = body.transform * point
-						add_katamari_hull_point(newPoint, false)
-					ModelShape.queue_free()
-					var rng = RandomNumberGenerator.new()
-					print("We parented it now.")
-					$CollectSound.stream = CollectSounds[rng.randi_range(0, 2)]
-					$CollectSound.play()
+	pass
 
 func get_last_local_contact_position(pos: Vector3):
 	return LastGroundContact - pos
 	
 func get_collision_impulse(inVel: Vector3, normal: Vector3, velAtPoint: Vector3):
 		var restitution = 1
-		if inVel.length() > 5 and AirTime > 0.05:
-			restitution = 1.5
 		var dot = -normal.dot(inVel - velAtPoint)
+		if dot > 5 and AirTime > 0.05:
+			restitution = 1.5
 		
 		if dot >= 5:
 			$CollisionSound.stream = SoftCollideSound
@@ -442,7 +455,9 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		var length = ray.target_position.length()
 		var dir = (to_global(ray.target_position) - cooltransform.origin).normalized() * -1
 		var collider = ray.get_collider() as RigidBody3D
-		var velAtPoint = collider.get_velocity_at_point(contactPoint)
+		var velAtPoint = Vector3.ZERO
+		if collider and collider.get_class() == "RigidBody3D":
+			velAtPoint = collider.get_velocity_at_point(contactPoint)
 		debugaxis.global_position = position + velAtPoint
 		debugaxis.global_rotation = Vector3.ZERO
 		var colImpulse = get_collision_impulse(state.linear_velocity, ray.get_collision_normal(), velAtPoint)
@@ -456,13 +471,17 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 			return
 		
 		if !point[3]:
-			cooltransform.origin += ray.get_collision_normal() * depth
-			KatamariHullPointData[furthestCollidingPoint][4] = ray.get_collider() as Node3D
-			KatamariHullPointData[furthestCollidingPoint][3] = true
-			KatamariHullPointData[furthestCollidingPoint][2] = point[4].to_local(cooltransform.origin + dir * -length)
-			if length > get_katamari_diameter():
-				$CollisionSound.stream = VaultSound
-				$CollisionSound.play()
+			if ray.get_collider() != null:
+				cooltransform.origin += ray.get_collision_normal() * depth
+				KatamariHullPointData[furthestCollidingPoint][4] = ray.get_collider() as Node3D
+				KatamariHullPointData[furthestCollidingPoint][3] = true
+				KatamariHullPointData[furthestCollidingPoint][2] = point[4].to_local(cooltransform.origin + dir * -length)
+				if length > get_katamari_diameter():
+					$CollisionSound.stream = VaultSound
+					$CollisionSound.play()
+			else:
+				point[3] = false
+				anyPoint = false
 		
 		AirTime = 0
 		cooltransform.origin = point[4].to_global(point[2]) + dir * length * 0.99
@@ -535,7 +554,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		debugaxis.global_position = position + velAtPoint
 		debugaxis.global_rotation = Vector3.ZERO
 		state.linear_velocity += get_collision_impulse(state.linear_velocity, normal, velAtPoint)
-		if normal.y <= 0.2 and normal.y >= 0:
+		if normal.y <= 0.2 and normal.y >= -0.05:
 			touchingWall = true
 			
 	
@@ -546,9 +565,10 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	
 	if touchingWall:
 		climbTimer += state.step
+		noClimbTimer = 0
 	
 	if climbTimer >= 0.5:
-		state.linear_velocity += Vector3(0, get_katamari_diameter() * state.step * 4, 0) - curNormal * state.step * 50
+		state.linear_velocity += Vector3(0, get_katamari_diameter() * state.step * 4, 0) - (curNormal * Vector3(1, 0, 1)).normalized() * state.step * 30
 		state.linear_velocity += -state.linear_velocity * state.step * 4
 	
 	if !touchingWall and climbTimer >= 0.5:
@@ -592,6 +612,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	old_ballcam_yaw = ballcam_yaw
 	
 	state.transform = cooltransform
+	transform = state.transform
 
 
 

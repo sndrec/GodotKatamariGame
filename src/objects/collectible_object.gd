@@ -9,6 +9,14 @@ var latestDelta := 1.0
 
 var bigDot = preload("res://assets/debug/bigdot.png")
 
+@export var PickupMultiplier: float = 1.0:
+	set(new_pickupmult):
+		PickupMultiplier = new_pickupmult
+
+@export var GiveMultiplier: float = 1.0:
+	set(new_givemult):
+		GiveMultiplier = new_givemult
+
 @export var VaultPoints = PackedVector3Array():
 	set(new_array):
 		VaultPoints = new_array

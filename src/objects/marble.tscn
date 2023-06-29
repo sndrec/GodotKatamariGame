@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://x10k41fn8cyv"]
+[gd_scene load_steps=13 format=3 uid="uid://x10k41fn8cyv"]
 
 [ext_resource type="Script" path="res://src/objects/marble.gd" id="1_ajff0"]
 [ext_resource type="PackedScene" uid="uid://bnrp7ftlg6iow" path="res://assets/katamari.tscn" id="2_hhtmx"]
 [ext_resource type="Texture2D" uid="uid://dt2fm6sre40ia" path="res://assets/tex/indicator.png" id="3_mwedp"]
+[ext_resource type="Material" uid="uid://d286v4c51of8r" path="res://assets/shaders/post_process.tres" id="3_sx1ca"]
 [ext_resource type="PackedScene" uid="uid://ch3pfpon5l4lm" path="res://src/blends/char_rook.glb" id="4_fsiwd"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wt7a8"]
@@ -15,14 +16,16 @@ margin = 0.0
 radius = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_me7fr"]
-radius = 0.33
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_c4mos"]
-radius = 0.1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_asqxb"]
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_hg2x0"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_osso4"]
+material = ExtResource("3_sx1ca")
+custom_aabb = AABB(0, 0, 0, 500, 500, 500)
+flip_faces = true
+size = Vector2(2, 2)
 
 [node name="Marble" type="RigidBody3D"]
 collision_layer = 2
@@ -41,6 +44,7 @@ shape = SubResource("SphereShape3D_rbvun")
 
 [node name="KatamariModel" parent="." instance=ExtResource("2_hhtmx")]
 transform = Transform3D(1.35, 0, 0, 0, 1.35, 0, 0, 0, 1.35, 0, 0, 0)
+visible = false
 
 [node name="CenterNode" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -66,12 +70,9 @@ collision_mask = 4
 [node name="KatamariCollectorShapeMiddle" type="CollisionShape3D" parent="CollectibleGrabber"]
 shape = SubResource("SphereShape3D_me7fr")
 
-[node name="KatamariCollectorShapeBottom" type="CollisionShape3D" parent="CollectibleGrabber"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
-shape = SubResource("SphereShape3D_c4mos")
-
 [node name="debug_axis" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.695604, 0, 0)
+visible = false
 pixel_size = 0.003
 billboard = 1
 no_depth_test = true
@@ -99,3 +100,10 @@ max_polyphony = 3
 
 [node name="character" parent="." instance=ExtResource("4_fsiwd")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -0.612, -0.881)
+visible = false
+
+[node name="PostProcessMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_osso4")
+
+[editable path="KatamariModel"]
+[editable path="character"]
