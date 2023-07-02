@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgqp3871s4gxq"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://c51o3s65g08ee" path="res://src/levels/default_physmat.phymat" id="1_o0o0r"]
+[ext_resource type="Script" path="res://src/objects/collectible_object.gd" id="2_0t2mo"]
+[ext_resource type="PackedScene" uid="uid://brusctjopqbpf" path="res://assets/collectibles/1stlevel/crested-gecko.glb" id="3_p4dq8"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ce0gl"]
+points = PackedVector3Array(2.2141, -1.07772, 1.95859, 2.21315, -1.19305, 1.95757, 1.76574, -0.861173, -1.63787, 2.08111, -1.18981, 1.69688, -0.00964308, -0.134902, -3.62931, 0.214536, 0.313822, -3.62215, 2.14523, -0.49251, -2.194, -1.76555, -1.15816, -1.7677, -2.0453, -1.15397, -1.77997, 2.13716, -0.36994, -2.11733, 2.23167, -0.482979, -2.08972, 0.6059, 0.72366, -2.69493, 1.62563, 0.1049, -0.917144, 1.71967, -0.0819094, 2.07207, 2.15378, -1.08039, 2.26528, 2.15331, -1.19572, 2.26426, 0.22831, -1.22374, 4.86704, -2.04673, -1.17437, -1.0388, -1.71711, -1.16846, -1.39251, -1.67531, -1.1595, -1.71454, -0.234297, -0.134902, -3.62829, -0.00964308, 0.313822, -3.62215, -2.48131, -1.16159, -1.32606, -2.3336, -1.15435, -1.63582, -0.619962, 0.72366, -2.69186, -0.00204396, 0.551909, 0.970026, 0.00318074, 0.468989, 2.55459, 0.413543, 0.39903, 2.53415, 1.57196, 0.0326545, 2.09251, 0.696616, -1.04474, 6.79408, 0.714664, -1.09469, 6.79101, 0.664794, -1.10345, 6.80328, 0.0487764, -1.19362, 4.90282, -2.44379, -1.16388, -1.20952, -0.234297, 0.313822, -3.62113, -2.14789, -0.943331, 1.85738, -2.20156, -0.897582, 1.82978, -2.28611, -0.787974, 1.71222, -2.3165, -0.716491, 1.6335, -2.47941, -1.0171, -1.32197, -2.3317, -1.01005, -1.63173, -1.80593, -0.0756189, -0.785267, -1.61737, 0.1049, -0.825136, -1.70619, 0.0534323, 2.20701, -1.59315, 0.104329, 2.28675, -0.412406, 0.39903, 2.54744, 0.632972, -1.04474, 6.80941, 0.664794, -1.0455, 6.80226, 0.614924, -1.09469, 6.81452, -2.27138, -0.749087, 1.74186, -2.28231, -0.628995, 1.69995, -1.71758, 0.00348926, 2.27857)
+
+[node name="CollectibleRoot" type="RigidBody3D"]
+collision_layer = 5
+collision_mask = 0
+mass = 95.8541
+physics_material_override = ExtResource("1_o0o0r")
+max_contacts_reported = 1
+freeze = true
+script = ExtResource("2_0t2mo")
+ItemName = "Orange Crested Gecko"
+ItemDesc = "Placeholder description."
+PickupMultiplier = 0.75
+GiveMultiplier = 1.5
+VaultPoints = PackedVector3Array()
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
+
+[node name="CollectibleModel" parent="." instance=ExtResource("3_p4dq8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.285713, 1.19209e-07, 0.77973)
+
+[node name="Skeleton3D" parent="CollectibleModel/Armature" index="0"]
+bones/1/rotation = Quaternion(0.0436722, 0.0022579, -0.0821657, 0.995659)
+bones/2/rotation = Quaternion(-0.0263982, -0.0198895, 0.621034, 0.783087)
+bones/3/rotation = Quaternion(-0.544217, -0.228711, -0.208129, 0.779873)
+bones/4/rotation = Quaternion(0.434858, 0.476269, -0.193066, 0.739453)
+bones/5/rotation = Quaternion(-0.0341304, 0.0520802, -0.887745, 0.456105)
+bones/6/rotation = Quaternion(-0.217459, -0.476902, 0.536245, 0.661602)
+bones/7/rotation = Quaternion(0.553597, 0.0265947, 0.188512, 0.810732)
+bones/9/rotation = Quaternion(-0.0462001, 0.0374134, -0.553051, 0.831024)
+bones/10/rotation = Quaternion(-0.684542, 3.05224e-09, 3.11515e-08, 0.728973)
+bones/11/rotation = Quaternion(0.685175, 0.226702, -0.217434, 0.657163)
+bones/12/rotation = Quaternion(-0.0419295, -0.0718601, 0.889986, 0.448333)
+bones/13/rotation = Quaternion(-0.601039, -1.50672e-08, -6.74822e-08, 0.79922)
+bones/14/rotation = Quaternion(0.663763, 6.92993e-08, -7.96373e-09, 0.747943)
+bones/15/rotation = Quaternion(-0.266293, -0.0219708, 0.0792369, 0.960378)
+bones/16/rotation = Quaternion(0.0941597, -0.0825621, 0.173175, 0.976897)
+bones/17/rotation = Quaternion(0.178528, -0.0362686, 0.218234, 0.958742)
+
+[node name="CollectibleShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.323386, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_ce0gl")
+
+[editable path="CollectibleModel"]

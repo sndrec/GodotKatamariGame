@@ -9,12 +9,12 @@ void vertex() {
 }
 
 void fragment() {
-	vec4 add = texture(screen_texture, ((SCREEN_UV - 0.5) * (1.0 - (0.10 * strength))) + 0.5);
-	vec4 add2 = texture(screen_texture, ((SCREEN_UV - 0.5) * (1.0 - (0.20 * strength))) + 0.5);
-	vec4 add3 = texture(screen_texture, ((SCREEN_UV - 0.5) * (1.0 - (0.30 * strength))) + 0.5);
-	vec4 add4 = texture(screen_texture, ((SCREEN_UV - 0.5) * (1.0 - (0.40 * strength))) + 0.5);
-	vec4 add5 = texture(screen_texture, ((SCREEN_UV - 0.5) * (1.0 - (0.50 * strength))) + 0.5);
-	vec4 add6 = texture(screen_texture, ((SCREEN_UV - 0.5) * (1.0 - (0.60 * strength))) + 0.5);
+	vec4 add = texture(screen_texture, ((SCREEN_UV - 0.5) * (1.0 - (0.05 * strength))) + 0.5);
+	vec4 add2 = texture(screen_texture, ((SCREEN_UV - 0.5) * (1.0 - (0.1 * strength))) + 0.5);
+	vec4 add3 = texture(screen_texture, ((SCREEN_UV - 0.5) * (1.0 - (0.15 * strength))) + 0.5);
+	vec4 add4 = texture(screen_texture, ((SCREEN_UV - 0.5) * (1.0 - (0.2 * strength))) + 0.5);
+	vec4 add5 = texture(screen_texture, ((SCREEN_UV - 0.5) * (1.0 - (0.25 * strength))) + 0.5);
+	vec4 add6 = texture(screen_texture, ((SCREEN_UV - 0.5) * (1.0 - (0.3 * strength))) + 0.5);
 	add *= 0.4 * strength;
 	add2 *= 0.2 * strength;
 	add3 *= 0.1 * strength;

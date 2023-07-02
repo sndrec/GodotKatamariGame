@@ -15,6 +15,8 @@ var time_limit_ticks: int
 func _ready() -> void:
 	var level_scene := load(Global.level_path) as PackedScene
 	var level := level_scene.instantiate() as Level
+	
+	time_limit_ticks = level.time_limit * Engine.physics_ticks_per_second
 
 	var start_pad: Node3D
 	start_pad = level.find_child("StartPad")
@@ -29,7 +31,7 @@ func _ready() -> void:
 			viewport.world_3d = players[0].viewport.world_3d
 
 		var marble: RigidBody3D = preload("res://src/objects/marble.tscn").instantiate()
-		marble.position = start_pad.position + Vector3.UP * 4
+		marble.position = start_pad.position + Vector3.UP * 10
 		if num_players > 1:
 			var offset_inc := TAU / num_players
 			var offset := Vector3(1.25 * cos(i * offset_inc), 0, 1.25 * sin(i * offset_inc))
@@ -65,32 +67,16 @@ func _ready() -> void:
 	ticks = 0
 	for player in players:
 		player.marble.gui = player.gui
-		player.gui.update_time_display(ticks)
-
-	state = State.WARMUP
-
-	for player in players:
-		player.gui.update_countdown("Ready...")
-	%CountdownTimer.start(1.5)
-	await %CountdownTimer.timeout
+		player.gui.update_time_display(ticks, time_limit_ticks)
 
 	state = State.PLAY
-	for player in players:
-		player.gui.update_countdown("Go!")
-		#player.marble.freeze = false
-
-	%CountdownTimer.start(2.0)
-	await %CountdownTimer.timeout
-
-	for player in players:
-		player.gui.update_countdown("")
 
 
 func _physics_process(_delta: float) -> void:
 	if state == State.PLAY:
 		ticks += 1
 		for player in players:
-			player.gui.update_time_display(ticks)
+			player.gui.update_time_display(ticks, time_limit_ticks)
 
 
 func _unhandled_input(event: InputEvent) -> void:

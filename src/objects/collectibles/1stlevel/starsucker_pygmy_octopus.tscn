@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://1y2d038lwk4k"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://c51o3s65g08ee" path="res://src/levels/default_physmat.phymat" id="1_wl1ip"]
+[ext_resource type="Script" path="res://src/objects/collectible_object.gd" id="2_k5buq"]
+[ext_resource type="PackedScene" uid="uid://coyrmae8uvs5s" path="res://assets/collectibles/1stlevel/starsuckerpygmyoctopus.glb" id="3_coh7n"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_npg8r"]
+points = PackedVector3Array(0.345734, -0.848527, -1.47893, 0.372054, -0.883617, -1.41753, 0.33082, -0.883617, -1.41377, -0.661137, -0.848527, -0.957077, -0.683947, 0.72392, -0.367459, -0.279503, 0.679231, -0.46708, 0.416505, -0.507382, -1.23885, 1.32453, -0.848527, -1.21511, 1.27101, -0.883617, -1.17485, -0.598847, -0.883617, -0.931882, -0.625752, -0.883617, -0.900026, -0.945681, -0.883617, -0.0257354, -1.00943, -0.848527, -0.00488448, -0.927842, 0.0276246, -0.367459, -1.03283, 0.451381, -0.141574, -0.93837, 0.72093, -0.141574, -0.683947, 0.72392, 0.370142, -0.279503, 0.679231, 0.469474, -0.0897092, 0.618964, -0.415242, 1.1441, -0.507382, -1.04222, 1.95474, -0.848527, -0.000250936, 1.30494, -0.883617, -1.15111, 1.22452, -0.507382, -0.985747, -0.945681, -0.883617, 0.0159664, -1.03283, 0.451381, 0.144258, -0.546501, -0.883617, 0.984086, -0.576914, -0.848527, 1.04374, -0.927842, 0.0276246, 0.370142, -0.93837, 0.72093, 0.144258, 0.470313, -0.848527, 1.47959, -0.0897092, 0.618964, 0.417926, 0.518859, -0.507382, 1.23401, 1.31049, -0.507382, 0.908502, 0.137809, 0.538084, -0.28753, 0.478209, 0.344852, -0.248435, 1.89099, -0.883617, 0.0206, 1.89099, -0.883617, -0.0208123, 1.70938, -0.507382, -0.0489031, 1.70938, -0.507382, 0.0492699, 1.51871, -0.848527, 1.04693, 1.48859, -0.883617, 0.987272, -0.517257, -0.883617, 1.01334, 0.44955, -0.883617, 1.41558, 0.491077, -0.883617, 1.41558, 1.45905, -0.883617, 1.01681, 0.137809, 0.538084, 0.290214, 1.3798, -0.507382, 0.839288, 0.478209, 0.344852, 0.250829)
+
+[node name="CollectibleRoot" type="RigidBody3D"]
+collision_layer = 5
+collision_mask = 0
+mass = 14.2086
+physics_material_override = ExtResource("1_wl1ip")
+max_contacts_reported = 1
+freeze = true
+script = ExtResource("2_k5buq")
+ItemName = "Star-sucker Pygmy Octopus"
+ItemDesc = "Placeholder description."
+AllowSkeletonAnimation = true
+PickupMultiplier = 0.75
+GiveMultiplier = 1.5
+VaultPoints = PackedVector3Array()
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
+
+[node name="CollectibleModel" parent="." instance=ExtResource("3_coh7n")]
+
+[node name="CollectibleShape" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_npg8r")

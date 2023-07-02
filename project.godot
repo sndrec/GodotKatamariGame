@@ -207,7 +207,8 @@ stick_click_right={
 
 [physics]
 
-common/physics_ticks_per_second=120
+common/physics_ticks_per_second=240
+common/physics_jitter_fix=1.0
 3d/default_gravity=30.0
 3d/default_linear_damp=0.0
 3d/default_angular_damp=0.0

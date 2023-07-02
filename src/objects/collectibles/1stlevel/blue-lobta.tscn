@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfsukuwmamvlv"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://c51o3s65g08ee" path="res://src/levels/default_physmat.phymat" id="1_rwvf0"]
+[ext_resource type="Script" path="res://src/objects/collectible_object.gd" id="2_xdwuq"]
+[ext_resource type="AudioStream" uid="uid://b042lbucl4lai" path="res://src/sound/pickup/bluelobta.wav" id="3_6g1r0"]
+[ext_resource type="PackedScene" uid="uid://bc5bonkccibqv" path="res://assets/collectibles/1stlevel/lobta.glb" id="3_a7e8e"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c5jxm"]
+points = PackedVector3Array(2.1983, -0.249206, -3.24665, 2.1983, 0.0849185, -3.24665, 2.24564, -0.184997, -3.21106, 2.56618, -0.162405, -2.8494, 0.299411, -1.29914, -2.21952, -0.973955, -1.29914, -2.21952, 2.40523, 1.7377, -1.00361, 2.56618, -0.00188255, -2.8494, 2.24564, 0.0207095, -3.21106, -3.79997, 0.0762978, -0.900012, 2.56618, -0.162405, 2.84877, 0.299411, -1.29022, 2.23605, -0.973955, -1.29022, 2.23605, -4.34232, -0.00396335, 0, -4.15027, 0.00584638, -0.655941, -3.79997, 0.00584638, -0.900012, 2.40523, 1.7377, 1.00298, -4.15027, 0.0762978, -0.655941, -4.34232, 0.0858103, 0, 2.56618, -0.00188255, 2.84877, 2.24564, -0.184997, 3.21042, 2.1983, -0.249206, 3.24665, -3.79997, 0.0762978, 0.899376, -3.79997, 0.00584638, 0.899376, -4.15027, 0.00584638, 0.655305, 2.1983, 0.0849185, 3.24665, -4.15027, 0.0762978, 0.655305, 2.24564, 0.0207095, 3.21042)
+
+[node name="CollectibleRoot" type="RigidBody3D"]
+collision_layer = 5
+collision_mask = 0
+mass = 4895.68
+physics_material_override = ExtResource("1_rwvf0")
+max_contacts_reported = 1
+freeze = true
+script = ExtResource("2_xdwuq")
+ItemName = "Blue Lobster"
+ItemDesc = "Placeholder description."
+PickupSound = ExtResource("3_6g1r0")
+AllowSkeletonAnimation = true
+GiveMultiplier = 3.0
+VaultPoints = PackedVector3Array(5, 0, 0, -12, 0, 0, 6, 0, 8, 6, 0, -8)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
+
+[node name="CollectibleModel" parent="." instance=ExtResource("3_a7e8e")]
+transform = Transform3D(3.3, 0, 0, 0, 3.3, 0, 0, 0, 3.3, 0, 0, 0)
+
+[node name="CollectibleShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(3.3, 0, 0, 0, 3.3, 0, 0, 0, 3.3, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_c5jxm")
+
+[editable path="CollectibleModel"]

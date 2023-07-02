@@ -4,7 +4,7 @@ extends RigidBody3D
 signal gem_collected
 signal level_finished
 
-const VOLUMESCALE := 0.66
+const VOLUMESCALE := 0.5
 
 var player_controller: PlayerController = null
 
@@ -64,6 +64,7 @@ var oldSteering := 0.0
 var boostPower := 240.0
 var boostHuffTime := -8000
 var boostHuffing := false
+var rotDiff = 0
 
 var lastTransitionTime := -8000
 
@@ -105,10 +106,13 @@ func _ready() -> void:
 		set_player_controller(PlayerController.new())
 	
 	await get_tree().create_timer(0.1).timeout
-	set_katamari_diameter(1.0)
-	recalculate_katamari_size()
+	var Thresholds := get_meta("SizeThresholds") as PackedFloat32Array
+	CurThreshold = Thresholds[0]
+	NextThreshold = Thresholds[1]
+	set_katamari_diameter(50)
 	#instantiate_katamari_hull()
 	desired_arm_dist = get_katamari_diameter() * 3.0
+	gui.update_ball_goal(Thresholds[Thresholds.size() - 1])
 	
 
 
@@ -124,6 +128,8 @@ func radius_to_volume(radius: float) -> float:
 func set_katamari_diameter(diameter: float):
 	ballvolume = radius_to_volume(diameter * 0.5)
 	startingvolume = radius_to_volume(diameter * 0.5)
+	desired_arm_dist = get_katamari_diameter() * 3.0
+	spring_arm.spring_length = desired_arm_dist
 	recalculate_katamari_size()
 	
 func get_katamari_diameter() -> float:
@@ -131,6 +137,20 @@ func get_katamari_diameter() -> float:
 
 func get_katamari_radius() -> float:
 	return volume_to_radius(ballvolume)
+	
+func prettify_size(inSize: float) -> String:
+	var mm = int(floor(inSize * 10)) % 10
+	var cm = int(floor(inSize)) % 100
+	var m = int(floor(inSize * 0.01)) % 1000
+	var km = int(floor(inSize * 0.00001))
+	
+	if inSize < 1:
+		return str(mm) + "mm"
+	if inSize < 100:
+		return str(cm) + "cm " + str(mm) + "mm"
+	if inSize < 100000:
+		return str(m) + "m " + str(cm) + "cm " + str(mm) + "mm"
+	return str(km) + "km " + str(m) + "m " + str(cm) + "cm " + str(mm) + "mm"
 
 func recalculate_katamari_size() -> void:
 	var newRadius := volume_to_radius(ballvolume)
@@ -138,7 +158,7 @@ func recalculate_katamari_size() -> void:
 	var OldThreshold := CurThreshold
 	for i in range(0, Thresholds.size()): 
 		if get_katamari_diameter() >= Thresholds[i]:
-			if i == Thresholds.size():
+			if i == Thresholds.size() - 1:
 				CurThreshold = Thresholds[i]
 				FinalThreshold = true
 			else:
@@ -148,9 +168,14 @@ func recalculate_katamari_size() -> void:
 			break
 	
 	if OldThreshold != CurThreshold:
+		print(OldThreshold)
+		print(CurThreshold)
 		just_transitioned = true
 	
 	ratio_to_next_transition = (get_katamari_diameter() - CurThreshold) / (NextThreshold - CurThreshold)
+	if FinalThreshold:
+		ratio_to_next_transition = 0
+
 	if just_transitioned:
 		desired_arm_dist = get_katamari_diameter() * 3.0
 		lastTransitionTime = Time.get_ticks_msec()
@@ -199,9 +224,9 @@ func manage_character_animations() -> void:
 	var forwardFrac = velDir.dot(forward)
 	var sideFrac = velDir.dot(right)
 	var char = get_node("character") as Node3D
-	char.global_position = position + forward * get_katamari_radius() * -2 + Vector3.UP * -get_katamari_radius()
+	char.global_position = position + forward * get_katamari_radius() * -1.5 + Vector3.UP * -get_katamari_radius()
 	char.global_rotation = Vector3(0, ballcam_yaw + PI, 0)
-	char.scale = Vector3(0.075, 0.075, 0.075)
+	char.scale = Vector3(0.3, 0.3, 0.3)
 	var animator = char.get_node("AnimationPlayer") as AnimationPlayer
 	if velLen <= 1:
 		play_char_animation(animator, "Wait")
@@ -221,7 +246,7 @@ func manage_object_pickup():
 	for overlap in NoCollider.get_overlapping_bodies():
 		if overlap.get_class() == "RigidBody3D":
 			var body = overlap as RigidBody3D
-			if can_collect_object_of_size(body.mass * body.PickupMultiplier):
+			if can_collect_object_of_size(body.mass * pow(body.PickupMultiplier, 3)):
 				body.set_collision_layer_value(1, false)
 			else: 
 				body.set_collision_layer_value(1, true)
@@ -230,21 +255,27 @@ func manage_object_pickup():
 	#var newRadius = volume_to_radius(ballvolume)
 	Collector.global_rotation = Vector3.ZERO
 	for overlap in Collector.get_overlapping_bodies():
-		print(overlap)
 		if overlap.get_class() == "RigidBody3D":
 			var body := overlap as RigidBody3D
 			if body:
-				if !can_collect_object_of_size(body.mass * body.PickupMultiplier):
-					#var neededDiameter = volume_to_radius(body.mass) * 4
+				if !can_collect_object_of_size(body.mass * pow(body.PickupMultiplier, 3)):
+					#var neededDiameter = volume_to_radius(body.mass * pow(PickupMultiplier, 3)) * 4
 					#var ballRadius = volume_to_radius(ballvolume)
-					#print("Need " + str(neededDiameter) + " to collect")
+					#print("Need " + str(neededDiameter) + " to collect " + str(body))
 					return
 				if body.get_child_count() < 2:
 					return
 				if body.has_node("CollectibleShape"):
-					print("Collected!")
-					#var ModelMesh := body.get_node("CollectibleModel") as MeshInstance3D
-					#ModelMesh.set_instance_shader_parameter("collected", true)
+					#if body.get_node("CollectibleModel").get_class() == "MeshInstance3D":
+					#	var ModelMesh := body.get_node("CollectibleModel") as MeshInstance3D
+					#	for i in range(ModelMesh.mesh.get_surface_count()):
+					#		var ppmmat = ModelMesh.get_active_material(i) as ShaderMaterial
+					#		ppmmat.set_shader_parameter("collected", true)
+					#else:
+					#	var ModelMesh := body.get_node("CollectibleModel").get_node("Armature").get_node("Skeleton3D").get_child(0) as MeshInstance3D
+					#	for i in range(ModelMesh.mesh.get_surface_count()):
+					#		var ppmmat = ModelMesh.get_active_material(i) as ShaderMaterial
+					#		ppmmat.set_shader_parameter("collected", true)
 					var ModelShape := body.get_node("CollectibleShape") as CollisionShape3D
 					var OldPos := body.global_position
 					var OldRot := body.global_rotation
@@ -259,18 +290,17 @@ func manage_object_pickup():
 					body.global_rotation = OldRot
 					ballvolume += body.mass * VOLUMESCALE * body.GiveMultiplier
 					body.mass = 0.001
-					body.visible = false
+					body.pickup()
+					#body.visible = true
 					recalculate_katamari_size()
 					#add_katamari_hull_point(body.position)
 					var modifiedPoints = PackedVector3Array()
-					add_katamari_hull_point(body.position, false)
-					print("Vault points detected!")
+					add_katamari_hull_point(body.position, body, false)
 					for point in body.VaultPoints:
 						var newPoint = body.transform * point
-						add_katamari_hull_point(newPoint, false)
+						add_katamari_hull_point(newPoint, body, true)
 					ModelShape.queue_free()
 					var rng = RandomNumberGenerator.new()
-					print("We parented it now.")
 					$CollectSound.stream = CollectSounds[rng.randi_range(0, 2)]
 					$CollectSound.play()
 
@@ -282,7 +312,7 @@ func _process(delta: float) -> void:
 	
 	var ppm = get_node("PostProcessMesh") as MeshInstance3D
 	var ppmmat = ppm.get_active_material(0) as ShaderMaterial
-	ppmmat.set_shader_parameter("strength", thresholdCurve.sample((Time.get_ticks_msec() - lastTransitionTime) * 0.0003))
+	ppmmat.set_shader_parameter("strength", thresholdCurve.sample((Time.get_ticks_msec() - lastTransitionTime) * 0.00045) * 2)
 	
 	var leftStickNew := player_controller.get_action("stick_click_left")
 	var rightStickNew := player_controller.get_action("stick_click_right")
@@ -348,10 +378,10 @@ func get_last_local_contact_position(pos: Vector3):
 func get_collision_impulse(inVel: Vector3, normal: Vector3, velAtPoint: Vector3):
 		var restitution = 1
 		var dot = -normal.dot(inVel - velAtPoint)
-		if dot > 5 and AirTime > 0.05:
+		if dot > get_katamari_diameter() * 5 and AirTime > 0.05:
 			restitution = 1.5
 		
-		if dot >= 5:
+		if dot >= get_katamari_diameter() * 3:
 			$CollisionSound.stream = SoftCollideSound
 			$CollisionSound.play()
 		
@@ -412,7 +442,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 				$BoostSound.stream = ChargeSound
 				$BoostSound.play()
 			if gachaCount == 5:
-				state.linear_velocity += forward * 15
+				state.linear_velocity += forward * get_katamari_diameter() * 12
 				$BoostSound.stream = BoostSound
 				$BoostSound.play()
 	
@@ -440,52 +470,54 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	
 	if climbTimer <= 0.5:
 		if AirTime <= 0.05:
-			state.linear_velocity += Vector3(0, -30 * gravityMult, 0) * state.step
+			state.linear_velocity += Vector3(0, -20 * gravityMult, 0) * state.step * get_katamari_diameter()
 		else:
-			state.linear_velocity += Vector3(0, -30, 0) * state.step
+			state.linear_velocity += Vector3(0, -20, 0) * state.step * get_katamari_diameter()
 	
 	
-	if anyPoint and gachaCount < 3 and climbTimer < 0.5:
+	if anyPoint and gachaCount < 3 and climbTimer < 0.5 and furthestCollidingPoint < KatamariHullPointData.size():
 		var point = KatamariHullPointData[furthestCollidingPoint]
 		var ray = point[0] as RayCast3D
-		var contactPoint = ray.get_collision_point()
-		var debugaxis = get_node("debug_axis") as Sprite3D
-		var offset = to_global(ray.target_position) - contactPoint
-		var depth = -offset.dot(ray.get_collision_normal())
-		var length = ray.target_position.length()
-		var dir = (to_global(ray.target_position) - cooltransform.origin).normalized() * -1
 		var collider = ray.get_collider() as RigidBody3D
-		var velAtPoint = Vector3.ZERO
-		if collider and collider.get_class() == "RigidBody3D":
-			velAtPoint = collider.get_velocity_at_point(contactPoint)
-		debugaxis.global_position = position + velAtPoint
-		debugaxis.global_rotation = Vector3.ZERO
-		var colImpulse = get_collision_impulse(state.linear_velocity, ray.get_collision_normal(), velAtPoint)
-		var velDot = ray.get_collision_normal().dot(state.linear_velocity)
-		LastGroundNormal = ray.get_collision_normal()
-		
-		if velDot > 1:
-			state.linear_velocity += colImpulse
+		if ray.get_collider() == null:
 			anyPoint = false
 			KatamariHullPointData[furthestCollidingPoint][3] = false
-			return
-		
-		if !point[3]:
-			if ray.get_collider() != null:
+		else:
+			var contactPoint = ray.get_collision_point()
+			#var debugaxis = get_node("debug_axis") as Sprite3D
+			var offset = to_global(ray.target_position) - contactPoint
+			var depth = -offset.dot(ray.get_collision_normal())
+			var length = ray.target_position.length()
+			var dir = (to_global(ray.target_position) - cooltransform.origin).normalized() * -1
+			var velAtPoint = Vector3.ZERO
+			if collider and collider.get_class() == "RigidBody3D":
+				velAtPoint = collider.get_velocity_at_point(contactPoint)
+			#debugaxis.global_position = position + velAtPoint
+			#debugaxis.global_rotation = Vector3.ZERO
+			var colImpulse = get_collision_impulse(state.linear_velocity, ray.get_collision_normal(), velAtPoint)
+			var velDot = ray.get_collision_normal().dot(state.linear_velocity)
+			LastGroundNormal = ray.get_collision_normal()
+			
+			if velDot > get_katamari_diameter() * 5:
+				state.linear_velocity += colImpulse
+				AirTime = 0
+				anyPoint = false
+				KatamariHullPointData[furthestCollidingPoint][3] = false
+				return
+			
+			if !point[3]:
 				cooltransform.origin += ray.get_collision_normal() * depth
+				#dir = (to_global(ray.target_position) - cooltransform.origin).normalized() * -1
 				KatamariHullPointData[furthestCollidingPoint][4] = ray.get_collider() as Node3D
 				KatamariHullPointData[furthestCollidingPoint][3] = true
 				KatamariHullPointData[furthestCollidingPoint][2] = point[4].to_local(cooltransform.origin + dir * -length)
 				if length > get_katamari_diameter():
 					$CollisionSound.stream = VaultSound
 					$CollisionSound.play()
-			else:
-				point[3] = false
-				anyPoint = false
-		
-		AirTime = 0
-		cooltransform.origin = point[4].to_global(point[2]) + dir * length * 0.99
-		state.linear_velocity += colImpulse
+			AirTime = 0
+			cooltransform.origin = point[4].to_global(point[2]) + dir * length * 0.96
+			state.linear_velocity += colImpulse
+			
 	
 	
 	
@@ -519,17 +551,34 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	furthestDist = 0
 	
 	for i in range(KatamariHullPointData.size()):
-		if climbTimer > 0.5 or gachaCount >= 3:
+		if climbTimer > 0.5 or gachaCount >= 3 or !KatamariHullPointData[i][0]:
 			KatamariHullPointData[i][3] = false
 			continue
 		var point = KatamariHullPointData[i]
 		point[0].force_raycast_update()
 		var ray = point[0] as RayCast3D
+		if !KatamariHullPointData[i][5]:
+			var body = KatamariHullPointData[i][1]
+			var dist = ray.target_position.length() - get_katamari_radius()
+			if body.VaultPoints.size() > 0:
+				dist = ray.target_position.length()
+			
+			if dist > 0.1:
+				print(dist)
+				var move = -ray.target_position.normalized() * linear_velocity.length() * dist * state.step * 0.001
+				body.position += move
+				ray.target_position += move
+				for k in range(body.VaultPoints.size()):
+					if i+k+1 < KatamariHullPointData.size() and KatamariHullPointData[i+k+1][1] == body:
+						KatamariHullPointData[i+k+1][0].target_position += move
 		if ray.is_colliding() and ray.get_collision_normal().y > 0.2:
 			anyPoint = true
 			var offset = to_global(ray.target_position) - ray.get_collision_point()
 			var depth = -offset.dot(ray.get_collision_normal())
 			if depth > furthestDist:
+				var debugaxis = get_node("debug_axis") as Sprite3D
+				debugaxis.global_position = ray.get_collision_point()
+				debugaxis.global_rotation = Vector3.ZERO
 				furthestCollidingPoint = i
 				furthestDist = depth
 		else:
@@ -550,9 +599,6 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		
 		var velAtPoint = state.get_contact_collider_object(contact).get_velocity_at_point(pos)
 		#var velAtPoint = collider.get_velocity_at_point(contactPoint)
-		var debugaxis = get_node("debug_axis") as Sprite3D
-		debugaxis.global_position = position + velAtPoint
-		debugaxis.global_rotation = Vector3.ZERO
 		state.linear_velocity += get_collision_impulse(state.linear_velocity, normal, velAtPoint)
 		if normal.y <= 0.2 and normal.y >= -0.05:
 			touchingWall = true
@@ -574,7 +620,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if !touchingWall and climbTimer >= 0.5:
 		noClimbTimer += state.step
 	
-	if noClimbTimer >= 0.25:
+	if noClimbTimer >= 0.5:
 		print("NO CLIMB!")
 		climbTimer = 0
 		noClimbTimer = 0
@@ -587,9 +633,11 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if climbTimer > 1 and accel_vector.dot(LastGroundNormal) > -0.5:
 		climbTimer = 0
 	
+	var oldRot = Quaternion(cooltransform.basis)
 	
 	if AirTime <= 0.05:
-		state.linear_velocity += accel_vector * 24 * (get_katamari_radius() + 0.5) * state.step * (1 - absf(steering))
+		var controlFactor = volume_to_radius(startingvolume) * 2 + ((get_katamari_radius() - volume_to_radius(startingvolume)) + 0.5)
+		state.linear_velocity += accel_vector * 24 * controlFactor * state.step * (1 - absf(steering))
 		state.linear_velocity += -state.linear_velocity * 3 * state.step * (1 - absf(steering))
 	
 	cooltransform.basis = cooltransform.basis.rotated(real_travel_axis, (state.linear_velocity.length() * PI * -0.25 * state.step) / get_effective_radius())
@@ -611,6 +659,9 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	oldBasis = cooltransform.basis
 	old_ballcam_yaw = ballcam_yaw
 	
+	rotDiff = (oldRot.inverse() * Quaternion(cooltransform.basis)).get_angle()
+	
+	
 	state.transform = cooltransform
 	transform = state.transform
 
@@ -625,13 +676,27 @@ func is_on_floor(state: PhysicsDirectBodyState3D) -> bool:
 			return true
 	return false
 	
-func add_katamari_hull_point(local_point: Vector3, permanent: bool):
+func add_katamari_hull_point(local_point: Vector3, object: RigidBody3D, vaultpoint: bool):
 	var RayCaster = RayCast3D.new()
 	add_child(RayCaster)
 	RayCaster.target_position = local_point
 	RayCaster.set_collision_mask_value(1, true)
-	var tempTable = [RayCaster, permanent, Vector3(0,0,0), false, self]
+	var tempTable = [RayCaster, object, Vector3(0,0,0), false, self, vaultpoint]
 	KatamariHullPointData.append(tempTable)
+	
+	for i in range(KatamariHullPointData.size() - 1, -1, -1):
+		if !KatamariHullPointData[i][0]:
+			continue
+		if KatamariHullPointData[i][0].target_position.length() <= get_katamari_radius():
+			#print("Erased a point - too deep!")
+			KatamariHullPointData[i][0].queue_free()
+			KatamariHullPointData.remove_at(i)
+	
+	if KatamariHullPointData.size() > 75:
+		for i in range(KatamariHullPointData.size() - 1, 75, -1):
+			#print("Erased a point - too many points!")
+			KatamariHullPointData[i][0].queue_free()
+			KatamariHullPointData.remove_at(i)
 
 func do_finish_effect(finish_pos: Vector3):
 	is_level_finished = true

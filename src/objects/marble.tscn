@@ -37,14 +37,13 @@ contact_monitor = true
 can_sleep = false
 freeze_mode = 1
 script = ExtResource("1_ajff0")
-metadata/SizeThresholds = PackedFloat32Array(1, 3, 10, 35)
+metadata/SizeThresholds = PackedFloat32Array(5, 15, 35, 75)
 
 [node name="KatamariColliderShape" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_rbvun")
 
 [node name="KatamariModel" parent="." instance=ExtResource("2_hhtmx")]
 transform = Transform3D(1.35, 0, 0, 0, 1.35, 0, 0, 0, 1.35, 0, 0, 0)
-visible = false
 
 [node name="CenterNode" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -72,7 +71,6 @@ shape = SubResource("SphereShape3D_me7fr")
 
 [node name="debug_axis" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.695604, 0, 0)
-visible = false
 pixel_size = 0.003
 billboard = 1
 no_depth_test = true
@@ -100,7 +98,6 @@ max_polyphony = 3
 
 [node name="character" parent="." instance=ExtResource("4_fsiwd")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -0.612, -0.881)
-visible = false
 
 [node name="PostProcessMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("QuadMesh_osso4")

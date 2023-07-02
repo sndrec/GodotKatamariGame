@@ -127,9 +127,10 @@ physics_material_override = ExtResource("1_i60xc")
 max_contacts_reported = 1
 freeze = true
 script = ExtResource("2_b7hg1")
+VaultPoints = PackedVector3Array()
 
 [node name="CollectibleModel" parent="." instance=ExtResource("3_3p038")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 0, 0)
 mesh = ExtResource("4_cesbl")
 surface_material_override/0 = SubResource("ShaderMaterial_i8q0e")
 surface_material_override/1 = SubResource("ShaderMaterial_3glke")
@@ -140,7 +141,7 @@ metadata/Name = "Generic Debug Cube"
 metadata/Description = "This is a test object."
 
 [node name="CollectibleShape" type="CollisionShape3D" parent="."]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_ld6ev")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

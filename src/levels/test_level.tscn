@@ -1,38 +1,60 @@
-[gd_scene load_steps=39 format=3 uid="uid://cgagbuvskp0j6"]
+[gd_scene load_steps=63 format=3 uid="uid://cgagbuvskp0j6"]
 
 [ext_resource type="Script" path="res://src/scripts/level.gd" id="1_55c0p"]
 [ext_resource type="PhysicsMaterial" uid="uid://c51o3s65g08ee" path="res://src/levels/default_physmat.phymat" id="2_7wfaq"]
 [ext_resource type="PackedScene" uid="uid://lo66bw0ph485" path="res://src/objects/start_pad.tscn" id="2_addvg"]
-[ext_resource type="PackedScene" uid="uid://dvmxx3dioncri" path="res://src/objects/collectibles/promo/logo_0.tscn" id="5_gq8og"]
-[ext_resource type="Shader" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="5_ygoa1"]
-[ext_resource type="Texture2D" uid="uid://thx1q8mduj8p" path="res://assets/tex/bigtrain_textures/bigtrain_floor_7.png" id="6_44twa"]
-[ext_resource type="PackedScene" uid="uid://biswg3xsyxspw" path="res://src/objects/collectibles/promo/logo_1.tscn" id="6_ksah7"]
-[ext_resource type="PackedScene" uid="uid://c5hdwsmdeyyqt" path="res://src/objects/collectibles/promo/logo_2.tscn" id="7_1tr4q"]
-[ext_resource type="PackedScene" uid="uid://dj8lss38xngoy" path="res://src/objects/collectibles/debug/test_level.tscn" id="7_aoo0j"]
-[ext_resource type="PackedScene" uid="uid://bjf1nw8ua13u0" path="res://src/objects/collectibles/promo/logo_3.tscn" id="8_klx3g"]
-[ext_resource type="PackedScene" uid="uid://bxmsbjyebskb8" path="res://src/objects/collectibles/promo/logo_4.tscn" id="9_q4ran"]
-[ext_resource type="PackedScene" uid="uid://cogcowip7eols" path="res://src/objects/collectibles/promo/logo_5.tscn" id="10_3m7jg"]
-[ext_resource type="PackedScene" uid="uid://b0pekkhrhknuv" path="res://src/objects/collectibles/promo/logo_6.tscn" id="11_27i63"]
-[ext_resource type="PackedScene" uid="uid://bom2dfg5a81va" path="res://src/objects/collectibles/promo/logo_7.tscn" id="12_vebdl"]
-[ext_resource type="PackedScene" uid="uid://d2dcs6b0tritc" path="res://src/objects/collectibles/promo/logo_8.tscn" id="13_mnbj4"]
-[ext_resource type="PackedScene" uid="uid://tsn1vuly4u0y" path="res://src/objects/collectibles/promo/logo_9.tscn" id="14_4d872"]
-[ext_resource type="PackedScene" uid="uid://bpn5wc3pjuy1o" path="res://src/objects/collectibles/promo/logo_10.tscn" id="15_ktadj"]
-[ext_resource type="PackedScene" uid="uid://c546jqljtk5pg" path="res://src/objects/collectibles/promo/logo_11.tscn" id="16_oltsr"]
-[ext_resource type="PackedScene" uid="uid://ckdwye2qn6xi4" path="res://src/objects/collectibles/promo/logo_12.tscn" id="17_1tdbq"]
-[ext_resource type="PackedScene" uid="uid://d0nnyn4xadfp0" path="res://src/objects/collectibles/promo/logo_13.tscn" id="18_k1m5k"]
-[ext_resource type="PackedScene" uid="uid://ccs6a41uuhpf" path="res://src/objects/collectibles/promo/logo_14.tscn" id="19_daw81"]
-[ext_resource type="PackedScene" uid="uid://4bsqaljdk8py" path="res://src/objects/collectibles/promo/logo_15.tscn" id="20_ku76q"]
-[ext_resource type="PackedScene" uid="uid://ca8ybd3fdms7w" path="res://src/objects/collectibles/promo/logo_16.tscn" id="21_da7r6"]
-[ext_resource type="PackedScene" uid="uid://cih1xdniv1bxc" path="res://src/objects/collectibles/promo/logo_17.tscn" id="22_i7mge"]
-[ext_resource type="PackedScene" uid="uid://brojrvnw4l72w" path="res://src/objects/collectibles/promo/logo_18.tscn" id="23_xs6pk"]
-[ext_resource type="PackedScene" uid="uid://dyba6sn0tb728" path="res://src/objects/collectibles/promo/logo_19.tscn" id="24_gx7jt"]
-[ext_resource type="PackedScene" uid="uid://dcxxucw1ebxwc" path="res://src/objects/collectibles/promo/logo_20.tscn" id="25_setol"]
-[ext_resource type="PackedScene" uid="uid://cfe1dwi6oxhdh" path="res://src/objects/collectibles/promo/logo_21.tscn" id="26_y0vcf"]
-[ext_resource type="PackedScene" uid="uid://ci16hfvpsdlbe" path="res://src/objects/collectibles/promo/logo_22.tscn" id="27_lm0yp"]
-[ext_resource type="PackedScene" uid="uid://dg0m1ojssyw7s" path="res://src/objects/collectibles/promo/logo_23.tscn" id="28_xnwt7"]
-[ext_resource type="PackedScene" uid="uid://cwkgp2xnfr3er" path="res://src/objects/collectibles/promo/logo_24.tscn" id="29_eqfmo"]
-[ext_resource type="PackedScene" uid="uid://3e1syg1qn0rf" path="res://src/objects/collectibles/debug/debug_cube_small.tscn" id="32_7u8q8"]
-[ext_resource type="PackedScene" uid="uid://bnpbm0sh1aefe" path="res://src/objects/collectibles/debug/debug_cube_med.tscn" id="33_ksjqj"]
+[ext_resource type="PackedScene" uid="uid://damyehi2bdjk" path="res://src/objects/collectibles/1stlevel/area1_terrain.tscn" id="5_ioim0"]
+[ext_resource type="PackedScene" uid="uid://wygeauypqrsg" path="res://src/objects/collectibles/1stlevel/area1_walls.tscn" id="6_2ovek"]
+[ext_resource type="PackedScene" uid="uid://bxvr0anarscqy" path="res://src/objects/collectibles/1stlevel/area1_house.tscn" id="7_0xcuc"]
+[ext_resource type="PackedScene" uid="uid://bkrk2vhtnt3b5" path="res://src/objects/collectibles/1stlevel/6_sided_die.tscn" id="7_p6m2s"]
+[ext_resource type="PackedScene" uid="uid://82whsuyhaxc4" path="res://src/objects/collectibles/1stlevel/area1_desk.tscn" id="8_fl0x2"]
+[ext_resource type="PackedScene" uid="uid://cwqf8eyf2435u" path="res://src/objects/collectibles/1stlevel/area1_bed.tscn" id="9_1g7dv"]
+[ext_resource type="PackedScene" uid="uid://brfice5ehp6yw" path="res://src/objects/collectibles/1stlevel/area1_tarp.tscn" id="10_t60lb"]
+[ext_resource type="PackedScene" uid="uid://b6h4n0mp8wy7g" path="res://src/objects/collectibles/1stlevel/area1_woodchair.tscn" id="11_kv271"]
+[ext_resource type="PackedScene" uid="uid://s5jje1e5g2vr" path="res://src/objects/collectibles/1stlevel/area1_cupboard_door.tscn" id="12_m05dj"]
+[ext_resource type="PackedScene" uid="uid://bnqb425ihraxt" path="res://src/objects/collectibles/1stlevel/area1_faucet.tscn" id="13_tqi3u"]
+[ext_resource type="PackedScene" uid="uid://ba46ts6puaqou" path="res://src/objects/collectibles/1stlevel/area1_faucet_handle.tscn" id="14_ym4d0"]
+[ext_resource type="PackedScene" uid="uid://bklpmoxxlmycf" path="res://src/objects/collectibles/1stlevel/area1_fridge.tscn" id="15_rj2j4"]
+[ext_resource type="PackedScene" uid="uid://ci84mohppkewa" path="res://src/objects/collectibles/1stlevel/area1_fridge_door.tscn" id="16_mlxcg"]
+[ext_resource type="PackedScene" uid="uid://j527dyke8pyr" path="res://src/objects/collectibles/1stlevel/area1_nightstand.tscn" id="17_3dytx"]
+[ext_resource type="PackedScene" uid="uid://bsdvn7vqumoce" path="res://src/objects/collectibles/1stlevel/area1_oven.tscn" id="18_342aj"]
+[ext_resource type="PackedScene" uid="uid://dj8n2g1utqwtd" path="res://src/objects/collectibles/1stlevel/area1_roundtable.tscn" id="19_ueqqq"]
+[ext_resource type="PackedScene" uid="uid://c0diexp2c8qoy" path="res://src/objects/collectibles/1stlevel/area1_concrete_flooring.tscn" id="20_v4bm7"]
+[ext_resource type="PackedScene" uid="uid://cp2natsls1hg3" path="res://src/objects/collectibles/1stlevel/area1_door.tscn" id="21_3brt0"]
+[ext_resource type="PackedScene" uid="uid://xpioitr2d7rl" path="res://src/objects/collectibles/1stlevel/area1_diningtable.tscn" id="22_gklev"]
+[ext_resource type="PackedScene" uid="uid://ce55wghoyy1q3" path="res://src/objects/collectibles/1stlevel/omen_plush.tscn" id="23_djvag"]
+[ext_resource type="PackedScene" uid="uid://bbnfsadrxveqs" path="res://src/objects/collectibles/1stlevel/tictac.tscn" id="24_xv2sq"]
+[ext_resource type="PackedScene" uid="uid://bfmcrfub64b8b" path="res://src/objects/collectibles/1stlevel/peapod.tscn" id="25_gujc7"]
+[ext_resource type="PackedScene" uid="uid://deumhoh61rmqk" path="res://src/objects/collectibles/1stlevel/pea.tscn" id="26_646ja"]
+[ext_resource type="PackedScene" uid="uid://7qox7wmm1alp" path="res://src/objects/collectibles/1stlevel/p2controller.tscn" id="27_1x4w7"]
+[ext_resource type="PackedScene" uid="uid://c1ccvgm51m7du" path="res://src/objects/collectibles/1stlevel/deviled-egg.tscn" id="28_dj6di"]
+[ext_resource type="PackedScene" uid="uid://cf4db1slcm7se" path="res://src/objects/collectibles/1stlevel/triphone.tscn" id="29_0b7sx"]
+[ext_resource type="PackedScene" uid="uid://cbmdba1p8t14y" path="res://src/objects/collectibles/1stlevel/big-dsi.tscn" id="30_yxwgk"]
+[ext_resource type="PackedScene" uid="uid://dgqp3871s4gxq" path="res://src/objects/collectibles/1stlevel/crested-gecko.tscn" id="31_8vi2u"]
+[ext_resource type="PackedScene" uid="uid://d1jyb2yqsy54g" path="res://src/objects/collectibles/1stlevel/arizona-tea.tscn" id="32_4b3on"]
+[ext_resource type="PackedScene" uid="uid://bk1p5bokmwngq" path="res://src/objects/collectibles/1stlevel/lava_lamp.tscn" id="33_4vhph"]
+[ext_resource type="PackedScene" uid="uid://bh7nxl17xkt4v" path="res://src/objects/collectibles/1stlevel/stick_of_gum.tscn" id="34_wofm4"]
+[ext_resource type="PackedScene" uid="uid://fit4un21smb6" path="res://src/objects/collectibles/1stlevel/pill.tscn" id="35_0qorv"]
+[ext_resource type="PackedScene" uid="uid://c7e5fttmhuh43" path="res://src/objects/collectibles/1stlevel/sunflower_seed.tscn" id="36_sf405"]
+[ext_resource type="PackedScene" uid="uid://btrna60khe8o2" path="res://src/objects/collectibles/1stlevel/screw.tscn" id="37_u5i3r"]
+[ext_resource type="PackedScene" uid="uid://da0kplhu8a0oa" path="res://src/objects/collectibles/1stlevel/techdeck.tscn" id="38_k4r46"]
+[ext_resource type="PackedScene" uid="uid://c3f753che233j" path="res://src/objects/collectibles/1stlevel/popcorn.tscn" id="39_a1f0s"]
+[ext_resource type="PackedScene" uid="uid://cfsukuwmamvlv" path="res://src/objects/collectibles/1stlevel/blue-lobta.tscn" id="40_iqn86"]
+[ext_resource type="PackedScene" uid="uid://cc6dr7khprvqe" path="res://src/objects/collectibles/1stlevel/baby-blue-lobta.tscn" id="41_20r45"]
+[ext_resource type="PackedScene" uid="uid://b8o01shnxswn7" path="res://src/objects/collectibles/1stlevel/ant.tscn" id="42_3kkwy"]
+[ext_resource type="PackedScene" uid="uid://co13do85fb70b" path="res://src/objects/collectibles/1stlevel/ant-googly.tscn" id="43_yqfeb"]
+[ext_resource type="PackedScene" uid="uid://brybo618tlctw" path="res://src/objects/collectibles/1stlevel/fidget_spinner.tscn" id="44_x8qv6"]
+[ext_resource type="PackedScene" uid="uid://1y2d038lwk4k" path="res://src/objects/collectibles/1stlevel/starsucker_pygmy_octopus.tscn" id="45_v38hx"]
+[ext_resource type="PackedScene" uid="uid://c8j32loa75nkg" path="res://src/objects/collectibles/1stlevel/aluminumingot.tscn" id="46_0tqha"]
+[ext_resource type="PackedScene" uid="uid://b47je5rdni2dh" path="res://src/objects/collectibles/1stlevel/harmonica.tscn" id="47_x06sb"]
+[ext_resource type="PackedScene" uid="uid://6luv1fs3uhfv" path="res://src/objects/collectibles/1stlevel/nomai-scroll.tscn" id="48_gxvlb"]
+[ext_resource type="PackedScene" uid="uid://5edvwu7onkhk" path="res://src/objects/collectibles/1stlevel/cat.tscn" id="49_hts7q"]
+[ext_resource type="PackedScene" uid="uid://cwa712eh8wmxg" path="res://src/objects/collectibles/1stlevel/wizard_hat.tscn" id="50_cq5hb"]
+[ext_resource type="PackedScene" uid="uid://diggyrg73ipnu" path="res://src/objects/collectibles/1stlevel/estradiol.tscn" id="51_fep5r"]
+[ext_resource type="PackedScene" uid="uid://bxhhyttf1hou7" path="res://src/objects/collectibles/1stlevel/eyeball_ring.tscn" id="52_lr3gk"]
+[ext_resource type="PackedScene" uid="uid://ev24biwl5lhn" path="res://src/objects/collectibles/1stlevel/furby.tscn" id="53_h13g2"]
+[ext_resource type="PackedScene" uid="uid://drum4igcwhg7t" path="res://src/objects/collectibles/1stlevel/ladybug.tscn" id="54_f0n6a"]
+[ext_resource type="PackedScene" uid="uid://23pox3vvidlx" path="res://src/objects/collectibles/1stlevel/ladybug_momma.tscn" id="55_0br32"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qghod"]
 
@@ -41,602 +63,635 @@ sky_material = SubResource("ProceduralSkyMaterial_qghod")
 
 [sub_resource type="Environment" id="Environment_rta11"]
 background_mode = 2
+background_energy_multiplier = 0.5
 sky = SubResource("Sky_dssyr")
 ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.25
+ambient_light_energy = 0.5
 reflected_light_source = 2
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7jh7a"]
-render_priority = 0
-shader = ExtResource("5_ygoa1")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/clamp_diffuse_to_max = false
-shader_parameter/cuts = 1
-shader_parameter/wrap = -0.0189999
-shader_parameter/steepness = 1.0
-shader_parameter/use_attenuation = false
-shader_parameter/use_specular = false
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
-shader_parameter/use_rim = false
-shader_parameter/rim_width = 6.369
-shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = false
-shader_parameter/use_borders = false
-shader_parameter/border_width = 0.0
-shader_parameter/collected = false
-shader_parameter/albedo_texture = ExtResource("6_44twa")
+[sub_resource type="Animation" id="Animation_vi81d"]
+resource_name = "track"
+length = 24.0
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(-0.1, 1, -21.01, -143.148, 542.433, 0, 1, -21.01, -143.148, 542.433, 3, 1, -21.01, -143.148, 542.433, 5, 1, -66.8268, -143.148, 530.025, 8, 1, -66.8268, -143.148, 530.025, 11, 1, -141.426, -143.148, 587.901, 15, 1, -141.426, -143.148, 587.901, 18, 1, -221.172, -143.148, 552.025, 20, 1, -221.172, -143.148, 552.025)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(-0.1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 3, 1, 0, 0, 0, 1, 3.1, 1, 0, 0.555556, 0, 0.831479, 8, 1, 0, 0.555556, 0, 0.831479, 8.1, 1, 0, 0.898047, 0, 0.4399, 15, 1, 0, 0.898047, 0, 0.4399, 15.1, 1, 0, 0.543013, 0, 0.839724, 20, 1, 0, 0.543013, 0, 0.839724, 20.1, 1, 0, -0.692959, 0, 0.720977, 24, 1, 0, -0.681692, 0, 0.731639)
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ilkox"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_75s6d"]
+_data = {
+"track": SubResource("Animation_vi81d")
+}
+
+[sub_resource type="Animation" id="Animation_ok87c"]
+resource_name = "track"
+length = 12.0
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -538.239, 52.9358, -153.356, 2, 1, -538.239, 52.9358, -153.356, 5, 1, -622.823, 52.9358, -74.3835, 6, 1, -622.823, 52.9358, -74.3835, 8.0001, 1, -547.021, 52.9358, -20.5575, 10, 1, -547.021, 52.9358, -20.5575, 11.8, 1, -538.239, 52.9358, -153.356)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0.757126, 0, 0.653269, 2, 1, 0, 0.757126, 0, 0.653269, 2.1, 1, 0, 0.917182, 0, 0.398469, 5, 1, 0, 0.917182, 0, 0.398469, 6, 1, 0, 0.917182, 0, 0.398469, 6.1, 1, 0, 0.888529, 0, -0.45882, 8.0001, 1, 0, 0.888529, 0, -0.45882, 10, 1, 0, 0.888529, 0, -0.45882, 10.1002, 1, 0, -0.0502703, 0, 0.998736, 11.8, 1, 0, -0.0502703, 0, 0.998736)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_foutb"]
+_data = {
+"track": SubResource("Animation_ok87c")
+}
 
 [node name="TestLevel" type="Node3D"]
 script = ExtResource("1_55c0p")
 level_name = "Debug Level"
 level_author = "Twilight"
+time_limit = 180.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rta11")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, -46.6935, 0, 18.1675)
-light_indirect_energy = 2.0
-shadow_enabled = true
+transform = Transform3D(0.707107, -0.5, 0.5, -0.290377, 0.439406, 0.850061, -0.644733, -0.746272, 0.165518, -46.6935, 76.4364, 133.992)
+light_energy = 0.5
+light_indirect_energy = 0.0
 shadow_bias = 0.0
 shadow_normal_bias = 3.0
 shadow_transmittance_bias = -16.0
 shadow_opacity = 0.5
 shadow_blur = 0.714
-directional_shadow_mode = 0
-directional_shadow_split_1 = 0.048
+directional_shadow_split_1 = 0.025
+directional_shadow_split_2 = 0.15
 directional_shadow_blend_splits = true
 directional_shadow_fade_start = 0.076
-directional_shadow_max_distance = 10.0
-directional_shadow_pancake_size = 0.0
+directional_shadow_max_distance = 2000.0
+directional_shadow_pancake_size = 1.0
 
 [node name="StartPad" parent="." instance=ExtResource("2_addvg")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.75359, 0, 1.16749)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -447.807, 93.6698, 6.1938)
 physics_material_override = ExtResource("2_7wfaq")
-VaultPoints = PackedVector3Array()
 
-[node name="TestLevel" parent="." instance=ExtResource("7_aoo0j")]
-transform = Transform3D(1, 0, 0, 0, 1, -0.000296701, 0, 0.000296701, 1, 0, 0, 0)
-input_ray_pickable = false
-mass = 46331.9
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot139" parent="." instance=ExtResource("7_p6m2s")]
+transform = Transform3D(0.649926, 6.64411e-08, 0.759998, 0, -1, 8.74228e-08, 0.759998, -5.68183e-08, -0.649926, -442.685, 94.4174, -13.5224)
 
-[node name="CollectibleModel" parent="TestLevel" index="0"]
-transform = Transform3D(5, 0, 0, 0, 5, 2.32831e-10, 0, -2.32831e-10, 5, 0, 0, 0)
-layers = 2
-surface_material_override/0 = SubResource("ShaderMaterial_7jh7a")
+[node name="CollectibleRoot140" parent="." instance=ExtResource("7_p6m2s")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -442.685, 94.4174, -18.1808)
 
-[node name="CollectibleShape" parent="TestLevel" index="1"]
-visible = false
+[node name="CollectibleRoot141" parent="." instance=ExtResource("7_p6m2s")]
+transform = Transform3D(-2.70387e-08, -0.618573, -0.785727, 1, -4.37114e-08, 0, -3.43452e-08, -0.785727, 0.618573, -444.399, 94.4174, -22.4498)
 
-[node name="AnimationPlayer" parent="TestLevel" index="2"]
+[node name="CollectibleRoot142" parent="." instance=ExtResource("7_p6m2s")]
+transform = Transform3D(0.816853, 0, 0.576846, 0, 1, 0, -0.576846, 0, 0.816853, -447.923, 94.4174, -25.6517)
+AllowSkeletonAnimation = true
+
+[node name="CollectibleRoot143" parent="." instance=ExtResource("7_p6m2s")]
+transform = Transform3D(0.527564, -0.849515, -3.71335e-08, 0, -4.37114e-08, 1, -0.849515, -0.527564, -2.30605e-08, -451.015, 94.4174, -29.4292)
+
+[node name="CollectibleRoot144" parent="." instance=ExtResource("7_p6m2s")]
+transform = Transform3D(0.949019, 0.315218, -1.37786e-08, 0, -4.37114e-08, -1, -0.315218, 0.949019, -4.14829e-08, -453.04, 94.4174, -34.1033)
+
+[node name="CollectibleRoot145" parent="." instance=ExtResource("7_p6m2s")]
+transform = Transform3D(0.716363, -0.697728, 3.04987e-08, 0, -4.37114e-08, -1, 0.697728, 0.716363, -3.13132e-08, -454.577, 94.4174, -38.8512)
+
+[node name="CollectibleRoot" parent="." instance=ExtResource("5_ioim0")]
+mass = 8.02887e+09
+
+[node name="CollectibleRoot2" parent="." instance=ExtResource("6_2ovek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -170.844, -78.8074, 712.868)
+
+[node name="CollectibleRoot3" parent="." instance=ExtResource("7_0xcuc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -206.616, 124.039, 123.616)
+
+[node name="CollectibleRoot4" parent="." instance=ExtResource("8_fl0x2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -702.678, 75.3789, -90.922)
+
+[node name="CollectibleRoot5" parent="." instance=ExtResource("9_1g7dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -440.675, 79.9422, -47.9719)
+
+[node name="CollectibleRoot6" parent="." instance=ExtResource("10_t60lb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -143.633, 145.975, 1102.4)
+
+[node name="CollectibleRoot7" parent="." instance=ExtResource("11_kv271")]
+transform = Transform3D(0.921701, 0, -0.387902, 0, 1, 0, 0.387902, 0, 0.921701, -80.5235, -71.7466, 1033.75)
+
+[node name="CollectibleRoot20" parent="." instance=ExtResource("11_kv271")]
+transform = Transform3D(-0.921545, 0, -0.388272, 0, 1, 0, 0.388272, 0, -0.921545, -90.245, -71.7466, 1161.7)
+
+[node name="CollectibleRoot21" parent="." instance=ExtResource("11_kv271")]
+transform = Transform3D(1.71573e-08, 0.392514, -0.919746, 0.999265, -0.0352429, -0.0150404, -0.0383181, -0.919071, -0.392225, -211.263, -81.3681, 1159.57)
+
+[node name="CollectibleRoot8" parent="." instance=ExtResource("12_m05dj")]
+transform = Transform3D(0.267507, 0, 0.963556, 0, 1, 0, -0.963556, 0, 0.267507, -255.348, 67.8227, -137.329)
+
+[node name="CollectibleRoot9" parent="." instance=ExtResource("12_m05dj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -220.957, 67.8227, -162.591)
+
+[node name="CollectibleRoot10" parent="." instance=ExtResource("12_m05dj")]
+transform = Transform3D(0.693314, 0, 0.720636, 0, 1, 0, -0.720636, 0, 0.693314, -156.012, 67.8227, -143.313)
+
+[node name="CollectibleRoot11" parent="." instance=ExtResource("13_tqi3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -89.0947, 115.175, -211.273)
+
+[node name="CollectibleRoot12" parent="." instance=ExtResource("14_ym4d0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.864, 104.693, -218.877)
+
+[node name="CollectibleRoot13" parent="." instance=ExtResource("14_ym4d0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80.1841, 104.693, -218.877)
+
+[node name="CollectibleRoot14" parent="." instance=ExtResource("15_rj2j4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -333.74, 101.159, 17.293)
+
+[node name="CollectibleRoot15" parent="." instance=ExtResource("16_mlxcg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -272.616, 103.497, 5.71451)
+
+[node name="CollectibleRoot16" parent="." instance=ExtResource("17_3dytx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -525.562, 80.0139, 27.7445)
+
+[node name="CollectibleRoot17" parent="." instance=ExtResource("18_342aj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.59839, 68.2141, -192.192)
+
+[node name="CollectibleRoot18" parent="." instance=ExtResource("19_ueqqq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -140.91, -62.8726, 1100.95)
+
+[node name="CollectibleRoot19" parent="." instance=ExtResource("20_v4bm7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.9013, -107.345, 1012.25)
+
+[node name="CollectibleRoot22" parent="." instance=ExtResource("21_3brt0")]
+transform = Transform3D(-0.802036, 0, 0.597275, 0, 1, 0, -0.597275, 0, -0.802036, -29.0998, 113.396, 392.953)
+
+[node name="CollectibleRoot23" parent="." instance=ExtResource("21_3brt0")]
+transform = Transform3D(0.832825, 0, -0.553537, 0, 1, 0, 0.553537, 0, 0.832825, -265.949, 113.396, 230.746)
+
+[node name="CollectibleRoot24" parent="." instance=ExtResource("21_3brt0")]
+transform = Transform3D(-0.826383, 0, -0.563108, 0, 1, 0, 0.563108, 0, -0.826383, -428.257, 113.396, 181.431)
+
+[node name="CollectibleRoot25" parent="." instance=ExtResource("21_3brt0")]
+transform = Transform3D(-0.47415, 0, -0.880444, 0, 1, 0, 0.880444, 0, -0.47415, -587.848, 113.396, 106.945)
+
+[node name="CollectibleRoot26" parent="." instance=ExtResource("22_gklev")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 159.765, 79.0222, 295.29)
+
+[node name="CollectibleRoot27" parent="." instance=ExtResource("11_kv271")]
+transform = Transform3D(0.980819, 0, -0.194919, 0, 1, 0, 0.194919, 0, 0.980819, 161.655, 72.4232, 154.083)
+
+[node name="CollectibleRoot28" parent="." instance=ExtResource("11_kv271")]
+transform = Transform3D(-0.944926, 0, 0.327284, 0, 1, 0, -0.327284, 0, -0.944926, 156.254, 72.4232, 413.804)
+
+[node name="CollectibleRoot29" parent="." instance=ExtResource("17_3dytx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.18311, 80.1011, 170.362)
+
+[node name="CollectibleRoot30" parent="." instance=ExtResource("23_djvag")]
+transform = Transform3D(0.891608, 0, 0.452808, 0, 1, 0, -0.452808, 0, 0.891608, -415.467, 108.462, 11.6173)
+
+[node name="CollectibleRoot31" parent="." instance=ExtResource("24_xv2sq")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -458.663, 93.9065, -34.6928)
+
+[node name="CollectibleRoot32" parent="." instance=ExtResource("24_xv2sq")]
+transform = Transform3D(-2.74925e-08, -0.628954, 0.777442, 1, -4.37114e-08, 0, 3.39831e-08, 0.777442, 0.628954, -458.663, 93.9065, -33.1454)
+
+[node name="CollectibleRoot33" parent="." instance=ExtResource("24_xv2sq")]
+transform = Transform3D(-3.80801e-08, -0.871171, -0.49098, 1, -4.37114e-08, 0, -2.14614e-08, -0.49098, 0.871171, -458.663, 93.9065, -31.422)
+
+[node name="CollectibleRoot34" parent="." instance=ExtResource("25_gujc7")]
+transform = Transform3D(0.771014, 0, 0.636819, 0, 1, 0, -0.636819, 0, 0.771014, -312.023, 40.8441, 48.5336)
+
+[node name="CollectibleRoot35" parent="." instance=ExtResource("25_gujc7")]
+transform = Transform3D(-0.341774, 0, -0.939782, 0, 1, 0, 0.939782, 0, -0.341774, -312.03, 40.8441, 40.6129)
+
+[node name="CollectibleRoot36" parent="." instance=ExtResource("25_gujc7")]
+transform = Transform3D(-0.928861, 0, -0.370428, 0, 1, 0, 0.370428, 0, -0.928861, -310.94, 40.8441, 30.1508)
+
+[node name="CollectibleRoot37" parent="." instance=ExtResource("25_gujc7")]
+transform = Transform3D(0.410894, 0, -0.911683, 0, 1, 0, 0.911683, 0, 0.410894, -311.32, 40.8441, 9.1383)
+
+[node name="CollectibleRoot38" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -312.074, 40.7647, 42.2731)
+
+[node name="CollectibleRoot39" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -311.635, 40.7647, 41.2994)
+
+[node name="CollectibleRoot40" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -311.161, 40.7647, 40.3628)
+
+[node name="CollectibleRoot41" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -310.726, 40.7647, 39.4028)
+
+[node name="CollectibleRoot42" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -311.51, 40.7647, 31.1898)
+
+[node name="CollectibleRoot43" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -310.619, 40.7647, 30.7623)
+
+[node name="CollectibleRoot44" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -309.607, 40.7647, 30.4712)
+
+[node name="CollectibleRoot45" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -308.43, 40.7647, 30.7527)
+
+[node name="CollectibleRoot46" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -305.718, 40.7647, 32.0322)
+
+[node name="CollectibleRoot47" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -305.052, 40.7647, 29.8615)
+
+[node name="CollectibleRoot56" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -309.181, 40.7647, 10.2444)
+
+[node name="CollectibleRoot57" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -310.579, 40.7647, 8.6702)
+
+[node name="CollectibleRoot58" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -309.811, 40.7647, 6.70451)
+
+[node name="CollectibleRoot59" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -307.172, 40.7647, 5.23733)
+
+[node name="CollectibleRoot48" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -309.6, 40.7647, 38.1153)
+
+[node name="CollectibleRoot49" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -311.672, 40.7647, 47.2923)
+
+[node name="CollectibleRoot50" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -312.49, 40.7647, 48.0697)
+
+[node name="CollectibleRoot51" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -313.361, 40.7647, 48.7391)
+
+[node name="CollectibleRoot52" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -314.324, 40.7647, 49.2253)
+
+[node name="CollectibleRoot53" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -315.413, 40.7647, 49.6867)
+
+[node name="CollectibleRoot54" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -311.489, 40.7647, 45.8289)
+
+[node name="CollectibleRoot55" parent="." instance=ExtResource("26_646ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -310.227, 40.7647, 43.7115)
+
+[node name="CollectibleRoot60" parent="." instance=ExtResource("27_1x4w7")]
+transform = Transform3D(-0.666324, -0.198065, 0.718876, 0, 0.964077, 0.265623, -0.745662, 0.176991, -0.642388, -520.879, 92.5722, 37.5895)
+
+[node name="CollectibleRoot61" parent="." instance=ExtResource("28_dj6di")]
+transform = Transform3D(0.748909, 0, -0.662672, 0, 1, 0, 0.662672, 0, 0.748909, -534.621, 92.451, 17.6725)
+
+[node name="CollectibleRoot62" parent="." instance=ExtResource("29_0b7sx")]
+transform = Transform3D(-0.604822, 0, 0.796361, 0, 1, 0, -0.796361, 0, -0.604822, -500.414, 90.8222, 30.5062)
+
+[node name="CollectibleRoot63" parent="." instance=ExtResource("30_yxwgk")]
+transform = Transform3D(-0.709399, 0, 0.704808, 0, 1, 0, -0.704808, 0, -0.709399, -475.201, 96.0654, 20.932)
+
+[node name="Miso" parent="." instance=ExtResource("31_8vi2u")]
+transform = Transform3D(0.0697984, 0, -0.997561, 0, 1, 0, 0.997561, 0, 0.0697984, -21.0101, -143.148, 542.433)
+AllowSkeletonAnimation = true
+
+[node name="AnimationPlayer" parent="Miso" index="0"]
 libraries = {
-"": SubResource("AnimationLibrary_ilkox")
+"": SubResource("AnimationLibrary_75s6d")
 }
 
-[node name="CollectibleRoot" parent="." instance=ExtResource("5_gq8og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.81074, 0.0830456, 1.59606)
+[node name="CollectibleRoot64" parent="." instance=ExtResource("32_4b3on")]
+transform = Transform3D(0.397532, 0, 0.917588, 0, 1, 0, -0.917588, 0, 0.397532, -514.249, 100.502, 17.191)
 
-[node name="CollectibleRoot2" parent="." instance=ExtResource("6_ksah7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17479, 0.0830456, 1.56415)
+[node name="CollectibleRoot65" parent="." instance=ExtResource("32_4b3on")]
+transform = Transform3D(0.759612, -0.650377, 0, -2.84289e-08, -3.32037e-08, 1, -0.650377, -0.759612, -4.37114e-08, -514.249, 43.0249, -16.8063)
 
-[node name="CollectibleRoot3" parent="." instance=ExtResource("7_1tr4q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55245, 0.0830456, 1.56044)
+[node name="CollectibleRoot66" parent="." instance=ExtResource("33_4vhph")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -549.074, 102.893, 17.9472)
 
-[node name="CollectibleRoot4" parent="." instance=ExtResource("8_klx3g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.930643, 0.0830454, 1.59031)
+[node name="CollectibleRoot67" parent="." instance=ExtResource("34_wofm4")]
+transform = Transform3D(0.426774, 0, 0.904358, 0, 1, 0, -0.904358, 0, 0.426774, -457.864, 93.7353, -28.3485)
 
-[node name="CollectibleRoot5" parent="." instance=ExtResource("9_q4ran")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.310716, 0.0830454, 1.55905)
+[node name="CollectibleRoot68" parent="." instance=ExtResource("34_wofm4")]
+transform = Transform3D(0.685437, 0, 0.728132, 0, 1, 0, -0.728132, 0, 0.685437, -455.403, 93.7353, -25.6028)
 
-[node name="CollectibleRoot6" parent="." instance=ExtResource("10_3m7jg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.310452, 0.0830454, 1.59533)
+[node name="CollectibleRoot69" parent="." instance=ExtResource("34_wofm4")]
+transform = Transform3D(0.970435, 0, 0.241363, 0, 1, 0, -0.241363, 0, 0.970435, -453.847, 93.7353, -21.4544)
 
-[node name="CollectibleRoot7" parent="." instance=ExtResource("11_27i63")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.939796, 0.0830459, 1.56122)
+[node name="CollectibleRoot70" parent="." instance=ExtResource("34_wofm4")]
+transform = Transform3D(0.990957, 0, -0.134176, 0, 1, 0, 0.134176, 0, 0.990957, -454.365, 93.7353, -17.7782)
 
-[node name="CollectibleRoot8" parent="." instance=ExtResource("12_vebdl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.56485, 0.0830456, 1.59939)
+[node name="CollectibleRoot71" parent="." instance=ExtResource("35_0qorv")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -458.662, 94.0065, -36.9809)
 
-[node name="CollectibleRoot9" parent="." instance=ExtResource("13_mnbj4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.20428, 0.0830463, 1.54346)
+[node name="CollectibleRoot72" parent="." instance=ExtResource("35_0qorv")]
+transform = Transform3D(0.576333, 0.817215, 3.57216e-08, 0, -4.37114e-08, 1, 0.817215, -0.576333, -2.51923e-08, -458.851, 94.0065, -40.187)
 
-[node name="CollectibleRoot10" parent="." instance=ExtResource("14_4d872")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.81676, 0.0830454, 1.48992)
+[node name="CollectibleRoot73" parent="." instance=ExtResource("35_0qorv")]
+transform = Transform3D(-0.845476, 0.534013, 2.33424e-08, 0, -4.37114e-08, 1, 0.534013, 0.845476, 3.69569e-08, -460.357, 94.0065, -43.7665)
 
-[node name="CollectibleRoot11" parent="." instance=ExtResource("15_ktadj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.43604, 0.0830451, 1.56574)
+[node name="CollectibleRoot74" parent="." instance=ExtResource("35_0qorv")]
+transform = Transform3D(0.164084, -0.986446, -4.31189e-08, 0, -4.37114e-08, 1, -0.986446, -0.164084, -7.17232e-09, -463.095, 94.0065, -45.535)
 
-[node name="CollectibleRoot12" parent="." instance=ExtResource("16_oltsr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.05581, 0.0830456, 1.59202)
+[node name="CollectibleRoot75" parent="." instance=ExtResource("35_0qorv")]
+transform = Transform3D(0.735813, -0.677184, -2.96007e-08, 0, -4.37114e-08, 1, -0.677184, -0.735813, -3.21634e-08, -466.006, 94.0065, -44.7979)
 
-[node name="CollectibleRoot13" parent="." instance=ExtResource("17_1tdbq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.69258, 0.0830456, 1.48566)
+[node name="CollectibleRoot76" parent="." instance=ExtResource("35_0qorv")]
+transform = Transform3D(0.861186, 0.50829, 2.22181e-08, 0, -4.37114e-08, 1, 0.50829, -0.861186, -3.76436e-08, -467.667, 94.0065, -41.7843)
 
-[node name="CollectibleRoot14" parent="." instance=ExtResource("18_k1m5k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.31545, 0.0830456, 1.59261)
+[node name="CollectibleRoot77" parent="." instance=ExtResource("36_sf405")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -462.704, 94.4098, -39.8642)
 
-[node name="CollectibleRoot15" parent="." instance=ExtResource("19_daw81")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.97833, 0.0830456, 1.55849)
+[node name="CollectibleRoot78" parent="." instance=ExtResource("36_sf405")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -464.353, 94.4098, -39.3777)
 
-[node name="CollectibleRoot16" parent="." instance=ExtResource("20_ku76q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.613825, 0.0830456, 0.779377)
+[node name="CollectibleRoot79" parent="." instance=ExtResource("36_sf405")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -462.688, 94.4098, -38.7857)
 
-[node name="CollectibleRoot17" parent="." instance=ExtResource("21_da7r6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.279186, 0.0830456, 0.370772)
+[node name="CollectibleRoot80" parent="." instance=ExtResource("36_sf405")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -464.331, 94.4098, -38.4302)
 
-[node name="CollectibleRoot18" parent="." instance=ExtResource("22_i7mge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0891012, 0.0830456, 0.695648)
+[node name="CollectibleRoot81" parent="." instance=ExtResource("36_sf405")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -462.702, 94.4098, -37.8293)
 
-[node name="CollectibleRoot19" parent="." instance=ExtResource("23_xs6pk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.717819, 0.0830456, 0.766279)
+[node name="CollectibleRoot82" parent="." instance=ExtResource("36_sf405")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -464.283, 94.4098, -37.4362)
 
-[node name="CollectibleRoot20" parent="." instance=ExtResource("24_gx7jt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.32992, 0.0830456, 0.765705)
+[node name="CollectibleRoot83" parent="." instance=ExtResource("36_sf405")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -462.672, 94.4098, -36.9624)
 
-[node name="CollectibleRoot21" parent="." instance=ExtResource("25_setol")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.852, 0.0830456, 0.751397)
+[node name="CollectibleRoot84" parent="." instance=ExtResource("37_u5i3r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -468.585, 96.1072, -36.2723)
 
-[node name="CollectibleRoot22" parent="." instance=ExtResource("26_y0vcf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.34715, 0.0830456, 0.818888)
+[node name="CollectibleRoot87" parent="." instance=ExtResource("37_u5i3r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -470.816, 96.1072, -37.6897)
 
-[node name="CollectibleRoot23" parent="." instance=ExtResource("27_lm0yp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.70843, 0.0830456, 0.754778)
+[node name="CollectibleRoot88" parent="." instance=ExtResource("37_u5i3r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -471.441, 96.1072, -35.572)
 
-[node name="CollectibleRoot24" parent="." instance=ExtResource("28_xnwt7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.21385, 0.0830456, 0.758226)
+[node name="CollectibleRoot89" parent="." instance=ExtResource("37_u5i3r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -473.672, 96.1072, -36.9894)
 
-[node name="CollectibleRoot25" parent="." instance=ExtResource("29_eqfmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.83843, 0.0830456, 0.688888)
+[node name="CollectibleRoot90" parent="." instance=ExtResource("37_u5i3r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.913, 96.1072, -39.8154)
 
-[node name="CollectibleRoot26" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3347, 0.271945, -0.0610057)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot91" parent="." instance=ExtResource("37_u5i3r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -472.144, 96.1072, -41.2328)
 
-[node name="CollectibleRoot27" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57436, 0.271945, -0.0969051)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot92" parent="." instance=ExtResource("37_u5i3r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -472.769, 96.1072, -39.1152)
 
-[node name="CollectibleRoot28" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.750949, 0.271945, -0.14755)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot93" parent="." instance=ExtResource("37_u5i3r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -475, 96.1072, -40.5325)
 
-[node name="CollectibleRoot29" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00939596, 0.271945, -0.183449)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot94" parent="." instance=ExtResource("37_u5i3r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -471.781, 96.1072, -43.434)
 
-[node name="CollectibleRoot30" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.813348, 0.271945, -0.22211)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot95" parent="." instance=ExtResource("37_u5i3r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -474.012, 96.1072, -44.8514)
 
-[node name="CollectibleRoot31" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.57369, 0.271945, -0.258009)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot96" parent="." instance=ExtResource("37_u5i3r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -474.638, 96.1072, -42.7337)
 
-[node name="CollectibleRoot32" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3971, 0.271945, -0.308654)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot33" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.15745, 0.271945, -0.344553)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot34" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3347, 0.271945, -0.930097)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot35" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57436, 0.271945, -0.965996)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot36" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.750949, 0.271945, -1.01664)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot37" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00939596, 0.271945, -1.05254)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot38" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.813348, 0.271945, -1.0912)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot39" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.57369, 0.271945, -1.1271)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot40" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3971, 0.271945, -1.17775)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot41" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.15745, 0.271945, -1.21364)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot42" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3347, 0.271945, -1.74717)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot43" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57436, 0.271945, -1.78307)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot44" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.750949, 0.271945, -1.83371)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot45" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00939596, 0.271945, -1.86961)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot46" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.813348, 0.271945, -1.90827)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot47" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.57369, 0.271945, -1.94417)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot48" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3971, 0.271945, -1.99482)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot49" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.15745, 0.271945, -2.03072)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot50" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3347, 0.271945, -2.63)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot51" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57436, 0.271945, -2.66589)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot52" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.750949, 0.271945, -2.71654)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot53" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00939596, 0.271945, -2.75244)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot54" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.813348, 0.271945, -2.7911)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot55" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.57369, 0.271945, -2.827)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot56" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3971, 0.271945, -2.87764)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot57" parent="." instance=ExtResource("32_7u8q8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.15745, 0.271945, -2.91354)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot58" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6032, 0.360094, -0.461128)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot59" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6032, 0.360094, -1.59262)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot60" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6032, 0.360094, -2.696)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot61" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6032, 0.360094, -3.8549)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot62" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.75415, 0.360094, -0.461128)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot63" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.75415, 0.360094, -1.59262)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot64" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.75415, 0.360094, -2.696)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot65" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.75415, 0.360094, -3.8549)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot66" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.89657, 0.360094, -0.461128)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot67" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.89657, 0.360094, -1.59262)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot68" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.89657, 0.360094, -2.696)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot69" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.89657, 0.360094, -3.8549)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot70" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.00383, 0.360094, -0.461128)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot71" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.00383, 0.360094, -1.59262)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot72" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.00383, 0.360094, -2.696)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot73" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.00383, 0.360094, -3.8549)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot74" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0987835, 0.360094, -4.57316)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot75" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0987835, 0.360094, -5.70465)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot76" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0987835, 0.360094, -6.80803)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot77" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0987835, 0.360094, -7.96693)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot78" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05217, 0.360094, -4.57316)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot79" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05217, 0.360094, -5.70465)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot80" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05217, 0.360094, -6.80803)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot81" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05217, 0.360094, -7.96693)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot82" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.19458, 0.360094, -4.57316)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot83" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.19458, 0.360094, -5.70465)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot84" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.19458, 0.360094, -6.80803)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot85" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.19458, 0.360094, -7.96693)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot86" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.30185, 0.360094, -4.57316)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot87" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.30185, 0.360094, -5.70465)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot88" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.30185, 0.360094, -6.80803)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot89" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.30185, 0.360094, -7.96693)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot90" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.43325, 0.360094, -3.88662)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot91" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.43325, 0.360094, -5.01811)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot92" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.43325, 0.360094, -6.1215)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot93" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.43325, 0.360094, -7.28039)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot94" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2823, 0.360094, -3.88662)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot95" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2823, 0.360094, -5.01811)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot96" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2823, 0.360094, -6.1215)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot97" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2823, 0.360094, -7.28039)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot98" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.13988, 0.360094, -3.88662)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot99" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.13988, 0.360094, -5.01811)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot100" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.13988, 0.360094, -6.1215)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot101" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.13988, 0.360094, -7.28039)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot102" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.03262, 0.360094, -3.88662)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot103" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.03262, 0.360094, -5.01811)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot104" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.03262, 0.360094, -6.1215)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot105" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.03262, 0.360094, -7.28039)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot106" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.18071, 0.360094, 6.64427)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot107" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.18071, 0.360094, 5.51279)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot108" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.18071, 0.360094, 4.4094)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot109" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.18071, 0.360094, 3.2505)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot110" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.33166, 0.360094, 6.64427)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot111" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.33166, 0.360094, 5.51279)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot112" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.33166, 0.360094, 4.4094)
-VaultPoints = PackedVector3Array()
-
-[node name="CollectibleRoot113" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.33166, 0.360094, 3.2505)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot97" parent="." instance=ExtResource("37_u5i3r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -476.869, 96.1072, -44.1511)
 
-[node name="CollectibleRoot114" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47407, 0.360094, 6.64427)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot85" parent="." instance=ExtResource("37_u5i3r")]
+transform = Transform3D(0.718891, 0, -0.695123, 0, 1, 0, 0.695123, 0, 0.718891, -466.037, 94.2139, -34.7439)
 
-[node name="CollectibleRoot115" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47407, 0.360094, 5.51279)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot86" parent="." instance=ExtResource("37_u5i3r")]
+transform = Transform3D(0.229048, 0, -0.973415, 0, 1, 0, 0.973415, 0, 0.229048, -468.817, 92.5302, -33.7824)
 
-[node name="CollectibleRoot116" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47407, 0.360094, 4.4094)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot98" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 94.3526, -29.0804)
 
-[node name="CollectibleRoot117" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47407, 0.360094, 3.2505)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot99" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 95.2038, -29.0804)
 
-[node name="CollectibleRoot118" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58134, 0.360094, 6.64427)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot100" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 96.048, -29.0804)
 
-[node name="CollectibleRoot119" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58134, 0.360094, 5.51279)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot101" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 96.8991, -29.0804)
 
-[node name="CollectibleRoot120" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58134, 0.360094, 4.4094)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot102" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 97.7283, -29.0804)
 
-[node name="CollectibleRoot121" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58134, 0.360094, 3.2505)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot103" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 98.5795, -29.0804)
 
-[node name="CollectibleRoot122" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.19353, 0.360094, 8.0697)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot104" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 99.4133, -29.0804)
 
-[node name="CollectibleRoot123" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.19353, 0.360094, 6.93822)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot105" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 100.264, -29.0804)
 
-[node name="CollectibleRoot124" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.19353, 0.360094, 5.83483)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot106" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 94.3526, -27.254)
 
-[node name="CollectibleRoot125" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.19353, 0.360094, 4.67593)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot107" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 95.2038, -27.254)
 
-[node name="CollectibleRoot126" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04257, 0.360094, 8.0697)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot108" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 96.048, -27.254)
 
-[node name="CollectibleRoot127" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04257, 0.360094, 6.93822)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot109" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 96.8991, -27.254)
 
-[node name="CollectibleRoot128" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04257, 0.360094, 5.83483)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot110" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 97.7283, -27.254)
 
-[node name="CollectibleRoot129" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04257, 0.360094, 4.67593)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot111" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 98.5795, -27.254)
 
-[node name="CollectibleRoot130" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.900158, 0.360094, 8.0697)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot112" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 99.4133, -27.254)
 
-[node name="CollectibleRoot131" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.900158, 0.360094, 6.93822)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot113" parent="." instance=ExtResource("38_k4r46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -469.797, 100.264, -27.254)
 
-[node name="CollectibleRoot132" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.900158, 0.360094, 5.83483)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot114" parent="." instance=ExtResource("39_a1f0s")]
+transform = Transform3D(1, 0, 0, 0, 0.461795, 0.886987, 0, -0.886987, 0.461795, -473.247, 94.7992, -24.8276)
 
-[node name="CollectibleRoot133" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.900158, 0.360094, 4.67593)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot115" parent="." instance=ExtResource("39_a1f0s")]
+transform = Transform3D(-0.190855, -0.574534, 0.795918, 0.949008, -0.315251, 0, 0.250914, 0.755332, 0.605405, -471.18, 94.7491, -22.7572)
 
-[node name="CollectibleRoot134" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.207108, 0.360094, 8.0697)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot116" parent="." instance=ExtResource("39_a1f0s")]
+transform = Transform3D(1, 0, 0, 0, -0.995875, 0.090737, 0, -0.090737, -0.995875, -474.187, 94.7717, -22.1139)
 
-[node name="CollectibleRoot135" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.207108, 0.360094, 6.93822)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot117" parent="." instance=ExtResource("39_a1f0s")]
+transform = Transform3D(0.406482, -0.913659, 0, 0.913659, 0.406482, 0, 0, 0, 1, -478, 94.795, -26.4333)
 
-[node name="CollectibleRoot136" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.207108, 0.360094, 5.83483)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot118" parent="." instance=ExtResource("39_a1f0s")]
+transform = Transform3D(0.62138, 0.730123, 0.284267, 0, 0.362812, -0.931862, -0.783509, 0.579041, 0.225444, -475.932, 95.1067, -24.363)
 
-[node name="CollectibleRoot137" parent="." instance=ExtResource("33_ksjqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.207108, 0.360094, 4.67593)
-VaultPoints = PackedVector3Array()
+[node name="CollectibleRoot119" parent="." instance=ExtResource("39_a1f0s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -478.939, 94.8652, -23.7197)
 
-[editable path="TestLevel"]
+[node name="CollectibleRoot120" parent="." instance=ExtResource("39_a1f0s")]
+transform = Transform3D(0.551343, -0.691185, 0.467209, 0.527317, 0.722678, 0.446849, -0.646497, 0, 0.762917, -476.942, 94.806, -21.8688)
+
+[node name="CollectibleRoot121" parent="." instance=ExtResource("39_a1f0s")]
+transform = Transform3D(1, 0, 0, 0, 0.147223, -0.989103, 0, 0.989103, 0.147223, -474.874, 94.9106, -19.7984)
+
+[node name="CollectibleRoot122" parent="." instance=ExtResource("39_a1f0s")]
+transform = Transform3D(-0.972031, -0.234854, 0, 0.234854, -0.972031, 0, 0, 0, 1, -477.882, 94.9359, -19.1551)
+
+[node name="CollectibleRoot123" parent="." instance=ExtResource("39_a1f0s")]
+transform = Transform3D(-0.559178, -0.750962, -0.351249, 0.829047, -0.506511, -0.236911, -1.49012e-08, -0.423678, 0.905813, -471.906, 94.7292, -20.2475)
+
+[node name="CollectibleRoot124" parent="." instance=ExtResource("39_a1f0s")]
+transform = Transform3D(0.0959507, 0.749012, 0.655572, -0.991895, 0.127065, 0, -0.0832999, -0.650258, 0.755133, -469.838, 94.817, -18.1772)
+
+[node name="CollectibleRoot125" parent="." instance=ExtResource("39_a1f0s")]
+transform = Transform3D(1, 0, 0, 0, 0.324264, 0.945967, 0, -0.945967, 0.324264, -472.846, 95.0656, -17.5339)
+
+[node name="CollectibleRoot126" parent="." instance=ExtResource("40_iqn86")]
+transform = Transform3D(-0.457377, 0, -0.889273, 0, 1, 0, 0.889273, 0, -0.457377, -453.295, 97.9569, -76.0794)
+
+[node name="CollectibleRoot127" parent="." instance=ExtResource("41_20r45")]
+transform = Transform3D(-0.99211, 0, -0.125368, 0, 1, 0, 0.125368, 0, -0.99211, -466.282, 94.7857, -69.0601)
+
+[node name="CollectibleRoot128" parent="." instance=ExtResource("41_20r45")]
+transform = Transform3D(-0.639801, 0, -0.76854, 0, 1, 0, 0.76854, 0, -0.639801, -461.585, 94.7857, -62.8389)
+
+[node name="CollectibleRoot129" parent="." instance=ExtResource("41_20r45")]
+transform = Transform3D(-0.137963, 0, -0.990437, 0, 1, 0, 0.990437, 0, -0.137963, -454.879, 94.7857, -59.4606)
+
+[node name="CollectibleRoot130" parent="." instance=ExtResource("41_20r45")]
+transform = Transform3D(0.305629, 0, -0.952151, 0, 1, 0, 0.952151, 0, 0.305629, -447.332, 94.7857, -60.8188)
+
+[node name="CollectibleRoot131" parent="." instance=ExtResource("42_3kkwy")]
+transform = Transform3D(-0.954735, 0, 0.297458, 0, 1, 0, -0.297458, 0, -0.954735, -462.37, 93.9921, -33.8469)
+
+[node name="CollectibleRoot132" parent="." instance=ExtResource("43_yqfeb")]
+transform = Transform3D(-0.953659, 0, -0.300889, 0, 1, 0, 0.300889, 0, -0.953659, -463.168, 93.9937, -33.9061)
+
+[node name="CollectibleRoot133" parent="." instance=ExtResource("44_x8qv6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -449.8, 93.8532, -40.3321)
+
+[node name="CollectibleRoot134" parent="." instance=ExtResource("44_x8qv6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -448.306, 93.8532, -33.9827)
+
+[node name="CollectibleRoot135" parent="." instance=ExtResource("44_x8qv6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -442.821, 93.8532, -37.4806)
+
+[node name="CollectibleRoot136" parent="." instance=ExtResource("44_x8qv6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -442.022, 93.8532, -30.6069)
+
+[node name="CollectibleRoot137" parent="." instance=ExtResource("45_v38hx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -446.166, 94.5279, -44.6653)
+
+[node name="CollectibleRoot138" parent="." instance=ExtResource("46_0tqha")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -476.827, 96.114, -58.4338)
+
+[node name="CollectibleRoot146" parent="." instance=ExtResource("46_0tqha")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -476.827, 96.114, -69.3756)
+
+[node name="CollectibleRoot147" parent="." instance=ExtResource("46_0tqha")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -476.827, 96.114, -80.3932)
+
+[node name="CollectibleRoot148" parent="." instance=ExtResource("46_0tqha")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -476.827, 100.985, -74.9743)
+
+[node name="CollectibleRoot149" parent="." instance=ExtResource("46_0tqha")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -476.827, 100.985, -64.0947)
+
+[node name="CollectibleRoot150" parent="." instance=ExtResource("47_x06sb")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -598.179, 71.322, -130.657)
+
+[node name="CollectibleRoot151" parent="." instance=ExtResource("47_x06sb")]
+transform = Transform3D(0.709189, 0.705018, -3.08173e-08, 0, -4.37114e-08, -1, -0.705018, 0.709189, -3.09997e-08, -598.179, 71.322, -145.633)
+
+[node name="CollectibleRoot152" parent="." instance=ExtResource("47_x06sb")]
+transform = Transform3D(0.0236122, 0.999721, -4.36992e-08, 0, -4.37114e-08, -1, -0.999721, 0.0236122, -1.03212e-09, -598.179, 71.322, -160.49)
+
+[node name="CollectibleRoot153" parent="." instance=ExtResource("47_x06sb")]
+transform = Transform3D(-0.703593, 0.710603, -3.10614e-08, 0, -4.37114e-08, -1, -0.710603, -0.703593, 3.0755e-08, -598.179, 71.322, -176.383)
+
+[node name="CollectibleRoot154" parent="." instance=ExtResource("47_x06sb")]
+transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, -598.179, 71.322, -191.572)
+
+[node name="CollectibleRoot155" parent="." instance=ExtResource("48_gxvlb")]
+transform = Transform3D(0.506666, 0, 0.862143, 0, 1, 0, -0.862143, 0, 0.506666, -679.809, 49.1475, -120.444)
+
+[node name="CollectibleRoot156" parent="." instance=ExtResource("49_hts7q")]
+transform = Transform3D(-0.14648, 0, 0.989214, 0, 1, 0, -0.989214, 0, -0.14648, -538.239, 52.9358, -153.356)
+
+[node name="AnimationPlayer" parent="CollectibleRoot156" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_foutb")
+}
+
+[node name="CollectibleRoot157" parent="CollectibleRoot156" instance=ExtResource("50_cq5hb")]
+transform = Transform3D(0.944728, -0.171095, -0.279672, 0.134583, 0.980228, -0.145052, 0.29896, 0.0993954, 0.949076, -1.52289, 9.55206, -12.809)
+
+[node name="CollectibleRoot157" parent="." instance=ExtResource("51_fep5r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -437.369, 93.9167, -23.8119)
+
+[node name="CollectibleRoot158" parent="." instance=ExtResource("51_fep5r")]
+transform = Transform3D(0.959531, 0, -0.281605, 0, 1, 0, 0.281605, 0, 0.959531, -436.51, 93.9167, -26.8541)
+
+[node name="CollectibleRoot159" parent="." instance=ExtResource("51_fep5r")]
+transform = Transform3D(0.89007, 0, -0.455825, 0, 1, 0, 0.455825, 0, 0.89007, -434.686, 93.9167, -29.3977)
+
+[node name="CollectibleRoot160" parent="." instance=ExtResource("51_fep5r")]
+transform = Transform3D(0.970351, 0, -0.241702, 0, 1, 0, 0.241702, 0, 0.970351, -433.684, 93.9167, -32.2441)
+
+[node name="CollectibleRoot161" parent="." instance=ExtResource("51_fep5r")]
+transform = Transform3D(0.956616, 0, 0.291353, 0, 1, 0, -0.291353, 0, 0.956616, -433.886, 93.9167, -35.4642)
+
+[node name="CollectibleRoot162" parent="." instance=ExtResource("51_fep5r")]
+transform = Transform3D(0.925018, 0, 0.379924, 0, 1, 0, -0.379924, 0, 0.925018, -435.158, 93.9167, -38.2775)
+
+[node name="CollectibleRoot163" parent="." instance=ExtResource("51_fep5r")]
+transform = Transform3D(0.950016, 0, 0.312202, 0, 1, 0, -0.312202, 0, 0.950016, -436.25, 93.9167, -40.9811)
+
+[node name="CollectibleRoot164" parent="." instance=ExtResource("51_fep5r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -436.448, 93.9167, -43.8531)
+
+[node name="CollectibleRoot165" parent="." instance=ExtResource("52_lr3gk")]
+transform = Transform3D(1, 0, 0, 0, 0.883994, 0.467498, 0, -0.467498, 0.883994, -624.159, 40.5803, 32.633)
+
+[node name="CollectibleRoot166" parent="." instance=ExtResource("52_lr3gk")]
+transform = Transform3D(0.528498, 0.396875, -0.750453, 0, 0.883994, 0.467498, 0.848935, -0.247072, 0.467189, -624.696, 40.5803, 44.6903)
+
+[node name="CollectibleRoot167" parent="." instance=ExtResource("52_lr3gk")]
+transform = Transform3D(-0.966703, -0.119633, 0.226215, 0, 0.883994, 0.467498, -0.255901, 0.451932, -0.85456, -625.592, 40.5803, 58.1035)
+
+[node name="CollectibleRoot168" parent="." instance=ExtResource("52_lr3gk")]
+transform = Transform3D(1, 0, 0, 0, 0.0263339, -0.999653, 0, 0.999653, 0.0263339, -624.846, 40.9944, 72.458)
+
+[node name="CollectibleRoot169" parent="." instance=ExtResource("52_lr3gk")]
+transform = Transform3D(-0.134159, -0.463272, 0.876003, 5.56601e-09, 0.883994, 0.467498, -0.99096, 0.062719, -0.118596, -623.803, 40.5803, 86.5876)
+
+[node name="CollectibleRoot170" parent="." instance=ExtResource("53_h13g2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -400.088, 46.4449, -208.568)
+
+[node name="CollectibleRoot171" parent="." instance=ExtResource("54_f0n6a")]
+transform = Transform3D(-0.702178, 0, 0.712001, 0, 1, 0, -0.712001, 0, -0.702178, -438.951, 93.9571, -51.2464)
+
+[node name="CollectibleRoot172" parent="." instance=ExtResource("54_f0n6a")]
+transform = Transform3D(-0.702178, 0, 0.712001, 0, 1, 0, -0.712001, 0, -0.702178, -436.766, 93.9571, -53.4018)
+
+[node name="CollectibleRoot173" parent="." instance=ExtResource("54_f0n6a")]
+transform = Transform3D(-0.702178, 0, 0.712001, 0, 1, 0, -0.712001, 0, -0.702178, -434.52, 93.9571, -55.6169)
+
+[node name="CollectibleRoot174" parent="." instance=ExtResource("54_f0n6a")]
+transform = Transform3D(-0.702178, 0, 0.712001, 0, 1, 0, -0.712001, 0, -0.702178, -432.241, 93.9571, -57.8644)
+
+[node name="CollectibleRoot176" parent="." instance=ExtResource("55_0br32")]
+transform = Transform3D(-0.704721, 0, 0.709485, 0, 1, 0, -0.709485, 0, -0.704721, -429.347, 94.248, -60.6273)
+mass = 36.7979
+
+[editable path="Miso"]
+[editable path="Miso/CollectibleModel"]
+[editable path="CollectibleRoot156"]
