@@ -49,13 +49,14 @@ points = PackedVector3Array(-3.4801, -10.0625, 2.06738, -2.95539, -10.0625, 1.15
 [node name="CollectibleRoot" type="RigidBody3D"]
 collision_layer = 5
 collision_mask = 0
-mass = 841.241
+mass = 841.244
 physics_material_override = ExtResource("1_ypjv0")
 max_contacts_reported = 1
 freeze = true
 script = ExtResource("2_idpxc")
 ItemName = "Nomai Scroll Statue"
 ItemDesc = "Placeholder description."
+PickupMultiplier = 0.9
 GiveMultiplier = 3.0
 VaultPoints = PackedVector3Array()
 

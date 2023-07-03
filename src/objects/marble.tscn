@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://x10k41fn8cyv"]
+[gd_scene load_steps=14 format=3 uid="uid://x10k41fn8cyv"]
 
 [ext_resource type="Script" path="res://src/objects/marble.gd" id="1_ajff0"]
 [ext_resource type="PackedScene" uid="uid://bnrp7ftlg6iow" path="res://assets/katamari.tscn" id="2_hhtmx"]
@@ -11,6 +11,8 @@ friction = 0.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rbvun"]
 margin = 0.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_16fl3"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_niu6h"]
 radius = 1.0
@@ -37,7 +39,6 @@ contact_monitor = true
 can_sleep = false
 freeze_mode = 1
 script = ExtResource("1_ajff0")
-metadata/SizeThresholds = PackedFloat32Array(5, 15, 35, 75)
 
 [node name="KatamariColliderShape" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_rbvun")
@@ -50,7 +51,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CenterNode"]
 transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 0, 0)
-collision_mask = 0
+shape = SubResource("SphereShape3D_16fl3")
 spring_length = 4.0
 margin = 0.1
 

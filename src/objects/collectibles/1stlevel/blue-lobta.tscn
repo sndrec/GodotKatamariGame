@@ -20,7 +20,8 @@ ItemName = "Blue Lobster"
 ItemDesc = "Placeholder description."
 PickupSound = ExtResource("3_6g1r0")
 AllowSkeletonAnimation = true
-GiveMultiplier = 3.0
+PickupMultiplier = 0.75
+GiveMultiplier = 1.5
 VaultPoints = PackedVector3Array(5, 0, 0, -12, 0, 0, 6, 0, 8, 6, 0, -8)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

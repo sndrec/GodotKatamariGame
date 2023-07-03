@@ -90,6 +90,7 @@ freeze = true
 script = ExtResource("2_nyrby")
 ItemName = "Arizona Peach Tea"
 ItemDesc = "Placeholder description."
+PickupMultiplier = 0.875
 GiveMultiplier = 1.5
 VaultPoints = PackedVector3Array()
 

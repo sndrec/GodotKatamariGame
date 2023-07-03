@@ -90,8 +90,7 @@ freeze = true
 script = ExtResource("2_bfbhb")
 ItemName = "Wooden Door"
 ItemDesc = "Placeholder description."
-PickupMultiplier = 0.333
-GiveMultiplier = 0.5
+PickupMultiplier = 0.8
 VaultPoints = PackedVector3Array(0, 70, 0, 0, -70, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

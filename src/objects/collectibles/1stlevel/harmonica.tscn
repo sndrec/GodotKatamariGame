@@ -55,7 +55,7 @@ script = ExtResource("2_jj62j")
 ItemName = "10-Hole Harmonica"
 ItemDesc = "Placeholder description."
 GiveMultiplier = 1.5
-VaultPoints = PackedVector3Array()
+VaultPoints = PackedVector3Array(0, 0, -6, 0, 0, 6)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0

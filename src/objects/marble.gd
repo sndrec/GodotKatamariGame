@@ -15,6 +15,9 @@ var desired_yaw := 0.0
 var desired_arm_dist := 3.0
 var ratio_to_next_transition := 0.0
 
+var SizeThresholds = PackedFloat32Array()
+var VictoryThreshold = 0
+
 var just_transitioned := false
 
 var forward_timer := 0
@@ -81,6 +84,7 @@ var BoostSound := preload("res://src/sound/game12.wav")
 var QuickSwitchSound := preload("res://src/sound/game16.wav")
 
 var ThresholdSound := preload("res://src/sound/game17.wav")
+var VictorySound := preload("res://src/sound/game18.wav")
 
 var leftStick := false
 var rightStick := false
@@ -106,13 +110,11 @@ func _ready() -> void:
 		set_player_controller(PlayerController.new())
 	
 	await get_tree().create_timer(0.1).timeout
-	var Thresholds := get_meta("SizeThresholds") as PackedFloat32Array
-	CurThreshold = Thresholds[0]
-	NextThreshold = Thresholds[1]
-	set_katamari_diameter(50)
+	CurThreshold = SizeThresholds[0]
+	NextThreshold = SizeThresholds[1]
+	set_katamari_diameter(SizeThresholds[0])
 	#instantiate_katamari_hull()
 	desired_arm_dist = get_katamari_diameter() * 3.0
-	gui.update_ball_goal(Thresholds[Thresholds.size() - 1])
 	
 
 
@@ -154,16 +156,18 @@ func prettify_size(inSize: float) -> String:
 
 func recalculate_katamari_size() -> void:
 	var newRadius := volume_to_radius(ballvolume)
-	var Thresholds := get_meta("SizeThresholds") as PackedFloat32Array
 	var OldThreshold := CurThreshold
-	for i in range(0, Thresholds.size()): 
-		if get_katamari_diameter() >= Thresholds[i]:
-			if i == Thresholds.size() - 1:
-				CurThreshold = Thresholds[i]
+	var Victory = false
+	for i in range(0, SizeThresholds.size()): 
+		if get_katamari_diameter() >= SizeThresholds[i]:
+			if i == VictoryThreshold:
+				Victory = true
+			if i == SizeThresholds.size() - 1:
+				CurThreshold = SizeThresholds[i]
 				FinalThreshold = true
 			else:
-				CurThreshold = Thresholds[i]
-				NextThreshold = Thresholds[i + 1]
+				CurThreshold = SizeThresholds[i]
+				NextThreshold = SizeThresholds[i + 1]
 		else:
 			break
 	
@@ -179,8 +183,14 @@ func recalculate_katamari_size() -> void:
 	if just_transitioned:
 		desired_arm_dist = get_katamari_diameter() * 3.0
 		lastTransitionTime = Time.get_ticks_msec()
-		$BoostSound.stream = ThresholdSound
-		$BoostSound.play()
+		print(CurThreshold)
+		print(VictoryThreshold)
+		if Victory:
+			$BoostSound.stream = VictorySound
+			$BoostSound.play()
+		else:
+			$BoostSound.stream = ThresholdSound
+			$BoostSound.play()
 		just_transitioned = false
 	else:
 		desired_arm_dist = CurThreshold * 3.0 + (get_katamari_diameter() - CurThreshold)
@@ -197,7 +207,7 @@ func recalculate_katamari_size() -> void:
 	var GrabberCollisionShape := GrabberCollision.shape as SphereShape3D
 	GrabberCollisionShape.radius = newRadius * 0.98
 	var KatamariModel := get_node("KatamariModel") as Node3D
-	var visualRadius := volume_to_radius(startingvolume + ((ballvolume - startingvolume) * 0.1))
+	var visualRadius := volume_to_radius(startingvolume + ((ballvolume - startingvolume) * 0))
 	var NewScale := visualRadius * 2.7
 	KatamariModel.scale = Vector3(NewScale, NewScale, NewScale)
 	if gui:
@@ -380,6 +390,9 @@ func get_collision_impulse(inVel: Vector3, normal: Vector3, velAtPoint: Vector3)
 		var dot = -normal.dot(inVel - velAtPoint)
 		if dot > get_katamari_diameter() * 5 and AirTime > 0.05:
 			restitution = 1.5
+			
+		if climbTimer >= 0.5:
+			restitution = 0.9
 		
 		if dot >= get_katamari_diameter() * 3:
 			$CollisionSound.stream = SoftCollideSound
@@ -564,7 +577,6 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 				dist = ray.target_position.length()
 			
 			if dist > 0.1:
-				print(dist)
 				var move = -ray.target_position.normalized() * linear_velocity.length() * dist * state.step * 0.001
 				body.position += move
 				ray.target_position += move
@@ -589,6 +601,8 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var curNormal = Vector3(0, 1, 0)
 	
 	var tempOldPos = position
+	var ClimbNormal = (LastGroundNormal * Vector3(1, 0, 1)).normalized()
+	
 	for contact in state.get_contact_count():
 		var normal = state.get_contact_local_normal(contact)
 		curNormal = normal
@@ -601,6 +615,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		#var velAtPoint = collider.get_velocity_at_point(contactPoint)
 		state.linear_velocity += get_collision_impulse(state.linear_velocity, normal, velAtPoint)
 		if normal.y <= 0.2 and normal.y >= -0.05:
+			ClimbNormal = (normal * Vector3(1, 0, 1)).normalized()
 			touchingWall = true
 			
 	
@@ -609,13 +624,19 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	else:
 		AirTime += state.step
 	
-	if touchingWall:
+	var accel_vector = Vector3(truestickdir.x, 0, truestickdir.y).rotated(Vector3.UP, ballcam_yaw)
+	var real_travel_axis = state.linear_velocity.cross(Vector3.UP + LastGroundNormal).normalized()
+	if !real_travel_axis.is_normalized():
+		real_travel_axis = Vector3(0, 0, -1)
+		
+	if touchingWall and accel_vector.dot(ClimbNormal) < -0.5:
 		climbTimer += state.step
 		noClimbTimer = 0
 	
 	if climbTimer >= 0.5:
-		state.linear_velocity += Vector3(0, get_katamari_diameter() * state.step * 4, 0) - (curNormal * Vector3(1, 0, 1)).normalized() * state.step * 30
+		state.linear_velocity += Vector3(0, get_katamari_diameter() * state.step * 4, 0)
 		state.linear_velocity += -state.linear_velocity * state.step * 4
+		state.linear_velocity += ClimbNormal * state.step * -get_katamari_diameter() * 10
 	
 	if !touchingWall and climbTimer >= 0.5:
 		noClimbTimer += state.step
@@ -625,12 +646,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		climbTimer = 0
 		noClimbTimer = 0
 	
-	var accel_vector = Vector3(truestickdir.x, 0, truestickdir.y).rotated(Vector3.UP, ballcam_yaw)
-	var real_travel_axis = state.linear_velocity.cross(Vector3.UP + LastGroundNormal).normalized()
-	if !real_travel_axis.is_normalized():
-		real_travel_axis = Vector3(0, 0, -1)
-	
-	if climbTimer > 1 and accel_vector.dot(LastGroundNormal) > -0.5:
+	if accel_vector.dot(ClimbNormal) > -0.5:
 		climbTimer = 0
 	
 	var oldRot = Quaternion(cooltransform.basis)
@@ -642,8 +658,12 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	
 	cooltransform.basis = cooltransform.basis.rotated(real_travel_axis, (state.linear_velocity.length() * PI * -0.25 * state.step) / get_effective_radius())
 	
+	var updatedAxis = LastGroundNormal.cross(Vector3.UP).normalized()
+	if !updatedAxis.is_normalized():
+		updatedAxis = right
+	
 	if climbTimer > 0.5:
-		cooltransform.basis = cooltransform.basis.rotated(LastGroundNormal.cross(Vector3.UP).normalized(), state.step * 12 / get_katamari_diameter())
+		cooltransform.basis = cooltransform.basis.rotated(updatedAxis, state.step * 6)
 	
 	if gachaCount > 2 and gachaCount < 5:
 		cooltransform.basis = cooltransform.basis.rotated(right, state.step * 24)

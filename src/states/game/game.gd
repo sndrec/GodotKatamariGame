@@ -37,8 +37,10 @@ func _ready() -> void:
 			var offset := Vector3(1.25 * cos(i * offset_inc), 0, 1.25 * sin(i * offset_inc))
 			offset = offset.rotated(Vector3.UP, -PI + start_pad.rotation.y)
 			marble.position += offset
-		marble.rotation = start_pad.rotation
+		marble.ballcam_yaw = start_pad.rotation.y + PI
+		marble.desired_yaw = start_pad.rotation.y + PI
 		marble.connect("level_finished", self._on_marble_level_finished)
+		marble.SizeThresholds = level.SizeThresholds
 		#marble.freeze = true
 		level.add_child(marble)
 
@@ -52,9 +54,13 @@ func _ready() -> void:
 		var camera: Camera3D = viewport.get_node("Camera3D")
 		marble.find_child("CameraRemoteTransform").remote_path = camera.get_path()
 		camera.fov = 60
+		camera.near = 1
+		camera.far = 10000
 		#camera.fov += 20 * (num_players - 1)
 
 		var gui: Gui = viewport_texture.get_node("Gui")
+		gui.update_ball_goal(level.SizeThresholds[level.VictoryThreshold])
+		marble.VictoryThreshold = level.VictoryThreshold
 
 		var player_dict := {
 			"marble": marble,
@@ -70,6 +76,9 @@ func _ready() -> void:
 		player.gui.update_time_display(ticks, time_limit_ticks)
 
 	state = State.PLAY
+	if level.has_node("Camera3D"):
+		var newCam = level.get_node("Camera3D") as Camera3D
+		newCam.make_current()
 
 
 func _physics_process(_delta: float) -> void:
