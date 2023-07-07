@@ -56,6 +56,7 @@ freeze = true
 script = ExtResource("2_olari")
 ItemName = "Piece of Popcorn"
 ItemDesc = "Placeholder description."
+fallDist = 0.6
 PickupMultiplier = 0.75
 VaultPoints = PackedVector3Array()
 

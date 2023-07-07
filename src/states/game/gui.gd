@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 		if bulb[2] == 1:
 			spin = -0.5
 		
-		var progressToGoal = (katamariSize - katamariStartSize) / (katamariGoal - katamariStartSize)
+		var progressToGoal = minf((katamariSize - katamariStartSize) / (katamariGoal - katamariStartSize), 1)
 		progressToGoal = remap(progressToGoal, 0, 1, 0.25, 1)
 		Sprite.scale = Vector2.ONE * bulb[1] * progressToGoal
 		Sprite.rotation += (delta / bulb[1]) * spin

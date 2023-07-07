@@ -4,7 +4,7 @@ extends RigidBody3D
 signal gem_collected
 signal level_finished
 
-const VOLUMESCALE := 0.5
+const VOLUMESCALE := 0.4
 
 var player_controller: PlayerController = null
 
@@ -156,6 +156,9 @@ func prettify_size(inSize: float) -> String:
 
 func recalculate_katamari_size() -> void:
 	var newRadius := volume_to_radius(ballvolume)
+	var ppm = get_node("PostProcessMesh") as MeshInstance3D
+	var ppmmat = ppm.get_active_material(0) as ShaderMaterial
+	ppmmat.set_shader_parameter("diameter", newRadius * 2)
 	var OldThreshold := CurThreshold
 	var Victory = false
 	for i in range(0, SizeThresholds.size()): 
@@ -327,7 +330,16 @@ func _process(delta: float) -> void:
 	var leftStickNew := player_controller.get_action("stick_click_left")
 	var rightStickNew := player_controller.get_action("stick_click_right")
 	
+	var cameraFlip := player_controller.get_action("flip_camera")
+	
 	manage_character_animations()
+	#var CamTransform = $CenterNode/SpringArm3D/CameraRemoteTransform as RemoteTransform3D
+	var CurCam = get_viewport().get_camera_3d() as Camera3D
+	if cameraFlip:
+		CurCam.global_position = position
+		CurCam.look_at($character.global_position)
+		CurCam.rotation += Vector3(0.4, 0, 0)
+		
 	
 	if leftStick == true and rightStickNew == true and rightStick == false or rightStick == true and leftStickNew == true and leftStick == false or leftStick == false and rightStick == false and leftStickNew == true and rightStickNew == true:
 		if quickSwitchTime + 333 <= Time.get_ticks_msec():
@@ -386,6 +398,10 @@ func get_last_local_contact_position(pos: Vector3):
 	return LastGroundContact - pos
 	
 func get_collision_impulse(inVel: Vector3, normal: Vector3, velAtPoint: Vector3):
+		
+		#var slope = (inVel * Vector3(1, 0, 1)).normalized().dot((normal * Vector3(1, 0, 1)).normalized())
+		#if AirTime < 0.05 and slope < 0:
+		#	normal = (normal * Vector3(1, 0, 1)).normalized()
 		var restitution = 1
 		var dot = -normal.dot(inVel - velAtPoint)
 		if dot > get_katamari_diameter() * 5 and AirTime > 0.05:
@@ -577,7 +593,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 				dist = ray.target_position.length()
 			
 			if dist > 0.1:
-				var move = -ray.target_position.normalized() * linear_velocity.length() * dist * state.step * 0.001
+				var move = -ray.target_position.normalized() * linear_velocity.length() * dist * state.step * 0.005 / get_katamari_radius()
 				body.position += move
 				ray.target_position += move
 				for k in range(body.VaultPoints.size()):

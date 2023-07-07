@@ -25,5 +25,5 @@ void fragment() {
 	//vec3 base = texture2D( tMatCap, vN ).rgb;
 
 	//gl_FragColor = vec4( base, 1. );
-	ALBEDO = albedo.rgb * texture(albedo_texture, vN * vec2(1, -1)).rgb;
+	ALBEDO = albedo.rgb * texture(albedo_texture, vN * vec2(1, -1)).rgb * COLOR.rgb;
 }

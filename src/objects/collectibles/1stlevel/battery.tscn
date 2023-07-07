@@ -56,6 +56,7 @@ freeze = true
 script = ExtResource("2_efkdu")
 ItemName = "Collectible Morris Statue"
 ItemDesc = "Placeholder description."
+fallDist = 3.0
 PickupMultiplier = 0.9
 GiveMultiplier = 1.4
 VaultPoints = PackedVector3Array(0, 3, 0, 0, -3, 0)

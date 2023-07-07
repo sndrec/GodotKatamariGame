@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://xu83bdkrq3fc"
-path.s3tc="res://.godot/imported/area1_metal.png-a158d2caee046723cbe0d8e353a5fda4.s3tc.ctex"
+path.bptc="res://.godot/imported/area1_metal.png-a158d2caee046723cbe0d8e353a5fda4.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -13,12 +13,12 @@ generator_parameters={}
 [deps]
 
 source_file="res://assets/collectibles/1stlevel/area1_metal.png"
-dest_files=["res://.godot/imported/area1_metal.png-a158d2caee046723cbe0d8e353a5fda4.s3tc.ctex"]
+dest_files=["res://.godot/imported/area1_metal.png-a158d2caee046723cbe0d8e353a5fda4.bptc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

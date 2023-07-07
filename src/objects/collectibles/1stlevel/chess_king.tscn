@@ -46,15 +46,15 @@ points = PackedVector3Array(-0.728219, -1.95437, -0.728219, -0.728219, -1.95437,
 [node name="CollectibleRoot" type="RigidBody3D"]
 collision_layer = 5
 collision_mask = 0
-mass = 1.85261
+mass = 80.1884
 physics_material_override = ExtResource("1_8g4lb")
 max_contacts_reported = 1
 freeze = true
 script = ExtResource("2_bb6o0")
-ItemName = "Estradiol"
+ItemName = "Chess Piece (King)"
 ItemDesc = "Placeholder description."
 PickupMultiplier = 0.9
-VaultPoints = PackedVector3Array()
+VaultPoints = PackedVector3Array(0, 5, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0

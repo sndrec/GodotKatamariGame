@@ -6,11 +6,42 @@ var oldTransform := Transform3D.IDENTITY
 var transformDiff := Transform3D.IDENTITY
 var animated := false
 var latestDelta := 1.0
-var pickedUp = false
+var pickedUp := false
 
 var bigDot = preload("res://assets/debug/bigdot.png")
 var pickupSoundNode = AudioStreamPlayer.new()
 var collectibleReady = false
+
+var fallCast := RayCast3D.new()
+
+@export var RandomizeRotation: bool = false:
+	set(new_bool):
+		if new_bool == true:
+			var rng = RandomNumberGenerator.new()
+			rotation = Vector3.FORWARD.rotated(Vector3(rng.randf_range(-1, 1), rng.randf_range(-1, 1), rng.randf_range(-1, 1)).normalized(), rng.randf_range(-PI, PI))
+			RandomizeRotation = false
+		
+@export var RandomizeXRotation: bool = false:
+	set(new_bool):
+		if new_bool == true:
+			var rng = RandomNumberGenerator.new()
+			basis = basis.rotated(basis.x.normalized(), rng.randf_range(-PI, PI))
+			RandomizeXRotation = false
+		
+@export var RandomizeYRotation: bool = false:
+	set(new_bool):
+		if new_bool == true:
+			var rng = RandomNumberGenerator.new()
+			basis = basis.rotated(basis.y.normalized(), rng.randf_range(-PI, PI))
+			RandomizeYRotation = false
+		
+@export var RandomizeZRotation: bool = false:
+	set(new_bool):
+		if new_bool == true:
+			var rng = RandomNumberGenerator.new()
+			basis = basis.rotated(basis.z.normalized(), rng.randf_range(-PI, PI))
+			RandomizeZRotation = false
+
 
 @export var ItemName: String = "Default":
 	set(new_name):
@@ -19,7 +50,7 @@ var collectibleReady = false
 @export var ItemDesc: String = "This is the default\nitem description.":
 	set(new_desc):
 		ItemDesc = new_desc
-		
+
 @export var PickupSound: AudioStreamWAV:
 	set(new_sound):
 		PickupSound = new_sound
@@ -27,6 +58,14 @@ var collectibleReady = false
 @export var AllowSkeletonAnimation: bool = false:
 	set(new_allow):
 		AllowSkeletonAnimation = new_allow
+
+@export var CanFall: bool = false:
+	set(new_fall):
+		CanFall = new_fall
+
+@export var fallDist: float = 1:
+	set(new_fall_dist):
+		fallDist = new_fall_dist
 
 @export var PickupMultiplier: float = 1.0:
 	set(new_pickupmult):
@@ -66,6 +105,7 @@ func _ready():
 		
 		print_katamari_debug_hint()
 		return
+	set_collision_layer_value(4, true)
 	instantiate()
 
 func print_katamari_debug_hint():
@@ -73,7 +113,7 @@ func print_katamari_debug_hint():
 	var neededDiameter = volume_to_radius(mass * pow(PickupMultiplier, 3)) * 4
 	print("Wow! It's a \"" + ItemName + "\"!")
 	print("The katamari must be " + prettify_size(neededDiameter) + " in diameter to collect it.")
-	var nextDiameter = radius_to_volume(neededDiameter * 0.5) + mass * GiveMultiplier * 0.5
+	var nextDiameter = radius_to_volume(neededDiameter * 0.5) + mass * GiveMultiplier * 0.4
 	nextDiameter = volume_to_radius(nextDiameter) * 2
 	var diff = nextDiameter - neededDiameter
 	print("A katamari just big enough would gain " + str(snapped(diff, 0.001)) + "cm in diameter,")
@@ -165,6 +205,13 @@ func instantiate():
 		mass = get_meta("volume")
 	else:
 		calc_mass()
+	
+	if CanFall:
+		fallCast = RayCast3D.new()
+		add_child(fallCast)
+		var OurShapeNode = $CollectibleShape as CollisionShape3D
+		fallCast.transform = OurShapeNode.transform
+		fallCast.set_collision_mask_value(4, true)
 
 func get_velocity_at_point(inPoint: Vector3) -> Vector3:
 	var oldPoint = oldTransform.inverse() * inPoint
@@ -203,12 +250,27 @@ func _process(delta: float) -> void:
 	curTransform = global_transform
 	latestDelta = delta
 	
+	if CanFall and not pickedUp:
+		linear_velocity += Vector3(0, delta * -volume_to_radius(mass) * 48, 0)
+		fallCast.target_position = Vector3(0, -fallDist, 0) + linear_velocity * delta
+		if fallCast.is_colliding():
+			linear_velocity = Vector3.ZERO
+		else:
+			position += linear_velocity * delta
+	
 func _on_pickup_sound_finished():
 	pickupSoundNode.queue_free()
 	
 func pickup():
+	for child in get_children():
+		if child.get_class() == "RigidBody3D":
+			remove_child(child)
+			var level = find_parent("LevelRoot")
+			level.add_child(child)
 	pickedUp = true
 	print(PickupSound)
+	if fallCast:
+		fallCast.queue_free()
 	if PickupSound:
 		pickupSoundNode = AudioStreamPlayer.new()
 		pickupSoundNode.stream = PickupSound

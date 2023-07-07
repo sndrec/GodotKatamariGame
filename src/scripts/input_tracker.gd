@@ -21,7 +21,8 @@ func _ready() -> void:
 			"camera_right": 0.0,
 			"restart": false,
 			"stick_click_left": false,
-			"stick_click_right": false
+			"stick_click_right": false,
+			"flip_camera": false
 		}
 
 

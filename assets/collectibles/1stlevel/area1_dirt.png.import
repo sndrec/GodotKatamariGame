@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://diuair85yiekh"
-path.s3tc="res://.godot/imported/area1_dirt.png-c099154cba7416fa9fb8372653881e7f.s3tc.ctex"
+path.bptc="res://.godot/imported/area1_dirt.png-c099154cba7416fa9fb8372653881e7f.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -13,12 +13,12 @@ generator_parameters={}
 [deps]
 
 source_file="res://assets/collectibles/1stlevel/area1_dirt.png"
-dest_files=["res://.godot/imported/area1_dirt.png-c099154cba7416fa9fb8372653881e7f.s3tc.ctex"]
+dest_files=["res://.godot/imported/area1_dirt.png-c099154cba7416fa9fb8372653881e7f.bptc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
