@@ -1,15 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://ddc70cyb1jja3"]
+[gd_scene load_steps=9 format=3 uid="uid://ddc70cyb1jja3"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://c51o3s65g08ee" path="res://src/levels/default_physmat.phymat" id="1_4gqev"]
 [ext_resource type="Script" path="res://src/objects/collectible_object.gd" id="2_qtw7o"]
 [ext_resource type="Texture2D" uid="uid://clwbtjvcjb7hh" path="res://assets/collectibles/1stlevel/spam_musubi_Untitled.png" id="3_2nld8"]
+[ext_resource type="Shader" path="res://addons/flexible_toon_shader/collectible.gdshader" id="3_hx4iw"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n83xu"]
-resource_name = "Material.003"
-cull_mode = 2
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("3_2nld8")
-texture_filter = 2
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k1en0"]
+render_priority = 0
+shader = ExtResource("3_hx4iw")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/use_attenuation = true
+shader_parameter/use_rim = true
+shader_parameter/rim_width = 2.0
+shader_parameter/rim_color = Color(0.5, 0.5, 0.5, 0.25)
+shader_parameter/albedo_texture = ExtResource("3_2nld8")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_sm6mp"]
 _surfaces = [{
@@ -34,7 +38,7 @@ _surfaces = [{
 "index_count": 84,
 "index_data": PackedByteArray(37, 0, 19, 0, 17, 0, 37, 0, 45, 0, 19, 0, 6, 0, 12, 0, 21, 0, 6, 0, 3, 0, 12, 0, 16, 0, 39, 0, 36, 0, 16, 0, 14, 0, 39, 0, 4, 0, 9, 0, 0, 0, 4, 0, 7, 0, 9, 0, 27, 0, 5, 0, 1, 0, 27, 0, 24, 0, 5, 0, 42, 0, 20, 0, 46, 0, 42, 0, 23, 0, 20, 0, 33, 0, 23, 0, 42, 0, 33, 0, 8, 0, 23, 0, 5, 0, 39, 0, 14, 0, 5, 0, 24, 0, 39, 0, 34, 0, 29, 0, 32, 0, 34, 0, 25, 0, 29, 0, 2, 0, 30, 0, 28, 0, 2, 0, 10, 0, 30, 0, 31, 0, 8, 0, 33, 0, 31, 0, 11, 0, 8, 0, 22, 0, 15, 0, 18, 0, 22, 0, 13, 0, 15, 0, 26, 0, 44, 0, 41, 0, 26, 0, 35, 0, 44, 0, 47, 0, 40, 0, 43, 0, 47, 0, 38, 0, 40, 0),
 "lods": [0.869721, PackedByteArray(37, 0, 78, 0, 76, 0, 78, 0, 37, 0, 86, 0, 79, 0, 76, 0, 78, 0, 74, 0, 77, 0, 79, 0, 74, 0, 3, 0, 77, 0, 73, 0, 75, 0, 28, 0, 28, 0, 75, 0, 82, 0, 82, 0, 80, 0, 81, 0, 80, 0, 83, 0, 85, 0, 80, 0, 85, 0, 84, 0, 27, 0, 24, 0, 5, 0, 5, 0, 24, 0, 36, 0, 5, 0, 36, 0, 16, 0, 42, 0, 23, 0, 20, 0, 31, 0, 23, 0, 42, 0, 31, 0, 11, 0, 23, 0), 1.44538, PackedByteArray(59, 0, 62, 0, 65, 0, 59, 0, 3, 0, 62, 0, 11, 0, 20, 0, 42, 0, 5, 0, 24, 0, 16, 0, 60, 0, 67, 0, 58, 0, 68, 0, 70, 0, 63, 0, 69, 0, 61, 0, 71, 0, 66, 0, 64, 0, 72, 0), 1.85008, PackedByteArray(48, 0, 50, 0, 55, 0, 54, 0, 48, 0, 57, 0, 49, 0, 52, 0, 51, 0, 53, 0, 56, 0, 51, 0)],
-"material": SubResource("StandardMaterial3D_n83xu"),
+"material": SubResource("ShaderMaterial_k1en0"),
 "name": "Material.003",
 "primitive": 3,
 "vertex_count": 87,
@@ -43,7 +47,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_sm6mp")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_v6m8t"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_q1yeo"]
 points = PackedVector3Array(1.75, 1.09007, 2.70876, 0.896241, 1.09007, 3.56239, 1.75, -1.09007, 2.70876, 1.75, 1.09007, -2.70945, 0.896241, -1.09007, 3.56239, -0.896584, 1.09007, 3.56239, 1.75, -1.09007, -2.70945, 0.896241, 1.09007, -3.56239, -0.896584, -1.09007, 3.56239, -1.75, 1.09007, 2.70876, 0.896241, -1.09007, -3.56239, -0.896584, 1.09007, -3.56239, -1.75, -1.09007, 2.70876, -1.75, 1.09007, -2.70945, -0.896584, -1.09007, -3.56239, -1.75, -1.09007, -2.70945)
 
 [node name="CollectibleRoot" type="RigidBody3D"]
@@ -61,9 +65,11 @@ VaultPoints = PackedVector3Array()
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
 
-[node name="CollectibleModel" type="MeshInstance3D" parent="."]
+[node name="CollectibleModel" type="Node3D" parent="."]
+
+[node name="Cube" type="MeshInstance3D" parent="CollectibleModel"]
 mesh = SubResource("ArrayMesh_0lxyn")
 skeleton = NodePath("")
 
 [node name="CollectibleShape" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_v6m8t")
+shape = SubResource("ConvexPolygonShape3D_q1yeo")

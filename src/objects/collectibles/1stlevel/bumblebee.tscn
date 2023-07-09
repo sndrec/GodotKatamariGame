@@ -7,8 +7,6 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y7mrl"]
 resource_name = "Material"
 cull_mode = 2
-diffuse_mode = 3
-specular_mode = 2
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("3_66xtu")
 texture_filter = 2
@@ -43,7 +41,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_qvgxm")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ahcgs"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j5exv"]
 points = PackedVector3Array(1.30549, -0.568722, -0.841768, 1.23187, -0.696851, -0.802945, 1.07747, -0.696851, -1.46238, 1.14316, -0.568722, -1.51387, 1.12195, -0.129619, -1.52174, 0.770205, 0.643408, -1.09862, 1.09894, -0.555195, 1.20322, 1.07568, -0.683627, 1.12361, 0.942497, -0.696851, 1.17846, -1.07772, -0.696851, -1.46238, 0.970361, -0.683627, -1.55888, 1.03222, -0.555195, -1.61402, 1.04603, -0.153178, -1.54228, 0.257417, -0.0157778, -1.54988, 0.694028, 0.620002, -1.11888, -0.7541, 0.643408, -1.09046, 0.632677, 0.85574, -0.829671, 0.389576, 0.499929, 0.499896, 0.245402, 0.343682, 0.983784, 0.960647, -0.568722, 1.25977, -0.942753, -0.696851, 1.17846, -1.14342, -0.568722, -1.51387, -1.03248, -0.555195, -1.61402, -0.970616, -0.683627, -1.55888, -1.23212, -0.696851, -0.802945, -1.30574, -0.568722, -0.841768, -0.257672, -0.0157778, -1.54988, -0.678179, 0.620002, -1.111, -1.1061, -0.129619, -1.51359, -1.0992, -0.555195, 1.20322, -0.616573, 0.85574, -0.821513, -0.389831, 0.499929, 0.499896, -0.245658, 0.343682, 0.983784, 0.245402, -0.147554, 1.16271, -0.960903, -0.568722, 1.25977, -1.07593, -0.683627, 1.12361, -1.02992, -0.153178, -1.53412, -0.245658, -0.147554, 1.16271)
 
 [node name="CollectibleRoot" type="RigidBody3D"]
@@ -62,11 +60,13 @@ VaultPoints = PackedVector3Array()
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
 
-[node name="CollectibleModel" type="MeshInstance3D" parent="."]
+[node name="CollectibleModel" type="Node3D" parent="."]
+
+[node name="Cube" type="MeshInstance3D" parent="CollectibleModel"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 mesh = SubResource("ArrayMesh_prinb")
 skeleton = NodePath("")
 
 [node name="CollectibleShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_ahcgs")
+shape = SubResource("ConvexPolygonShape3D_j5exv")

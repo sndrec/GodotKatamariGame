@@ -1,15 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://b47je5rdni2dh"]
+[gd_scene load_steps=9 format=3 uid="uid://b47je5rdni2dh"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://c51o3s65g08ee" path="res://src/levels/default_physmat.phymat" id="1_jv6kb"]
 [ext_resource type="Script" path="res://src/objects/collectible_object.gd" id="2_jj62j"]
 [ext_resource type="Texture2D" uid="uid://bpus08bu31r73" path="res://assets/collectibles/1stlevel/harmonica_harmonica.png" id="3_dpihw"]
+[ext_resource type="Shader" path="res://addons/flexible_toon_shader/collectible.gdshader" id="3_jotun"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0bvio"]
-resource_name = "Material"
-cull_mode = 2
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("3_dpihw")
-texture_filter = 2
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aw6e1"]
+render_priority = 0
+shader = ExtResource("3_jotun")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/use_attenuation = true
+shader_parameter/use_rim = true
+shader_parameter/rim_width = 2.0
+shader_parameter/rim_color = Color(0.5, 0.5, 0.5, 0.25)
+shader_parameter/albedo_texture = ExtResource("3_dpihw")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2ch1a"]
 _surfaces = [{
@@ -32,7 +36,7 @@ _surfaces = [{
 "format": 4119,
 "index_count": 108,
 "index_data": PackedByteArray(24, 0, 11, 0, 57, 0, 24, 0, 7, 0, 11, 0, 6, 0, 23, 0, 10, 0, 6, 0, 19, 0, 23, 0, 38, 0, 16, 0, 68, 0, 38, 0, 13, 0, 16, 0, 12, 0, 4, 0, 15, 0, 12, 0, 1, 0, 4, 0, 31, 0, 14, 0, 40, 0, 31, 0, 2, 0, 14, 0, 67, 0, 5, 0, 52, 0, 67, 0, 17, 0, 5, 0, 21, 0, 60, 0, 9, 0, 21, 0, 66, 0, 60, 0, 46, 0, 33, 0, 37, 0, 46, 0, 49, 0, 33, 0, 8, 0, 44, 0, 20, 0, 8, 0, 25, 0, 44, 0, 26, 0, 39, 0, 45, 0, 26, 0, 30, 0, 39, 0, 18, 0, 63, 0, 22, 0, 18, 0, 43, 0, 63, 0, 42, 0, 71, 0, 62, 0, 42, 0, 41, 0, 71, 0, 0, 0, 54, 0, 3, 0, 0, 0, 29, 0, 54, 0, 28, 0, 61, 0, 53, 0, 28, 0, 27, 0, 61, 0, 32, 0, 59, 0, 36, 0, 32, 0, 55, 0, 59, 0, 47, 0, 70, 0, 51, 0, 47, 0, 64, 0, 70, 0, 35, 0, 65, 0, 48, 0, 35, 0, 58, 0, 65, 0, 50, 0, 56, 0, 34, 0, 50, 0, 69, 0, 56, 0),
-"material": SubResource("StandardMaterial3D_0bvio"),
+"material": SubResource("ShaderMaterial_aw6e1"),
 "name": "Material",
 "primitive": 3,
 "vertex_count": 72,
@@ -41,7 +45,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2ch1a")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cheby"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_npsgc"]
 points = PackedVector3Array(2.5, 0.728955, 7.5, 2.1344, 1.37266, 5.5927, -2.5, 0.728955, 7.5, 2.5, -1.21942, 7.5, 2.5, 0.728955, -7.5, -2.13489, 1.37266, 5.5927, 2.1344, 1.37266, -5.59417, -2.5, -1.21942, 7.5, -2.5, 0.728955, -7.5, 2.5, -1.21942, -7.5, -2.13489, 1.37266, -5.59417, -2.5, -1.21942, -7.5)
 
 [node name="CollectibleRoot" type="RigidBody3D"]
@@ -60,9 +64,11 @@ VaultPoints = PackedVector3Array(0, 0, -6, 0, 0, 6)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
 
-[node name="CollectibleModel" type="MeshInstance3D" parent="."]
+[node name="CollectibleModel" type="Node3D" parent="."]
+
+[node name="Cube" type="MeshInstance3D" parent="CollectibleModel"]
 mesh = SubResource("ArrayMesh_mnjxf")
 skeleton = NodePath("")
 
 [node name="CollectibleShape" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_cheby")
+shape = SubResource("ConvexPolygonShape3D_npsgc")

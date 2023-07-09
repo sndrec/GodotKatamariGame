@@ -98,3 +98,11 @@ texture = ExtResource("4_tb870")
 unique_name_in_owner = true
 rotation = -3.14159
 texture = ExtResource("5_rpqly")
+
+[node name="FPSCounter" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 7.0
+offset_top = 671.0
+offset_right = 47.0
+offset_bottom = 694.0

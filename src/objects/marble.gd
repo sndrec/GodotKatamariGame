@@ -399,9 +399,9 @@ func get_last_local_contact_position(pos: Vector3):
 	
 func get_collision_impulse(inVel: Vector3, normal: Vector3, velAtPoint: Vector3):
 		
-		#var slope = (inVel * Vector3(1, 0, 1)).normalized().dot((normal * Vector3(1, 0, 1)).normalized())
-		#if AirTime < 0.05 and slope < 0:
-		#	normal = (normal * Vector3(1, 0, 1)).normalized()
+		var slope = (inVel * Vector3(1, 0, 1)).normalized().dot((normal * Vector3(1, 0, 1)).normalized())
+		if AirTime < 0.05 and slope < 0:
+			normal = (normal * Vector3(0.25, 1, 0.25)).normalized()
 		var restitution = 1
 		var dot = -normal.dot(inVel - velAtPoint)
 		if dot > get_katamari_diameter() * 5 and AirTime > 0.05:
@@ -458,11 +458,12 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	steering = clampf(move_toward(steering, 0, 0.2) * 1.2, -1, 1)
 	
 	var slope = (state.linear_velocity * Vector3(1, 0, 1)).normalized().dot((LastGroundNormal * Vector3(1, 0, 1)).normalized())
+	var slopeWithY = (state.linear_velocity * Vector3(1, 0, 1)).normalized().dot(LastGroundNormal)
 	#-1 uphill, 1 downhill
 	var gravSlope = clampf(remap(slope, -1.0, 1.0, 1.5, -0.5), 0.0, 1.0)
 	var gravityMult = 1 - minf(maxf(steering, truestickdir.length()), gravSlope)
 	
-	if absf(steering) > 0.25 and absf(oldSteering) < 0.25 and boostPower > 0 and !boostHuffing:
+	if absf(steering) > 0.65 and absf(oldSteering) < 0.65 and boostPower > 0 and !boostHuffing:
 		if gachaLastDir == 0 or steering > 0 and gachaLastDir == -1 or steering < 0 and gachaLastDir == 1:
 			gachaLastDir = sign(steering)
 			gachaCount = gachaCount + 1
@@ -670,7 +671,8 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if AirTime <= 0.05:
 		var controlFactor = volume_to_radius(startingvolume) * 2 + ((get_katamari_radius() - volume_to_radius(startingvolume)) + 0.5)
 		state.linear_velocity += accel_vector * 24 * controlFactor * state.step * (1 - absf(steering))
-		state.linear_velocity += -state.linear_velocity * 3 * state.step * (1 - absf(steering))
+		var frictionFactor = 1 - max(slopeWithY, 0)
+		state.linear_velocity += -state.linear_velocity * 3 * state.step * (1 - absf(steering)) * frictionFactor
 	
 	cooltransform.basis = cooltransform.basis.rotated(real_travel_axis, (state.linear_velocity.length() * PI * -0.25 * state.step) / get_effective_radius())
 	

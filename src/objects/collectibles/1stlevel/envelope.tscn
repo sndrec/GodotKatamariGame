@@ -1,15 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://chhnk0dpmgpia"]
+[gd_scene load_steps=9 format=3 uid="uid://chhnk0dpmgpia"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://c51o3s65g08ee" path="res://src/levels/default_physmat.phymat" id="1_canve"]
 [ext_resource type="Script" path="res://src/objects/collectible_object.gd" id="2_rg1gi"]
+[ext_resource type="Shader" path="res://addons/flexible_toon_shader/collectible.gdshader" id="3_5snbe"]
 [ext_resource type="Texture2D" uid="uid://dw8c6uwe3ruvs" path="res://assets/collectibles/1stlevel/envelope_envelope.png" id="3_iq70o"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2nxbl"]
-resource_name = "Material"
-cull_mode = 2
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("3_iq70o")
-texture_filter = 2
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_txsjk"]
+render_priority = 0
+shader = ExtResource("3_5snbe")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/use_attenuation = true
+shader_parameter/use_rim = true
+shader_parameter/rim_width = 2.0
+shader_parameter/rim_color = Color(0.5, 0.5, 0.5, 0.25)
+shader_parameter/albedo_texture = ExtResource("3_iq70o")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ify2x"]
 _surfaces = [{
@@ -34,7 +38,7 @@ _surfaces = [{
 "index_count": 60,
 "index_data": PackedByteArray(9, 0, 14, 0, 11, 0, 9, 0, 6, 0, 14, 0, 7, 0, 0, 0, 4, 0, 7, 0, 16, 0, 0, 0, 10, 0, 17, 0, 8, 0, 10, 0, 22, 0, 17, 0, 15, 0, 23, 0, 12, 0, 15, 0, 27, 0, 23, 0, 5, 0, 26, 0, 13, 0, 5, 0, 1, 0, 26, 0, 32, 0, 37, 0, 29, 0, 32, 0, 34, 0, 37, 0, 31, 0, 2, 0, 18, 0, 31, 0, 28, 0, 2, 0, 35, 0, 19, 0, 20, 0, 35, 0, 33, 0, 19, 0, 39, 0, 21, 0, 25, 0, 39, 0, 36, 0, 21, 0, 30, 0, 24, 0, 3, 0, 30, 0, 38, 0, 24, 0),
 "lods": [0.0899684, PackedByteArray(16, 0, 26, 0, 22, 0, 16, 0, 0, 0, 26, 0, 18, 0, 37, 0, 2, 0, 2, 0, 37, 0, 24, 0, 37, 0, 20, 0, 24, 0, 34, 0, 18, 0, 20, 0, 18, 0, 34, 0, 37, 0, 37, 0, 34, 0, 20, 0), 1.4976, PackedByteArray(16, 0, 26, 0, 22, 0, 16, 0, 0, 0, 26, 0, 18, 0, 20, 0, 24, 0, 18, 0, 24, 0, 2, 0)],
-"material": SubResource("StandardMaterial3D_2nxbl"),
+"material": SubResource("ShaderMaterial_txsjk"),
 "name": "Material",
 "primitive": 3,
 "vertex_count": 40,
@@ -43,7 +47,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ify2x")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hnl1j"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_u6cnb"]
 points = PackedVector3Array(-8.1, 0, -5.7, -8.1, 0, 5.7, -7.79554, 0.1, -5.36969, 8.1, 0, -5.7, -7.79554, -0.1, -5.36969, -7.79554, -0.1, 5.36858, 8.1, 0, 5.7, -7.79554, 0.1, 5.36858, 7.79395, 0.1, -5.36969, 7.79395, -0.1, -5.36969, 7.79395, -0.1, 5.36858, 7.79395, 0.1, 5.36858)
 
 [node name="CollectibleRoot" type="RigidBody3D"]
@@ -58,14 +62,18 @@ script = ExtResource("2_rg1gi")
 ItemName = "Envelope"
 ItemDesc = "This is the default 
 item description."
+PickupMultiplier = 1.5
+GiveMultiplier = 3.0
 VaultPoints = PackedVector3Array()
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
 
-[node name="CollectibleModel" type="MeshInstance3D" parent="."]
+[node name="CollectibleModel" type="Node3D" parent="."]
+
+[node name="Plane" type="MeshInstance3D" parent="CollectibleModel"]
 mesh = SubResource("ArrayMesh_53q2h")
 skeleton = NodePath("")
 
 [node name="CollectibleShape" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_hnl1j")
+shape = SubResource("ConvexPolygonShape3D_u6cnb")

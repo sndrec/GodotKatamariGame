@@ -44,6 +44,8 @@ func _process(delta: float) -> void:
 		progressToGoal = remap(progressToGoal, 0, 1, 0.25, 1)
 		Sprite.scale = Vector2.ONE * bulb[1] * progressToGoal
 		Sprite.rotation += (delta / bulb[1]) * spin
+	
+	%FPSCounter.text = str(Engine.get_frames_per_second())
 
 func update_countdown(string: String) -> void:
 	if string.is_empty():

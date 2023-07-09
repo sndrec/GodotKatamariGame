@@ -14,6 +14,8 @@ var collectibleReady = false
 
 var fallCast := RayCast3D.new()
 
+var meshes = []
+
 @export var RandomizeRotation: bool = false:
 	set(new_bool):
 		if new_bool == true:
@@ -107,6 +109,13 @@ func _ready():
 		return
 	set_collision_layer_value(4, true)
 	instantiate()
+	
+
+func iterate_meshes(node: Node):
+	if node.get_class() == "MeshInstance3D":
+		meshes.append(node as MeshInstance3D)
+	for child in node.get_children():
+		iterate_meshes(child)
 
 func print_katamari_debug_hint():
 	calc_mass()
@@ -191,6 +200,7 @@ func calc_mass():
 
 func instantiate():
 	
+	iterate_meshes(self)
 	oldTransform = global_transform
 	curTransform = global_transform
 	if has_node("AnimationPlayer"):
@@ -267,8 +277,11 @@ func pickup():
 			remove_child(child)
 			var level = find_parent("LevelRoot")
 			level.add_child(child)
+	
+	for mesh in meshes:
+		mesh.set_instance_shader_parameter("collected", true)
+	
 	pickedUp = true
-	print(PickupSound)
 	if fallCast:
 		fallCast.queue_free()
 	if PickupSound:

@@ -2,27 +2,16 @@
 
 [ext_resource type="PhysicsMaterial" uid="uid://c51o3s65g08ee" path="res://src/levels/default_physmat.phymat" id="1_14g0q"]
 [ext_resource type="Script" path="res://src/objects/collectible_object.gd" id="2_tcyma"]
-[ext_resource type="Shader" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="3_cufpu"]
+[ext_resource type="Shader" path="res://addons/flexible_toon_shader/collectible.gdshader" id="3_umsc7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lyj0a"]
 render_priority = 0
-shader = ExtResource("3_cufpu")
+shader = ExtResource("3_umsc7")
 shader_parameter/albedo = Color(0.635294, 0.635294, 0.635294, 1)
-shader_parameter/clamp_diffuse_to_max = false
-shader_parameter/cuts = 1
-shader_parameter/wrap = -0.0189999
-shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = false
-shader_parameter/use_specular = false
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_shininess = 16.0
 shader_parameter/use_rim = false
 shader_parameter/rim_width = 6.369
 shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = false
-shader_parameter/use_borders = false
-shader_parameter/border_width = 0.0
-shader_parameter/collected = false
 
 [sub_resource type="BoxMesh" id="BoxMesh_yk64q"]
 material = SubResource("ShaderMaterial_lyj0a")
@@ -47,6 +36,7 @@ playback_process_mode = 0
 
 [node name="CollectibleModel" type="MeshInstance3D" parent="."]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+instance_shader_parameters/collected = false
 mesh = SubResource("BoxMesh_yk64q")
 
 [node name="CollectibleShape" type="CollisionShape3D" parent="."]

@@ -1,16 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://bh7nxl17xkt4v"]
+[gd_scene load_steps=9 format=3 uid="uid://bh7nxl17xkt4v"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://c51o3s65g08ee" path="res://src/levels/default_physmat.phymat" id="1_acs4k"]
 [ext_resource type="Script" path="res://src/objects/collectible_object.gd" id="2_bjply"]
 [ext_resource type="Texture2D" uid="uid://ddomh3yjygtnu" path="res://assets/collectibles/1stlevel/stick_of_gum_gumwrapper.png" id="3_r86qy"]
+[ext_resource type="Shader" path="res://addons/flexible_toon_shader/collectible.gdshader" id="3_vfjyj"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_30eqm"]
-resource_name = "Material"
-cull_mode = 2
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("3_r86qy")
-roughness = 0.5
-texture_filter = 2
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f74ci"]
+render_priority = 0
+shader = ExtResource("3_vfjyj")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/use_attenuation = true
+shader_parameter/use_rim = true
+shader_parameter/rim_width = 2.0
+shader_parameter/rim_color = Color(0.5, 0.5, 0.5, 0.25)
+shader_parameter/albedo_texture = ExtResource("3_r86qy")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_qpny7"]
 _surfaces = [{
@@ -33,7 +36,7 @@ _surfaces = [{
 "format": 4119,
 "index_count": 36,
 "index_data": PackedByteArray(1, 0, 9, 0, 3, 0, 1, 0, 8, 0, 9, 0, 7, 0, 21, 0, 10, 0, 7, 0, 19, 0, 21, 0, 20, 0, 17, 0, 23, 0, 20, 0, 13, 0, 17, 0, 14, 0, 4, 0, 15, 0, 14, 0, 2, 0, 4, 0, 6, 0, 12, 0, 18, 0, 6, 0, 0, 0, 12, 0, 22, 0, 5, 0, 11, 0, 22, 0, 16, 0, 5, 0),
-"material": SubResource("StandardMaterial3D_30eqm"),
+"material": SubResource("ShaderMaterial_f74ci"),
 "name": "Material",
 "primitive": 3,
 "vertex_count": 24,
@@ -42,7 +45,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_qpny7")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xk3wr"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cp3m4"]
 points = PackedVector3Array(-2, -0.0519544, -0.5, -2, 0.0519544, -0.5, 2, -0.0519544, -0.5, -2, -0.0519544, 0.5, -2, 0.0519544, 0.5, 2, 0.0519544, -0.5, 2, -0.0519544, 0.5, 2, 0.0519544, 0.5)
 
 [node name="CollectibleRoot" type="RigidBody3D"]
@@ -62,11 +65,14 @@ VaultPoints = PackedVector3Array(3.5, 0, 0, -3.5, 0, 0)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
 
-[node name="CollectibleModel" type="MeshInstance3D" parent="."]
+[node name="CollectibleModel" type="Node3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="Cube" type="MeshInstance3D" parent="CollectibleModel"]
+instance_shader_parameters/collected = false
 mesh = SubResource("ArrayMesh_t1an5")
 skeleton = NodePath("")
 
 [node name="CollectibleShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_xk3wr")
+shape = SubResource("ConvexPolygonShape3D_cp3m4")

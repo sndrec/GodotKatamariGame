@@ -41,7 +41,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_sn03a")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_yyxuh"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6ud5c"]
 points = PackedVector3Array(1.20012, 7.60575, 2.1, -1.20028, 7.60575, 2.1, 1.20012, -2.1, 2.1, 1.20012, 7.60575, -2.1, 0.509041, 14.0858, -0.417698, -1.20028, 7.60575, -2.1, -1.46305, 3.60843, 0, -1.42395, 3.77954, 0.525822, -1.20028, -2.1, 2.1, -0.5092, 14.0858, -0.417698, 1.20012, -2.1, -2.1, 0.509041, 14.0858, -1.43563, -1.20028, -2.1, -2.1, -1.42395, 3.77954, -0.526233, -0.5092, 14.0858, -1.43563)
 
 [node name="CollectibleRoot" type="RigidBody3D"]
@@ -61,9 +61,11 @@ VaultPoints = PackedVector3Array(0, 13, -0.9)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
 
-[node name="CollectibleModel" type="MeshInstance3D" parent="."]
+[node name="CollectibleModel" type="Node3D" parent="."]
+
+[node name="Cube" type="MeshInstance3D" parent="CollectibleModel"]
 mesh = SubResource("ArrayMesh_82pxv")
 skeleton = NodePath("")
 
 [node name="CollectibleShape" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_yyxuh")
+shape = SubResource("ConvexPolygonShape3D_6ud5c")
