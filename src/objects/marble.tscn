@@ -13,6 +13,7 @@ friction = 0.0
 margin = 0.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_16fl3"]
+radius = 2.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_niu6h"]
 radius = 1.0

@@ -60,7 +60,7 @@ freeze = true
 script = ExtResource("2_g285v")
 ItemName = "Wooden Chair"
 ItemDesc = "Placeholder description."
-PickupMultiplier = 0.5
+PickupMultiplier = 0.85
 GiveMultiplier = 0.75
 VaultPoints = PackedVector3Array()
 

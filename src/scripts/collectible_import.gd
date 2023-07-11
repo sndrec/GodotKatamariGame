@@ -2,7 +2,7 @@
 extends EditorScript
 
 var curRoot = Node.new()
-var trimesh = false
+var trimesh = true
 var collectibleMat = preload("res://addons/flexible_toon_shader/collectible.gdshader")
 var hasShape = false
 

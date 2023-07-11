@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://cgagbuvskp0j6"]
+[gd_scene load_steps=100 format=3 uid="uid://cgagbuvskp0j6"]
 
 [ext_resource type="Script" path="res://src/scripts/level.gd" id="1_55c0p"]
 [ext_resource type="PhysicsMaterial" uid="uid://c51o3s65g08ee" path="res://src/levels/default_physmat.phymat" id="2_7wfaq"]
@@ -84,6 +84,12 @@
 [ext_resource type="PackedScene" uid="uid://drum4igcwhg7t" path="res://src/objects/collectibles/1stlevel/ladybug.tscn" id="82_axppa"]
 [ext_resource type="PackedScene" uid="uid://23pox3vvidlx" path="res://src/objects/collectibles/1stlevel/ladybug_momma.tscn" id="83_707js"]
 [ext_resource type="PackedScene" uid="uid://cc6dr7khprvqe" path="res://src/objects/collectibles/1stlevel/baby-blue-lobta.tscn" id="84_60rol"]
+[ext_resource type="PackedScene" uid="uid://c5mtorriif2s4" path="res://src/objects/collectibles/1stlevel/carton_of_milk.tscn" id="85_aupg7"]
+[ext_resource type="PackedScene" uid="uid://c84537whdsm55" path="res://src/objects/collectibles/1stlevel/heart_glasses.tscn" id="86_0ebqn"]
+[ext_resource type="PackedScene" uid="uid://ct6ifssdddl8c" path="res://src/objects/collectibles/1stlevel/leek.tscn" id="87_owr74"]
+[ext_resource type="PackedScene" uid="uid://dfla370dy6v66" path="res://src/objects/collectibles/1stlevel/lucky_cat_clock.tscn" id="88_iwqvh"]
+[ext_resource type="PackedScene" uid="uid://efifwurpy8lq" path="res://src/objects/collectibles/1stlevel/ssbm.tscn" id="89_3dlsm"]
+[ext_resource type="PackedScene" uid="uid://bps0qb2cvw1td" path="res://src/objects/collectibles/1stlevel/panini_press.tscn" id="90_j2red"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qghod"]
 
@@ -170,8 +176,8 @@ script = ExtResource("1_55c0p")
 level_name = "Debug Level"
 level_author = "Twilight"
 time_limit = 180.0
-SizeThresholds = PackedFloat32Array(5, 10, 15, 75, 150)
-VictoryThreshold = 2
+SizeThresholds = PackedFloat32Array(5, 15, 35, 75, 150)
+VictoryThreshold = 3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rta11")
@@ -243,7 +249,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80.1841, 104.693, -218.877)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -333.74, 101.159, 17.293)
 
 [node name="CollectibleRoot15" parent="." instance=ExtResource("16_mlxcg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -272.616, 103.497, 5.71451)
+transform = Transform3D(0.39718, 0, 0.917741, 0, 1, 0, -0.917741, 0, 0.39718, -267.093, 103.497, -40.1075)
 
 [node name="CollectibleRoot16" parent="." instance=ExtResource("17_3dytx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -525.562, 80.0139, 27.7445)
@@ -283,84 +289,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.18311, 80.1011, 170.362)
 
 [node name="CollectibleRoot30" parent="." instance=ExtResource("23_djvag")]
 transform = Transform3D(0.891608, 0, 0.452808, 0, 1, 0, -0.452808, 0, 0.891608, -415.467, 108.462, 11.6173)
-
-[node name="CollectibleRoot34" parent="." instance=ExtResource("25_gujc7")]
-transform = Transform3D(0.771014, 0, 0.636819, 0, 1, 0, -0.636819, 0, 0.771014, -312.023, 40.8441, 48.5336)
-
-[node name="CollectibleRoot35" parent="." instance=ExtResource("25_gujc7")]
-transform = Transform3D(-0.341774, 0, -0.939782, 0, 1, 0, 0.939782, 0, -0.341774, -312.03, 40.8441, 40.6129)
-
-[node name="CollectibleRoot36" parent="." instance=ExtResource("25_gujc7")]
-transform = Transform3D(-0.928861, 0, -0.370428, 0, 1, 0, 0.370428, 0, -0.928861, -310.94, 40.8441, 30.1508)
-
-[node name="CollectibleRoot37" parent="." instance=ExtResource("25_gujc7")]
-transform = Transform3D(0.410894, 0, -0.911683, 0, 1, 0, 0.911683, 0, 0.410894, -311.32, 40.8441, 9.1383)
-
-[node name="CollectibleRoot38" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -312.074, 40.7647, 42.2731)
-
-[node name="CollectibleRoot39" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -311.635, 40.7647, 41.2994)
-
-[node name="CollectibleRoot40" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -311.161, 40.7647, 40.3628)
-
-[node name="CollectibleRoot41" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -310.726, 40.7647, 39.4028)
-
-[node name="CollectibleRoot42" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -311.51, 40.7647, 31.1898)
-
-[node name="CollectibleRoot43" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -310.619, 40.7647, 30.7623)
-
-[node name="CollectibleRoot44" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -309.607, 40.7647, 30.4712)
-
-[node name="CollectibleRoot45" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -308.43, 40.7647, 30.7527)
-
-[node name="CollectibleRoot46" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -305.718, 40.7647, 32.0322)
-
-[node name="CollectibleRoot47" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -305.052, 40.7647, 29.8615)
-
-[node name="CollectibleRoot56" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -309.181, 40.7647, 10.2444)
-
-[node name="CollectibleRoot57" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -310.579, 40.7647, 8.6702)
-
-[node name="CollectibleRoot58" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -309.811, 40.7647, 6.70451)
-
-[node name="CollectibleRoot59" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -307.172, 40.7647, 5.23733)
-
-[node name="CollectibleRoot48" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -309.6, 40.7647, 38.1153)
-
-[node name="CollectibleRoot49" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -311.672, 40.7647, 47.2923)
-
-[node name="CollectibleRoot50" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -312.49, 40.7647, 48.0697)
-
-[node name="CollectibleRoot51" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -313.361, 40.7647, 48.7391)
-
-[node name="CollectibleRoot52" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -314.324, 40.7647, 49.2253)
-
-[node name="CollectibleRoot53" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -315.413, 40.7647, 49.6867)
-
-[node name="CollectibleRoot54" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -311.489, 40.7647, 45.8289)
-
-[node name="CollectibleRoot55" parent="." instance=ExtResource("26_646ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -310.227, 40.7647, 43.7115)
 
 [node name="CollectibleRoot60" parent="." instance=ExtResource("27_1x4w7")]
 transform = Transform3D(-0.45161, 0.236993, -0.860165, 0, 0.964077, 0.265623, 0.892215, 0.119958, -0.435387, -503.201, 92.5722, 19.3639)
@@ -2049,6 +1977,168 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -707.356, 101.373, -53.7808)
 
 [node name="CollectibleRoot604" parent="." instance=ExtResource("84_60rol")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -666.098, 105.166, -35.7687)
+
+[node name="CollectibleRoot605" parent="." instance=ExtResource("85_aupg7")]
+transform = Transform3D(0.168042, 0, 0.98578, 0, 1, 0, -0.98578, 0, 0.168042, -588.669, 51.4686, 73.5898)
+
+[node name="CollectibleRoot606" parent="." instance=ExtResource("85_aupg7")]
+transform = Transform3D(-0.752944, 0, 0.658085, 0, 1, 0, -0.658085, 0, -0.752944, -604.721, 51.4686, 66.5229)
+
+[node name="CollectibleRoot607" parent="." instance=ExtResource("85_aupg7")]
+transform = Transform3D(0.564881, 0.825173, -1.13777e-08, 4.37114e-08, -4.37114e-08, -1, -0.825173, 0.564881, -6.07612e-08, -588.463, 44.4994, 55.8221)
+
+[node name="CollectibleRoot608" parent="." instance=ExtResource("85_aupg7")]
+transform = Transform3D(0.439532, 0, -0.898227, 0, 1, 0, 0.898227, 0, 0.439532, -673.285, 113.156, -117.323)
+
+[node name="CollectibleRoot34" parent="." instance=ExtResource("85_aupg7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -311.069, 52.7298, 45.7512)
+
+[node name="CollectibleRoot35" parent="." instance=ExtResource("85_aupg7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -311.069, 52.7298, 29.4002)
+
+[node name="CollectibleRoot36" parent="." instance=ExtResource("85_aupg7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -311.069, 52.7298, 12.9507)
+
+[node name="CollectibleRoot37" parent="." instance=ExtResource("86_0ebqn")]
+transform = Transform3D(-0.340408, 0.892955, 0.294538, 0.67527, 0.450145, -0.584277, -0.654319, 0, -0.756219, -512.644, 104.703, 15.2286)
+
+[node name="CollectibleRoot38" parent="." instance=ExtResource("86_0ebqn")]
+transform = Transform3D(0.631236, 0, -0.775591, 0, 1, 0, 0.775591, 0, 0.631236, -596.325, 42.3939, -93.1887)
+
+[node name="CollectibleRoot39" parent="." instance=ExtResource("86_0ebqn")]
+transform = Transform3D(-0.393819, 0, 0.919188, 0, 1, 0, -0.919188, 0, -0.393819, -489.264, 42.3939, -116.08)
+
+[node name="CollectibleRoot40" parent="." instance=ExtResource("86_0ebqn")]
+transform = Transform3D(0.988669, 0, -0.150112, 0, 1, 0, 0.150112, 0, 0.988669, -531.171, 42.3939, -181.865)
+
+[node name="CollectibleRoot41" parent="." instance=ExtResource("86_0ebqn")]
+transform = Transform3D(8.72549e-08, 0.665387, -0.746499, 9.78915e-08, 0.746499, 0.665387, 1, -1.31134e-07, -5.73206e-15, -652.643, 47.1232, 57.4034)
+
+[node name="CollectibleRoot42" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(0.502998, -0.768134, 0.396187, 0.836592, 0.547826, 0, -0.217041, 0.331447, 0.91817, -120.247, 97.3806, -183.322)
+
+[node name="CollectibleRoot43" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(0.703987, -0.705575, 0.0810342, 0.614418, 0.547826, -0.567783, 0.356221, 0.449501, 0.81918, -117.003, 97.3806, -176.323)
+
+[node name="CollectibleRoot44" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(-0.767728, 0, 0.640776, 0, 1, 0, -0.640776, 0, -0.767728, -21.7528, -123.709, 575.83)
+
+[node name="CollectibleRoot45" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(-0.868132, 0, 0.496334, 0, 1, 0, -0.496334, 0, -0.868132, -21.7528, -123.709, 543.83)
+
+[node name="CollectibleRoot47" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(0.448768, 0, 0.893648, 0, 1, 0, -0.893648, 0, 0.448768, -69.7528, -123.709, 543.83)
+
+[node name="CollectibleRoot48" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(0.519414, 0, -0.854523, 0, 1, 0, 0.854523, 0, 0.519414, -117.753, -123.709, 575.83)
+
+[node name="CollectibleRoot50" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(0.473617, 0, 0.880731, 0, 1, 0, -0.880731, 0, 0.473617, -165.753, -123.709, 575.83)
+
+[node name="CollectibleRoot51" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(0.559789, 0, -0.828635, 0, 1, 0, 0.828635, 0, 0.559789, -165.753, -123.709, 543.83)
+
+[node name="CollectibleRoot52" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(0.862498, 0, 0.506061, 0, 1, 0, -0.506061, 0, 0.862498, -213.753, -123.709, 575.83)
+
+[node name="CollectibleRoot53" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(-0.896421, 0, -0.443204, 0, 1, 0, 0.443204, 0, -0.896421, -213.753, -123.709, 543.83)
+
+[node name="CollectibleRoot54" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(-0.884361, 0, 0.466803, 0, 1, 0, -0.466803, 0, -0.884361, -261.753, -123.709, 575.83)
+
+[node name="CollectibleRoot55" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(0.894655, 0, 0.446758, 0, 1, 0, -0.446758, 0, 0.894655, -261.753, -123.709, 543.83)
+
+[node name="CollectibleRoot56" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(0.65321, 0, -0.757177, 0, 1, 0, 0.757177, 0, 0.65321, -309.753, -123.709, 575.83)
+
+[node name="CollectibleRoot57" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(-0.941269, 0, 0.337658, 0, 1, 0, -0.337658, 0, -0.941269, -309.753, -123.709, 543.83)
+
+[node name="CollectibleRoot58" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(-0.785861, 0, 0.618403, 0, 1, 0, -0.618403, 0, -0.785861, -357.753, -123.709, 575.83)
+
+[node name="CollectibleRoot59" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(-0.957436, 0, 0.288644, 0, 1, 0, -0.288644, 0, -0.957436, -357.753, -123.709, 543.83)
+
+[node name="CollectibleRoot609" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(-0.862459, 0, -0.506126, 0, 1, 0, 0.506126, 0, -0.862459, -405.753, -123.709, 575.83)
+
+[node name="CollectibleRoot610" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(-0.483852, 0, -0.87515, 0, 1, 0, 0.87515, 0, -0.483852, -405.753, -123.709, 543.83)
+
+[node name="CollectibleRoot611" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(-0.757178, 0, -0.653208, 0, 1, 0, 0.653208, 0, -0.757178, -453.753, -123.709, 575.83)
+
+[node name="CollectibleRoot612" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(0.436018, 0, -0.899938, 0, 1, 0, 0.899938, 0, 0.436018, -453.753, -123.709, 543.83)
+
+[node name="CollectibleRoot613" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(-0.823562, 0, -0.567226, 0, 1, 0, 0.567226, 0, -0.823562, -501.753, -123.709, 575.83)
+
+[node name="CollectibleRoot614" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(0.0191053, 0, 0.999817, 0, 1, 0, -0.999817, 0, 0.0191053, -501.753, -123.709, 543.83)
+
+[node name="CollectibleRoot46" parent="." instance=ExtResource("88_iwqvh")]
+transform = Transform3D(0.5, 0.866025, -3.78552e-08, 0, -4.37114e-08, -1, -0.866025, 0.5, -2.18557e-08, -664.788, 116.79, -177.939)
+
+[node name="CollectibleRoot49" parent="." instance=ExtResource("88_iwqvh")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -558.795, 126.851, -220.369)
+
+[node name="CollectibleRoot615" parent="." instance=ExtResource("88_iwqvh")]
+transform = Transform3D(-0.983947, -0.178459, 5.08104e-08, -4.37114e-08, -4.37114e-08, -1, 0.178459, -0.983947, 3.5209e-08, -661.025, 55.2124, 172.194)
+
+[node name="CollectibleRoot616" parent="." instance=ExtResource("88_iwqvh")]
+transform = Transform3D(-0.615936, -0.787796, 6.13591e-08, -4.37114e-08, -4.37114e-08, -1, 0.787796, -0.615936, -7.51221e-09, -632.116, 55.2124, 214.947)
+
+[node name="CollectibleRoot617" parent="." instance=ExtResource("88_iwqvh")]
+transform = Transform3D(0.0206981, -0.999786, 4.27973e-08, -4.37114e-08, -4.37114e-08, -1, 0.999786, 0.0206981, -4.46068e-08, -581.063, 55.2124, 230.141)
+
+[node name="CollectibleRoot618" parent="." instance=ExtResource("88_iwqvh")]
+transform = Transform3D(0.700797, -0.71336, 5.49161e-10, -4.37114e-08, -4.37114e-08, -1, 0.71336, 0.700797, -6.18148e-08, -533.77, 55.2124, 208.78)
+
+[node name="CollectibleRoot619" parent="." instance=ExtResource("88_iwqvh")]
+transform = Transform3D(0.954641, -0.297758, -2.87133e-08, -4.37114e-08, -4.37114e-08, -1, 0.297758, 0.954641, -5.47441e-08, -504.434, 55.2124, 162.571)
+
+[node name="CollectibleRoot620" parent="." instance=ExtResource("17_3dytx")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -727.183, 80.1226, 258.023)
+
+[node name="CollectibleRoot621" parent="." instance=ExtResource("17_3dytx")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -727.183, 80.1226, 107.629)
+
+[node name="CollectibleRoot622" parent="." instance=ExtResource("89_3dlsm")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -465.566, 99.5107, -33.2992)
+
+[node name="CollectibleRoot623" parent="." instance=ExtResource("89_3dlsm")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -621.075, 83.2781, -136.196)
+
+[node name="CollectibleRoot624" parent="." instance=ExtResource("89_3dlsm")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -621.075, 83.2781, -152.196)
+
+[node name="CollectibleRoot625" parent="." instance=ExtResource("89_3dlsm")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -621.075, 83.2781, -168.196)
+
+[node name="CollectibleRoot626" parent="." instance=ExtResource("89_3dlsm")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -621.075, 83.2781, -184.196)
+
+[node name="CollectibleRoot627" parent="." instance=ExtResource("90_j2red")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -166.624, 114.86, -191.657)
+
+[node name="CollectibleRoot628" parent="." instance=ExtResource("90_j2red")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -206.942, 114.86, -191.657)
+
+[node name="CollectibleRoot629" parent="." instance=ExtResource("90_j2red")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -247.577, 114.86, -191.657)
+
+[node name="CollectibleRoot630" parent="." instance=ExtResource("87_owr74")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -172.816, 107.86, -187.39)
+
+[node name="CollectibleRoot631" parent="." instance=ExtResource("60_q8tfg")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -206.629, 107.73, -188.722)
+
+[node name="CollectibleRoot632" parent="." instance=ExtResource("85_aupg7")]
+transform = Transform3D(-4.33383e-08, -0.991465, -0.13037, 1, -4.37114e-08, 0, -5.69867e-09, -0.13037, 0.991465, -245.48, 111.905, -189.04)
 
 [editable path="Miso"]
 [editable path="CollectibleRoot156"]

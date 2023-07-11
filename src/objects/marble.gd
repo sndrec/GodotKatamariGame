@@ -44,6 +44,7 @@ var oldBasis := Basis.IDENTITY
 var desiredVel := 0.0
 
 var LastGroundNormal := Vector3.UP
+var ClimbNormal := Vector3.UP
 var LastGroundContact := Vector3(-5, 4.015605, 16.34)
 var LastGroundVelocity := Vector3.ZERO
 var AirTime := 0.0
@@ -618,14 +619,13 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var curNormal = Vector3(0, 1, 0)
 	
 	var tempOldPos = position
-	var ClimbNormal = (LastGroundNormal * Vector3(1, 0, 1)).normalized()
 	
 	for contact in state.get_contact_count():
 		var normal = state.get_contact_local_normal(contact)
 		curNormal = normal
-		LastGroundNormal = normal
 		var pos = state.get_contact_local_position(contact)
-		if cooltransform.origin.distance_to(pos) < get_katamari_radius():
+		if cooltransform.origin.distance_to(pos) < get_katamari_radius() and curNormal.dot(Vector3.UP) > 0.2:
+			LastGroundNormal = normal
 			anyPoint = false
 		
 		var velAtPoint = state.get_contact_collider_object(contact).get_velocity_at_point(pos)
@@ -676,7 +676,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	
 	cooltransform.basis = cooltransform.basis.rotated(real_travel_axis, (state.linear_velocity.length() * PI * -0.25 * state.step) / get_effective_radius())
 	
-	var updatedAxis = LastGroundNormal.cross(Vector3.UP).normalized()
+	var updatedAxis = ClimbNormal.cross(Vector3.UP).normalized()
 	if !updatedAxis.is_normalized():
 		updatedAxis = right
 	

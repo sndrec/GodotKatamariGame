@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5mtorriif2s4"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://c51o3s65g08ee" path="res://src/levels/default_physmat.phymat" id="1_ee5ub"]
+[ext_resource type="Script" path="res://src/objects/collectible_object.gd" id="2_oy0ha"]
+[ext_resource type="PackedScene" uid="uid://dc27pycl2go4r" path="res://assets/collectibles/1stlevel/carton_of_milk.glb" id="3_w60yn"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j2mb0"]
+points = PackedVector3Array(-5.5, -12.3866, -5.5, -5.5, -12.3866, 5.5, -5.5, 10.1544, -5.5, 5.5, -12.3866, -5.5, 5.5, -12.3866, 5.5, -5.5, 10.1544, 5.5, 5.5, 10.1544, -5.5, -5.5, 17.091, -0.38332, 5.5, 10.1544, 5.5, -5.5, 17.091, 0.382243, 5.5, 17.091, -0.38332, 5.5, 17.091, 0.382243)
+
+[node name="CollectibleRoot" type="RigidBody3D"]
+collision_layer = 5
+collision_mask = 0
+mass = 3566.79
+physics_material_override = ExtResource("1_ee5ub")
+max_contacts_reported = 1
+freeze = true
+script = ExtResource("2_oy0ha")
+ItemName = "Carton of Milk"
+ItemDesc = "Placeholder description."
+PickupMultiplier = 0.9
+VaultPoints = PackedVector3Array(0, 14, 0, 0, -10, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
+
+[node name="CollectibleModel" parent="." instance=ExtResource("3_w60yn")]
+
+[node name="CollectibleShape" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_j2mb0")

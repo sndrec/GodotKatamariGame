@@ -58,7 +58,7 @@ freeze = true
 script = ExtResource("2_2atbs")
 ItemName = "Wooden Nightstand"
 ItemDesc = "Placeholder description."
-PickupMultiplier = 0.5
+PickupMultiplier = 0.85
 GiveMultiplier = 0.8
 VaultPoints = PackedVector3Array()
 
