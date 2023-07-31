@@ -56,8 +56,9 @@ physics_material_override = ExtResource("1_6km7h")
 max_contacts_reported = 1
 freeze = true
 script = ExtResource("2_2y7ny")
-ItemName = "Ant"
+ItemName = "Fire Hydrant"
 ItemDesc = "Placeholder description."
+PickupMultiplier = 0.75
 VaultPoints = PackedVector3Array()
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -13,6 +13,8 @@ shader_parameter/use_attenuation = true
 shader_parameter/use_rim = true
 shader_parameter/rim_width = 2.0
 shader_parameter/rim_color = Color(0.5, 0.5, 0.5, 0.25)
+shader_parameter/alpha_mult = 1.0
+shader_parameter/alpha_clip = 0.0
 shader_parameter/albedo_texture = ExtResource("3_5tpq1")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_tlo4f"]
@@ -58,8 +60,7 @@ freeze = true
 script = ExtResource("2_2atbs")
 ItemName = "Wooden Nightstand"
 ItemDesc = "Placeholder description."
-PickupMultiplier = 0.85
-GiveMultiplier = 0.8
+PickupMultiplier = 0.95
 VaultPoints = PackedVector3Array()
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -259,8 +259,8 @@ func manage_object_pickup():
 	var NoCollider = get_node("CollectibleNocollider") as Area3D
 	for overlap in NoCollider.get_overlapping_bodies():
 		if overlap.get_class() == "RigidBody3D":
-			var body = overlap as RigidBody3D
-			if can_collect_object_of_size(body.mass * pow(body.PickupMultiplier, 3)):
+			var body = overlap as Collectible
+			if can_collect_object_of_size(body.mass * pow(body.PickupMultiplier * body.NoCollideMultiplier, 3)):
 				body.set_collision_layer_value(1, false)
 			else: 
 				body.set_collision_layer_value(1, true)
@@ -391,6 +391,9 @@ func _process(delta: float) -> void:
 	spring_arm.rotation = Vector3(ballcam_pitch, ballcam_yaw, 0)
 	spring_arm.spring_length = move_toward(spring_arm.spring_length, desired_arm_dist, delta * 4)
 	manage_object_pickup()
+	RenderingServer.global_shader_parameter_set("katamariPos", position)
+	RenderingServer.global_shader_parameter_set("katamariSize", get_katamari_radius())
+		
 	
 func _physics_process(delta: float) -> void:
 	pass

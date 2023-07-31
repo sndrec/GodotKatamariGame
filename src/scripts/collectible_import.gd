@@ -10,8 +10,10 @@ func _run():
 	hasShape = false
 	curRoot.queue_free()
 	curRoot = get_scene()
+	curRoot.name = "CollectibleRoot"
+	curRoot.set_script(preload("res://src/objects/collectible_object.gd"))
 	hasShape = curRoot.has_node("CollectibleShape")
-	for child in get_scene().get_children():
+	for child in curRoot.get_children():
 		if child.get_class() == "Node3D":
 			child.position = Vector3(0, 0, 0)
 			child.rotation = Vector3(0, 0, 0)

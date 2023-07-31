@@ -21,6 +21,10 @@ config/icon="res://icon.png"
 Global="*res://src/scripts/global.gd"
 InputTracker="*res://src/scripts/input_tracker.gd"
 
+[debug]
+
+shapes/collision/shape_color=Color(0, 0.658824, 0.768627, 0.419608)
+
 [display]
 
 window/size/viewport_width=1280
@@ -226,4 +230,21 @@ common/physics_jitter_fix=2.0
 
 [rendering]
 
+anti_aliasing/screen_space_roughness_limiter/enabled=false
+anti_aliasing/screen_space_roughness_limiter/amount=1.0
+anti_aliasing/screen_space_roughness_limiter/limit=1.0
+anti_aliasing/quality/msaa_2d=3
+anti_aliasing/quality/msaa_3d=3
 viewport/transparent_background=true
+anti_aliasing/quality/use_debanding=true
+
+[shader_globals]
+
+katamariSize={
+"type": "float",
+"value": 5.0
+}
+katamariPos={
+"type": "vec3",
+"value": Vector3(0, 0, 0)
+}

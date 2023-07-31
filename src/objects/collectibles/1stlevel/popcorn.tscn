@@ -51,7 +51,7 @@ points = PackedVector3Array(-0.566777, -0.355474, 0.016249, -0.380272, -0.440866
 [node name="CollectibleRoot" type="RigidBody3D"]
 collision_layer = 5
 collision_mask = 0
-mass = 1.09673
+mass = 8.77382
 physics_material_override = ExtResource("1_p3sjo")
 max_contacts_reported = 1
 freeze = true
@@ -59,7 +59,8 @@ script = ExtResource("2_olari")
 ItemName = "Piece of Popcorn"
 ItemDesc = "Placeholder description."
 fallDist = 0.6
-PickupMultiplier = 0.75
+PickupMultiplier = 0.9
+GiveMultiplier = 1.5
 VaultPoints = PackedVector3Array()
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -73,4 +74,5 @@ mesh = SubResource("ArrayMesh_kbke7")
 skeleton = NodePath("")
 
 [node name="CollectibleShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_qwvwi")

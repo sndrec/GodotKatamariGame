@@ -51,7 +51,7 @@ points = PackedVector3Array(0, -0.173727, -0.7, -0.592939, -0.261912, -0.522396,
 [node name="CollectibleRoot" type="RigidBody3D"]
 collision_layer = 5
 collision_mask = 0
-mass = 1.8526
+mass = 1.85261
 physics_material_override = ExtResource("1_nhj1e")
 max_contacts_reported = 1
 freeze = true

@@ -90,8 +90,8 @@ script = ExtResource("2_fy584")
 ItemName = "Lava Lamp"
 ItemDesc = "Placeholder description."
 PickupMultiplier = 0.85
-GiveMultiplier = 2.0
-VaultPoints = PackedVector3Array()
+GiveMultiplier = 1.5
+VaultPoints = PackedVector3Array(0, 16, 0, 0, -10, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0

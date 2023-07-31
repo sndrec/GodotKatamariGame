@@ -14,6 +14,7 @@ shader_parameter/use_attenuation = true
 shader_parameter/use_rim = true
 shader_parameter/rim_width = 2.0
 shader_parameter/rim_color = Color(0.5, 0.5, 0.5, 0.25)
+shader_parameter/alpha_clip = 0.0
 shader_parameter/albedo_texture = ExtResource("3_m3d2t")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_po1s7"]
@@ -24,6 +25,7 @@ shader_parameter/use_attenuation = true
 shader_parameter/use_rim = true
 shader_parameter/rim_width = 2.0
 shader_parameter/rim_color = Color(0.5, 0.5, 0.5, 0.25)
+shader_parameter/alpha_clip = 0.125
 shader_parameter/albedo_texture = ExtResource("4_k750h")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_on5x8"]
@@ -95,6 +97,7 @@ freeze = true
 script = ExtResource("2_gewus")
 ItemName = "Large Study Desk"
 ItemDesc = "Placeholder description."
+PickupMultiplier = 0.8
 VaultPoints = PackedVector3Array()
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

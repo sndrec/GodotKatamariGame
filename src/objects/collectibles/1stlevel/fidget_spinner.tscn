@@ -99,8 +99,9 @@ script = ExtResource("2_6rq48")
 ItemName = "Fidget Spinner"
 ItemDesc = "Placeholder description."
 AllowSkeletonAnimation = true
-PickupMultiplier = 1.5
-GiveMultiplier = 6.0
+PickupMultiplier = 1.25
+GiveMultiplier = 4.0
+ShowKatamariHelper = true
 VaultPoints = PackedVector3Array()
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -58,7 +58,8 @@ freeze = true
 script = ExtResource("2_mg4i0")
 ItemName = "Concrete Path"
 ItemDesc = "Placeholder description."
-PickupMultiplier = 0.333
+PickupMultiplier = 2.0
+GiveMultiplier = 8.0
 VaultPoints = PackedVector3Array()
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

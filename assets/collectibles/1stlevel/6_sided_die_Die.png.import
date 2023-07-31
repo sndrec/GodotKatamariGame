@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cl707jv7004m8"
-path.s3tc="res://.godot/imported/6_sided_die_Die.png-3b7e5c811d20bd96cca5262d13025521.s3tc.ctex"
+path.bptc="res://.godot/imported/6_sided_die_Die.png-3b7e5c811d20bd96cca5262d13025521.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -13,12 +13,12 @@ generator_parameters={}
 [deps]
 
 source_file="res://assets/collectibles/1stlevel/6_sided_die_Die.png"
-dest_files=["res://.godot/imported/6_sided_die_Die.png-3b7e5c811d20bd96cca5262d13025521.s3tc.ctex"]
+dest_files=["res://.godot/imported/6_sided_die_Die.png-3b7e5c811d20bd96cca5262d13025521.bptc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

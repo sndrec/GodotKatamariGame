@@ -59,7 +59,8 @@ script = ExtResource("2_cv7b3")
 ItemName = "Omen Plushy"
 ItemDesc = "Placeholder description."
 PickupMultiplier = 0.6
-GiveMultiplier = 0.6
+GiveMultiplier = 0.4
+ShowKatamariHelper = true
 VaultPoints = PackedVector3Array()
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

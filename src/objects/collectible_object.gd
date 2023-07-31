@@ -1,5 +1,5 @@
 @tool
-extends RigidBody3D
+class_name Collectible extends RigidBody3D
 
 var curTransform := Transform3D.IDENTITY
 var oldTransform := Transform3D.IDENTITY
@@ -81,31 +81,39 @@ var meshes = []
 		if Engine.is_editor_hint() and collectibleReady:
 			print_katamari_debug_hint()
 
+@export var NoCollideMultiplier: float = 1.0
+
 @export var VaultPoints = PackedVector3Array():
 	set(new_array):
 		VaultPoints = new_array
-		if Engine.is_editor_hint():
-			for child in get_children():
-				if child.get_class() == "Sprite3D":
-					child.queue_free()
-			for point in VaultPoints:
-				var Sprite = Sprite3D.new()
-				add_child(Sprite)
-				Sprite.position = point
-				Sprite.texture = bigDot
-				Sprite.pixel_size = 0.002
-				Sprite.no_depth_test = true
-				Sprite.fixed_size = true
-				Sprite.billboard = true
+		if Engine.is_editor_hint() and is_inside_tree():
+			create_vault_point_sprites()
 
+func scene_is_this_object() -> bool:
+	return !(get_parent() is Level) and !(get_parent() is Collectible)
+
+func create_vault_point_sprites() -> void:
+	for child in get_children():
+		if child.get_class() == "Sprite3D":
+			child.queue_free()
+	for point in VaultPoints:
+		var Sprite = Sprite3D.new()
+		add_child(Sprite)
+		Sprite.position = point
+		Sprite.texture = bigDot
+		Sprite.pixel_size = 0.002
+		Sprite.no_depth_test = true
+		Sprite.fixed_size = true
+		Sprite.billboard = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if Engine.is_editor_hint():
 		collectibleReady = true
-		calc_mass()
-		
-		print_katamari_debug_hint()
+		if scene_is_this_object():
+			calc_mass()
+			create_vault_point_sprites()
+			print_katamari_debug_hint()
 		return
 	set_collision_layer_value(4, true)
 	instantiate()
@@ -248,6 +256,18 @@ func manage_item_skeletal_animations(delta: float) -> void:
 func _process(delta: float) -> void:
 	
 	if Engine.is_editor_hint():
+		RenderingServer.global_shader_parameter_set("katamariSize", 5)
+		var ModelShape := get_node("CollectibleShape") as CollisionShape3D
+		if scene_is_this_object() and ModelShape:
+			calc_mass()
+			var nocollideRadius = volume_to_radius(mass * pow(PickupMultiplier * NoCollideMultiplier, 3)) * 2
+			var neededRadius = volume_to_radius(mass * pow(PickupMultiplier, 3)) * 2
+			var nextRadius = radius_to_volume(neededRadius) + mass * GiveMultiplier * 0.4
+			nextRadius = volume_to_radius(nextRadius)
+			var katamariPos = Vector3(nextRadius, nextRadius, 0)
+			DebugDraw.draw_sphere(katamariPos, neededRadius, Color(1, 1, 1, 1), 0.016666)
+			DebugDraw.draw_sphere(katamariPos, nextRadius, Color(0.25, 0.25, 0.25, 0.25), 0.016666)
+			DebugDraw.draw_sphere(katamariPos, nocollideRadius, Color(1, 0.25, 0.25, 0.25), 0.016666)
 		return
 	
 	if AllowSkeletonAnimation and get_node("CollectibleModel").get_class() == "Node3D":

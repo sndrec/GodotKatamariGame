@@ -49,7 +49,7 @@ points = PackedVector3Array(-2.66715, 7.48285, -0.312503, -2.66715, 7.48285, 0.3
 [node name="CollectibleRoot" type="RigidBody3D"]
 collision_layer = 5
 collision_mask = 0
-mass = 66.1544
+mass = 66.1543
 physics_material_override = ExtResource("1_stqf4")
 max_contacts_reported = 1
 can_sleep = false
@@ -58,7 +58,8 @@ script = ExtResource("2_ec8ss")
 ItemName = "Wrench"
 ItemDesc = "This is the default 
 item description."
-GiveMultiplier = 2.0
+PickupMultiplier = 1.5
+GiveMultiplier = 4.0
 VaultPoints = PackedVector3Array(0, 8, 0, 0, -8, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

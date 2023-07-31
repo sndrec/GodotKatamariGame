@@ -54,7 +54,8 @@ freeze = true
 script = ExtResource("2_8np4a")
 ItemName = "Screw"
 ItemDesc = "Placeholder description."
-PickupMultiplier = 0.75
+PickupMultiplier = 0.85
+ShowKatamariHelper = true
 VaultPoints = PackedVector3Array(0, -2, 0, 0, 1.4, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
